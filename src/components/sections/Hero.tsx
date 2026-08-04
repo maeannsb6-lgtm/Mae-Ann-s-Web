@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Download } from 'lucide-react';
 import { MotionButton } from '../ui/Button';
+import { contactInfo } from '../../data/content';
 
 export function Hero() {
   const containerVariants = {
@@ -30,17 +31,17 @@ export function Hero() {
           >
             <motion.div variants={itemVariants} className="inline-flex items-center mx-auto lg:mx-0">
               <span className="px-3 py-1 text-xs font-semibold tracking-wider text-brand-pink-bright bg-brand-pink-primary/10 rounded-full border border-brand-pink-primary/20">
-                AI AUTOMATION & WEB DEVELOPER
+                INDUSTRIAL ENGINEER • PROJECT COORDINATOR
               </span>
             </motion.div>
             
             <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1]">
               Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink-primary to-brand-pink-rose">Mae</span>.<br />
-              I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink-primary to-brand-pink-rose">intelligent digital solutions.</span>
+              I improve <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink-primary to-brand-pink-rose">projects, processes, and digital workflows.</span>
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-brand-text-muted text-lg max-w-2xl mx-auto lg:mx-0">
-              I create modern web applications, AI-powered automations, organized digital workspaces, and smarter workflows that help teams simplify processes, improve productivity, and manage projects more efficiently.
+              I coordinate technical and compliance requirements for energy projects and apply industrial engineering, web development, and automation tools to improve documentation, reporting, and operational workflows.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mt-4">
@@ -49,9 +50,9 @@ export function Hero() {
                   View My Work <ArrowUpRight className="w-4 h-4" />
                 </MotionButton>
               </a>
-              <a href="#about" className="w-full sm:w-auto">
+              <a href={contactInfo.cvUrl} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
                 <MotionButton variant="secondary" className="w-full sm:w-auto flex items-center gap-2">
-                  Download CV <Download className="w-4 h-4" />
+                  View CV <Download className="w-4 h-4" />
                 </MotionButton>
               </a>
             </motion.div>
@@ -59,7 +60,7 @@ export function Hero() {
             <motion.div variants={itemVariants} className="mt-12 lg:mt-16">
               <p className="text-xs text-brand-text-secondary uppercase tracking-widest font-semibold mb-4">Technologies I work with</p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-                {['React', 'TypeScript', 'Tailwind', 'Supabase', 'Vercel', 'n8n', 'Notion', 'Google AI'].map(tech => (
+                {['Lean Six Sigma', 'Project Management', 'Google AI Studio', 'Supabase', 'Vercel', 'GitHub', 'Google Automation'].map(tech => (
                   <span key={tech} className="px-3 py-1.5 text-xs font-medium text-brand-text-secondary bg-brand-card border border-white/5 rounded-md">
                     {tech}
                   </span>
@@ -97,17 +98,17 @@ export function Hero() {
               <pre className="text-xs font-mono text-brand-text-secondary">
                 <span className="text-brand-pink-soft">const</span> professional = {"{"}
                 <br/>
-                &nbsp;&nbsp;name: <span className="text-brand-pink-primary">"Mae"</span>,
+                &nbsp;&nbsp;name: <span className="text-brand-pink-primary">"Mae Ann"</span>,
                 <br/>
                 &nbsp;&nbsp;expertise: [
                 <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-brand-pink-primary">"Web Dev"</span>,
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-brand-pink-primary">"Industrial Engineering"</span>,
                 <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-brand-pink-primary">"AI Automation"</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-brand-pink-primary">"Project Coordination"</span>
                 <br/>
                 &nbsp;&nbsp;],
                 <br/>
-                &nbsp;&nbsp;passion: <span className="text-brand-pink-primary">"Building smart workflows"</span>
+                &nbsp;&nbsp;focus: <span className="text-brand-pink-primary">"Process improvement"</span>
                 <br/>
                 {"};"}
               </pre>

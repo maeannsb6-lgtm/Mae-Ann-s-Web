@@ -49,7 +49,7 @@ export function Experience() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                      <h4 className="text-sm font-semibold text-white mb-3">Key Responsibilities</h4>
+                      <h4 className="text-sm font-semibold text-white mb-3">Responsibilities</h4>
                       <ul className="space-y-2">
                         {exp.responsibilities.map((resp, i) => (
                           <li key={i} className="text-sm text-brand-text-secondary flex items-start gap-2">
@@ -60,7 +60,7 @@ export function Experience() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-white mb-3">Key Achievements</h4>
+                      <h4 className="text-sm font-semibold text-white mb-3">Additional Contributions</h4>
                       <ul className="space-y-2">
                         {exp.achievements.map((ach, i) => (
                           <li key={i} className="text-sm text-brand-text-secondary flex items-start gap-2">

@@ -39,9 +39,9 @@ export function Achievements() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <SectionHeading 
-          label="MY ACHIEVEMENTS" 
-          title="Milestones I’m Proud Of" 
-          description="A summary of the projects, systems, automations, and professional contributions I have completed throughout my career."
+          label="VERIFIED ACHIEVEMENTS" 
+          title="Competition, Research, and Training Highlights" 
+          description="Every item below is based on the dates and recognitions listed in my current CV."
           className="mb-16"
         />
 
@@ -76,7 +76,7 @@ export function Achievements() {
         {/* Detailed Achievements */}
         <div className="text-center mb-12">
           <span className="px-3 py-1 text-xs font-semibold tracking-wider text-brand-pink-bright uppercase bg-brand-pink-primary/10 rounded-full border border-brand-pink-primary/20">
-            KEY PROFESSIONAL ACHIEVEMENTS
+            CV-LISTED RECOGNITIONS
           </span>
         </div>
 

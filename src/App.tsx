@@ -13,7 +13,7 @@ import { Services } from './components/sections/Services';
 import { FeaturedWorks, AllProjects } from './components/sections/Projects';
 import { Experience } from './components/sections/Experience';
 import { Journey } from './components/sections/Journey';
-import { Testimonials } from './components/sections/Testimonials';
+import { EducationTraining } from './components/sections/Testimonials';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/layout/Footer';
 
@@ -32,7 +32,7 @@ export default function App() {
         <AllProjects />
         <Experience />
         <Journey />
-        <Testimonials />
+        <EducationTraining />
         <Contact />
       </main>
       <Footer />

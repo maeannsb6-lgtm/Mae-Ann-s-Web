@@ -1,57 +1,79 @@
 import { motion } from 'framer-motion';
-import { Quote, Star } from 'lucide-react';
+import { Award, Calendar, GraduationCap } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
-import { testimonials } from '../../data/content';
+import { education, trainings } from '../../data/content';
 
-export function Testimonials() {
+export function EducationTraining() {
   return (
     <section className="py-24 bg-brand-bg-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading 
-          label="TESTIMONIALS" 
-          title="What People Say About My Work" 
+        <SectionHeading
+          label="QUALIFICATIONS"
+          title="Education, Training, and Certifications"
+          description="Institutions, providers, and dates are presented as listed in my current CV."
           className="mb-16"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-brand-card p-8 rounded-3xl border border-white/5 relative group"
-            >
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-white/5 group-hover:text-brand-pink-primary/20 transition-colors" />
-              
-              <div className="flex gap-1 mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-brand-pink-primary text-brand-pink-primary" />
-                ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-11 h-11 rounded-xl bg-brand-pink-primary/10 border border-brand-pink-primary/20 flex items-center justify-center">
+                <GraduationCap className="w-5 h-5 text-brand-pink-bright" />
               </div>
+              <h3 className="text-xl font-bold text-white">Education</h3>
+            </div>
 
-              <p className="text-brand-text-muted text-sm leading-relaxed mb-8 italic">
-                "{testimonial.text}"
-              </p>
+            <div className="space-y-4">
+              {education.map((item, index) => (
+                <motion.article
+                  key={item.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="bg-brand-card p-6 rounded-2xl border border-white/5"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                    <h4 className="text-white font-semibold">{item.level}</h4>
+                    <span className="text-xs font-mono text-brand-pink-soft bg-brand-pink-primary/10 border border-brand-pink-primary/20 rounded-full px-3 py-1 whitespace-nowrap">
+                      {item.period}
+                    </span>
+                  </div>
+                  <p className="text-brand-text-secondary text-sm">{item.institution}</p>
+                  {item.location && <p className="text-brand-text-muted text-xs mt-1">{item.location}</p>}
+                </motion.article>
+              ))}
+            </div>
+          </div>
 
-              <div className="flex items-center gap-4 mt-auto">
-                <img 
-                  src={testimonial.image} 
-                  alt={testimonial.name} 
-                  className="w-12 h-12 rounded-full object-cover border-2 border-white/10 group-hover:border-brand-pink-primary/50 transition-colors"
-                />
-                <div>
-                  <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
-                  <p className="text-brand-text-secondary text-xs">{testimonial.role}, {testimonial.company}</p>
-                </div>
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-11 h-11 rounded-xl bg-brand-pink-primary/10 border border-brand-pink-primary/20 flex items-center justify-center">
+                <Award className="w-5 h-5 text-brand-pink-bright" />
               </div>
-              
-              <div className="absolute -bottom-3 right-8 px-3 py-1 bg-brand-bg-primary rounded-full border border-white/5 text-[10px] text-brand-pink-soft font-medium uppercase tracking-wider shadow-lg">
-                {testimonial.projectType}
-              </div>
-            </motion.div>
-          ))}
+              <h3 className="text-xl font-bold text-white">Training & Certifications</h3>
+            </div>
+
+            <div className="space-y-4">
+              {trainings.map((item, index) => (
+                <motion.article
+                  key={item.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="bg-brand-card p-6 rounded-2xl border border-white/5 hover:border-brand-pink-primary/30 transition-colors"
+                >
+                  <h4 className="text-white font-semibold mb-2">{item.title}</h4>
+                  <p className="text-brand-text-secondary text-sm">{item.provider}</p>
+                  <p className="text-brand-text-muted text-xs mt-3 flex items-center gap-2">
+                    <Calendar className="w-3.5 h-3.5 text-brand-pink-primary" />
+                    {item.date}
+                  </p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

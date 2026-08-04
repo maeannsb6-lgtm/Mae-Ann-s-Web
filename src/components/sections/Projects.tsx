@@ -88,11 +88,19 @@ export function FeaturedWorks() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-3 mt-auto">
-                  <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex-1">
-                    <Button variant="secondary" className="w-full flex items-center justify-center gap-2 group/btn">
-                      Live Demo <ExternalLink className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                    </Button>
-                  </a>
+                  {project.liveUrl !== '#' ? (
+                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex-1">
+                      <Button variant="secondary" className="w-full flex items-center justify-center gap-2 group/btn">
+                        Live Demo <ExternalLink className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                      </Button>
+                    </a>
+                  ) : (
+                    <a href="#contact" className="flex-1">
+                      <Button variant="secondary" className="w-full flex items-center justify-center gap-2 group/btn">
+                        Ask About This Work <ArrowUpRight className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                      </Button>
+                    </a>
+                  )}
                   {project.githubUrl !== '#' && (
                     <a href={project.githubUrl} target="_blank" rel="noreferrer" title="View Source">
                       <Button variant="ghost" size="icon" className="border border-white/10 hover:border-brand-pink-primary/50">
@@ -267,9 +275,15 @@ export function AllProjects() {
                         </div>
                       </div>
                       <div className="flex flex-col gap-3">
-                        <a href={selectedProject.liveUrl} target="_blank" rel="noreferrer">
-                          <Button className="w-full flex justify-center gap-2">Live Demo <ExternalLink className="w-4 h-4" /></Button>
-                        </a>
+                        {selectedProject.liveUrl !== '#' ? (
+                          <a href={selectedProject.liveUrl} target="_blank" rel="noreferrer">
+                            <Button className="w-full flex justify-center gap-2">Live Demo <ExternalLink className="w-4 h-4" /></Button>
+                          </a>
+                        ) : (
+                          <a href="#contact" onClick={() => setSelectedProject(null)}>
+                            <Button className="w-full flex justify-center gap-2">Ask About This Work <ArrowUpRight className="w-4 h-4" /></Button>
+                          </a>
+                        )}
                         {selectedProject.githubUrl !== '#' && (
                           <a href={selectedProject.githubUrl} target="_blank" rel="noreferrer">
                             <Button variant="secondary" className="w-full flex justify-center gap-2">View Source <GitBranch className="w-4 h-4" /></Button>

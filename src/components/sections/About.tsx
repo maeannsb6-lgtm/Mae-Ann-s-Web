@@ -5,10 +5,10 @@ import { MotionButton } from '../ui/Button';
 
 export function About() {
   const infoItems = [
-    { icon: User, label: 'Name', value: 'Mae' },
-    { icon: Briefcase, label: 'Role', value: 'Web Developer & AI Automation Specialist' },
+    { icon: User, label: 'Name', value: 'Mae Ann S. Bodiongan' },
+    { icon: Briefcase, label: 'Role', value: 'Industrial Engineer | Project Coordinator – Technical Compliance' },
     { icon: MapPin, label: 'Location', value: 'Philippines' },
-    { icon: Code2, label: 'Specialization', value: 'Web Apps, AI Automation, Notion' },
+    { icon: Code2, label: 'Focus', value: 'Project Coordination, Process Improvement, Digital Workflows' },
     { icon: Calendar, label: 'Availability', value: 'Open to Opportunities' },
   ];
 
@@ -21,7 +21,7 @@ export function About() {
           <div>
             <SectionHeading 
               label="ABOUT ME" 
-              title="I turn complex processes into simple digital solutions." 
+              title="Industrial engineering applied to real project and process needs." 
               align="left"
               className="mb-8"
             />
@@ -32,7 +32,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                I combine web development, AI automation, project coordination, and workspace design to create systems that are practical, organized, and easy to use. My work focuses on helping teams streamline workflows, manage information, improve collaboration, and reduce repetitive tasks through modern technology.
+                I am an Industrial Engineering graduate of the Technological Institute of the Philippines. My background includes project coordination, technical compliance, process analysis, feasibility studies, operations research, and technical documentation.
               </motion.p>
               <motion.p 
                 initial={{ opacity: 0, y: 10 }}
@@ -40,7 +40,7 @@ export function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                I have experience supporting solar and diesel power plant projects, coordinating documentation, working with different departments, and building digital solutions using tools such as React, Google AI Studio, n8n, Notion, Supabase, and Vercel.
+                In my current role at SUWECO Tablas Energy Corp., I support solar and diesel power plant projects, coordinate documentation and compliance requirements, collaborate with engineering, finance, and management teams, and develop AI-assisted web and Google Workspace automations using the tools listed in my CV.
               </motion.p>
             </div>
             

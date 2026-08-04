@@ -1,25 +1,25 @@
 import { motion } from 'framer-motion';
-import { Globe, Bot, ClipboardList, Briefcase } from 'lucide-react';
+import { LineChart, FileCheck2, Workflow, Briefcase } from 'lucide-react';
 
 const highlights = [
   {
-    title: 'Web Applications',
-    description: 'Responsive and modern applications designed for real business needs.',
-    icon: Globe,
+    title: 'Industrial Engineering',
+    description: 'Process analysis, time and motion study, feasibility study, and operations research.',
+    icon: LineChart,
   },
   {
-    title: 'AI Automations',
-    description: 'Automated workflows that reduce repetitive work and improve productivity.',
-    icon: Bot,
+    title: 'Technical Compliance',
+    description: 'Structured documentation and compliance support for energy projects.',
+    icon: FileCheck2,
   },
   {
-    title: 'Notion Workspaces',
-    description: 'Organized systems for project tracking, documentation, and collaboration.',
-    icon: ClipboardList,
+    title: 'Digital Workflows',
+    description: 'Web applications, Google automation, and AI-assisted operational workflows.',
+    icon: Workflow,
   },
   {
     title: 'Project Coordination',
-    description: 'Structured support for technical, operational, and compliance-related projects.',
+    description: 'Coordination across engineering, finance, management, and operations teams.',
     icon: Briefcase,
   }
 ];

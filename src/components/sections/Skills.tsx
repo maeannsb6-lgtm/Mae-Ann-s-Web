@@ -8,7 +8,8 @@ export function Skills() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading 
           label="MY SKILLS" 
-          title="Technologies and Tools I Use" 
+          title="Industrial Engineering and Digital Capabilities" 
+          description="Skills and tools documented in my current CV. Proficiency percentages are not shown because they have not been formally measured."
           className="mb-16"
         />
 
@@ -25,33 +26,15 @@ export function Skills() {
                 {category.category}
               </h3>
               
-              <div className="space-y-6">
-                {category.items.map((skill, index) => {
+              <div className="space-y-4">
+                {category.items.map((skill) => {
                   const Icon = skill.icon;
                   return (
-                    <div key={skill.name} className="group">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <Icon className="w-4 h-4 text-brand-text-secondary group-hover:text-brand-pink-bright transition-colors" />
-                          <span className="text-white text-sm font-medium">{skill.name}</span>
-                        </div>
-                        <span className="text-brand-text-muted text-xs font-mono">{skill.percentage}%</span>
+                    <div key={skill.name} className="group flex items-center gap-3 rounded-xl border border-white/5 bg-brand-card p-4 hover:border-brand-pink-primary/30 transition-colors">
+                      <div className="p-2 bg-brand-pink-primary/10 rounded-lg">
+                        <Icon className="w-4 h-4 text-brand-text-secondary group-hover:text-brand-pink-bright transition-colors" />
                       </div>
-                      
-                      {/* Progress Bar Container */}
-                      <div className="h-1.5 w-full bg-brand-bg-secondary rounded-full overflow-hidden">
-                        {/* Animated Progress */}
-                        <motion.div 
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.percentage}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.5, delay: 0.2 + (index * 0.1), ease: "easeOut" }}
-                          className="h-full bg-gradient-to-r from-brand-pink-dark to-brand-pink-bright rounded-full relative"
-                        >
-                          {/* Glow effect on the bar */}
-                          <div className="absolute inset-0 bg-brand-pink-primary blur-[2px] opacity-50 rounded-full" />
-                        </motion.div>
-                      </div>
+                      <span className="text-white text-sm font-medium">{skill.name}</span>
                     </div>
                   );
                 })}

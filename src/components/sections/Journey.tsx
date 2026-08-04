@@ -10,8 +10,8 @@ export function Journey() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading 
-          label="MY JOURNEY" 
-          title="How My Skills Have Evolved" 
+          label="EDUCATION & CAREER JOURNEY" 
+          title="From Education to Project Coordination" 
           className="mb-16"
         />
 
@@ -51,11 +51,11 @@ export function Journey() {
 
                 <div className="space-y-4 mt-auto">
                   <div>
-                    <h4 className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider mb-1">Learned</h4>
+                    <h4 className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider mb-1">Area</h4>
                     <p className="text-xs text-brand-text-secondary">{stage.learned}</p>
                   </div>
                   <div className="p-3 bg-brand-pink-primary/5 rounded-lg border border-brand-pink-primary/10">
-                    <h4 className="text-[10px] font-semibold text-brand-pink-primary uppercase tracking-wider mb-1">Key Achievement</h4>
+                    <h4 className="text-[10px] font-semibold text-brand-pink-primary uppercase tracking-wider mb-1">Status</h4>
                     <p className="text-xs text-brand-pink-soft/90 leading-relaxed">{stage.achievement}</p>
                   </div>
                 </div>
