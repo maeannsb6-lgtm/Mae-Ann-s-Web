@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg-primary: #050507;
+  --color-brand-bg-secondary: #09090D;
+  --color-brand-card: #101016;
+  --color-brand-card-hover: #15151D;
+  --color-brand-pink-primary: #EC4899;
+  --color-brand-pink-bright: #FF4FA3;
+  --color-brand-pink-soft: #F9A8D4;
+  --color-brand-pink-rose: #F472B6;
+  --color-brand-pink-dark: #9D174D;
+  --color-brand-text-white: #FFFFFF;
+  --color-brand-text-secondary: #C5C5CE;
+  --color-brand-text-muted: #888894;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg-primary text-brand-text-secondary font-sans antialiased overflow-x-hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-brand-text-white;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #050507;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #15151D;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9D174D;
+}
