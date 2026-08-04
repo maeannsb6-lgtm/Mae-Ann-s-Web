@@ -1,29 +1,70 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Mail, MapPin, Phone, Send, Terminal } from 'lucide-react';
+import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, Phone, Send, Terminal, XCircle } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Button } from '../ui/Button';
 import { contactInfo } from '../../data/content';
 
+type SubmitStatus = 'idle' | 'sending' | 'success' | 'error';
+
+interface ContactResponse {
+  success?: boolean;
+  message?: string;
+  error?: string;
+}
+
 export function Contact() {
-  const [emailOpened, setEmailOpened] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = String(formData.get('name') || '');
-    const email = String(formData.get('email') || '');
-    const company = String(formData.get('company') || 'Not provided');
-    const projectType = String(formData.get('projectType') || 'Professional Inquiry');
-    const message = String(formData.get('message') || '');
-    const subject = encodeURIComponent(`${projectType} inquiry from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nCompany/Organization: ${company}\nProject Type: ${projectType}\n\nMessage:\n${message}`,
-    );
 
-    window.location.href = `mailto:${contactInfo.email}?subject=${subject}&body=${body}`;
-    setEmailOpened(true);
-    window.setTimeout(() => setEmailOpened(false), 3000);
+    if (submitStatus === 'sending') return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: String(formData.get('name') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      company: String(formData.get('company') || '').trim(),
+      projectType: String(formData.get('projectType') || '').trim(),
+      message: String(formData.get('message') || '').trim(),
+      website: String(formData.get('website') || '').trim(), // Honeypot: must remain blank.
+    };
+
+    setSubmitStatus('sending');
+    setStatusMessage('Sending your message securely...');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json().catch(() => ({}))) as ContactResponse;
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || result.message || 'Your message could not be sent. Please try again.');
+      }
+
+      form.reset();
+      setSubmitStatus('success');
+      setStatusMessage(
+        result.message || `Message sent successfully. A confirmation was sent from ${contactInfo.email}.`,
+      );
+    } catch (error) {
+      setSubmitStatus('error');
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : `Your message could not be sent. You may email ${contactInfo.email} directly.`,
+      );
+    }
   };
 
   return (
@@ -105,21 +146,27 @@ export function Contact() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-pink-primary/10 blur-[80px] rounded-full pointer-events-none" />
 
             <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+              {/* Hidden anti-spam field. Real users should never fill this in. */}
+              <div className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-brand-text-secondary">Full Name</label>
-                  <input required type="text" id="name" name="name" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary focus:ring-1 focus:ring-brand-pink-primary transition-colors" placeholder="Your name" />
+                  <input required minLength={2} maxLength={100} autoComplete="name" type="text" id="name" name="name" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary focus:ring-1 focus:ring-brand-pink-primary transition-colors" placeholder="Your name" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-brand-text-secondary">Email Address</label>
-                  <input required type="email" id="email" name="email" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary focus:ring-1 focus:ring-brand-pink-primary transition-colors" placeholder="you@example.com" />
+                  <input required maxLength={254} autoComplete="email" type="email" id="email" name="email" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary focus:ring-1 focus:ring-brand-pink-primary transition-colors" placeholder="you@example.com" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="company" className="text-sm font-medium text-brand-text-secondary">Company or Organization</label>
-                  <input type="text" id="company" name="company" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary transition-colors" placeholder="Company name" />
+                  <input maxLength={150} autoComplete="organization" type="text" id="company" name="company" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary transition-colors" placeholder="Company name" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="projectType" className="text-sm font-medium text-brand-text-secondary">Inquiry Type</label>
@@ -136,16 +183,49 @@ export function Contact() {
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium text-brand-text-secondary">Message</label>
-                <textarea required id="message" name="message" rows={4} className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary transition-colors resize-none" placeholder="Tell me about your inquiry..."></textarea>
+                <textarea required minLength={10} maxLength={5000} id="message" name="message" rows={5} className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary transition-colors resize-none" placeholder="Tell me about your inquiry..."></textarea>
               </div>
 
-              <p className="text-xs text-brand-text-muted">
-                This form opens your email application with the message prepared. It does not silently submit or store your data.
+              <p className="text-xs text-brand-text-muted leading-relaxed">
+                Your message will be delivered securely to {contactInfo.email}. You will also receive an email confirmation from Mae Ann.
               </p>
 
-              <Button type="submit" className="w-full flex items-center justify-center gap-2">
-                {emailOpened ? 'Email App Opened' : 'Open Email App'}
-                {!emailOpened && <Send className="w-4 h-4" />}
+              {submitStatus !== 'idle' && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className={`flex items-start gap-3 rounded-xl border px-4 py-3 text-sm ${
+                    submitStatus === 'success'
+                      ? 'border-emerald-400/25 bg-emerald-400/10 text-emerald-200'
+                      : submitStatus === 'error'
+                        ? 'border-red-400/25 bg-red-400/10 text-red-200'
+                        : 'border-brand-pink-primary/20 bg-brand-pink-primary/10 text-brand-pink-soft'
+                  }`}
+                >
+                  {submitStatus === 'sending' && <Loader2 className="w-5 h-5 shrink-0 animate-spin" />}
+                  {submitStatus === 'success' && <CheckCircle2 className="w-5 h-5 shrink-0" />}
+                  {submitStatus === 'error' && <XCircle className="w-5 h-5 shrink-0" />}
+                  <span>{statusMessage}</span>
+                </div>
+              )}
+
+              <Button type="submit" disabled={submitStatus === 'sending'} className="w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                {submitStatus === 'sending' ? (
+                  <>
+                    Sending Message
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  </>
+                ) : submitStatus === 'success' ? (
+                  <>
+                    Message Sent
+                    <CheckCircle2 className="w-4 h-4" />
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="w-4 h-4" />
+                  </>
+                )}
               </Button>
             </form>
           </motion.div>
