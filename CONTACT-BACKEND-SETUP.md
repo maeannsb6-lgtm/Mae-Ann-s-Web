@@ -1,110 +1,303 @@
-# Mae Ann Portfolio — Google Apps Script Contact Backend Setup
+# Mae Ann Portfolio — Contact Form / Google Sheets / Email Setup
 
-This project is already connected to a same-origin Vercel endpoint at:
+## Final architecture
 
-`/api/contact`
+```text
+Portfolio Contact Form
+        ↓
+React Contact.tsx
+        ↓
+POST /api/contact
+        ↓
+Vercel serverless bridge
+        ↓
+Google Apps Script Web App
+        ├── Google Sheet: Mae Ann Portfolio Contact Inquiries
+        │     ├── Inquiries
+        │     └── Email Logs (auto-created if missing)
+        └── Google email service
+              ├── Visitor Confirmation
+              └── Mae Ann Notification
+```
 
-The Vercel endpoint securely forwards valid submissions to the included Google Apps Script backend.
+The browser does **not** call Apps Script directly. This intentionally keeps the shared secret server-side and avoids browser-to-Apps-Script CORS/preflight problems.
 
-## Required sender account
+## Fixed Google backend
 
-Create, authorize, and deploy the Apps Script while signed in as:
+Spreadsheet ID:
+
+`1hFcVvnHDi1pW9b1i1q1sEOOz5dtEtuxBAy5JxMTdu0Y`
+
+Spreadsheet title:
+
+`Mae Ann Portfolio Contact Inquiries`
+
+Existing tab:
+
+`Inquiries`
+
+Required sending/deployment account:
 
 `maeannbodiongan.ie@gmail.com`
 
-The script does not spoof a sender address. When deployed correctly using **Execute as Me**, outgoing notification and confirmation emails are sent by the Google account that deployed the script.
+Timezone:
 
-## Part 1 — Create the Google Apps Script backend
+`Asia/Manila`
 
-1. Sign in to Google using `maeannbodiongan.ie@gmail.com`.
-2. Open `https://script.google.com`.
-3. Click **New project**.
-4. Rename it to `Mae Ann Portfolio Contact Backend`.
-5. Open the included file:
+## Step 1 — Open Apps Script from the exact Google Sheet
+
+1. Sign in to Google as `maeannbodiongan.ie@gmail.com`.
+2. Open the exact spreadsheet `Mae Ann Portfolio Contact Inquiries`.
+3. Confirm you are in the file with ID `1hFcVvnHDi1pW9b1i1q1sEOOz5dtEtuxBAy5JxMTdu0Y`.
+4. Click **Extensions → Apps Script**.
+5. Rename the project to `Mae Ann Portfolio Contact Backend` if desired.
+
+Using **Extensions → Apps Script** from the correct spreadsheet reduces the chance of accidentally editing/deploying the wrong script project.
+
+## Step 2 — Replace Code.gs
+
+1. In Apps Script, open `Code.gs`.
+2. Delete the old contents.
+3. Copy the complete contents of:
    - `google-apps-script/Code.gs`
-6. Copy all its contents and replace the default Apps Script code.
-7. In Apps Script, open **Project Settings**.
-8. Enable **Show "appsscript.json" manifest file in editor**.
-9. Open `appsscript.json` in the editor.
-10. Replace it with the included:
-    - `google-apps-script/appsscript.json`
-11. Save the project.
+4. Paste it into Apps Script.
+5. Save.
 
-## Part 2 — Authorize and create the shared secret
+The code is hard-wired to the required spreadsheet ID and validates the exact `Inquiries` A:J header order before writing.
 
-1. From the function dropdown, select `setupContactBackend`.
+## Step 3 — Replace appsscript.json
+
+1. Apps Script → **Project Settings**.
+2. Enable **Show "appsscript.json" manifest file in editor**.
+3. Return to **Editor**.
+4. Open `appsscript.json`.
+5. Replace it with the complete contents of:
+   - `google-apps-script/appsscript.json`
+6. Save.
+
+The manifest includes permissions for:
+
+- sending email,
+- Google Sheets access,
+- verifying the effective Google account.
+
+## Step 4 — Run setupContactBackend
+
+1. In the function dropdown, choose `setupContactBackend`.
 2. Click **Run**.
-3. Approve the Google authorization prompts using `maeannbodiongan.ie@gmail.com`.
-4. Confirm that a test email arrives in the same Gmail inbox.
-5. Open **Execution log**.
-6. Copy the value shown after:
+3. Google will ask for authorization.
+4. Approve the requested permissions while logged in as `maeannbodiongan.ie@gmail.com`.
+5. Wait for the execution to finish successfully.
 
-`CONTACT_FORM_SECRET=`
+This setup function will:
 
-Keep this value private. Never place it in React files or any `VITE_...` variable.
+- verify the exact `Inquiries` headers,
+- create `Email Logs` if it does not exist,
+- preserve an existing private `CONTACT_FORM_SECRET` or generate one if missing,
+- send a setup test email,
+- print the private secret to the execution log.
 
-## Part 3 — Deploy as a public Web App
+## Step 5 — Copy CONTACT_FORM_SECRET
 
-1. Click **Deploy** → **New deployment**.
-2. Select **Web app**.
-3. Description: `Mae Ann Portfolio Contact Backend`.
-4. Set **Execute as** to **Me**.
-5. Confirm that the displayed account is `maeannbodiongan.ie@gmail.com`.
-6. Set **Who has access** to **Anyone**.
-7. Click **Deploy**.
-8. Copy the Web App URL ending in `/exec`.
+1. Open the Apps Script **Execution log** for the successful `setupContactBackend` run.
+2. Find:
 
-Do not use the testing URL ending in `/dev`.
+```text
+CONTACT_FORM_SECRET=...
+```
 
-## Part 4 — Add the Vercel environment variables
+3. Copy only the value after `=`.
+4. Keep it private.
+5. Never add it to React source code or a `VITE_...` variable.
 
-Open the Vercel project:
+If a prior screenshot showed **Unauthorized contact form request**, the usual repair is to make sure this exact current secret matches the Vercel `CONTACT_FORM_SECRET` value.
 
-**Settings** → **Environment Variables**
+## Step 6 — Deploy the Apps Script Web App
 
-Add these two variables:
+### First deployment
 
-### `GOOGLE_APPS_SCRIPT_CONTACT_URL`
+1. Click **Deploy → New deployment**.
+2. Click the gear / deployment type selector.
+3. Choose **Web app**.
+4. Description: `Mae Ann Portfolio Contact Backend`.
+5. **Execute as:** `Me`.
+6. Confirm the shown account is `maeannbodiongan.ie@gmail.com`.
+7. **Who has access:** `Anyone`.
+8. Click **Deploy**.
+9. Copy the Web App URL.
+10. It must look like:
 
-Value: the Google Apps Script Web App URL ending in `/exec`.
+```text
+https://script.google.com/macros/s/DEPLOYMENT_ID/exec
+```
 
-### `CONTACT_FORM_SECRET`
+Do **not** use a `/dev` test URL.
 
-Value: the exact secret printed by `setupContactBackend`.
+### Updating an existing deployment later
 
-Enable both variables for:
+When you change `Code.gs` or `appsscript.json` after the Web App already exists:
 
-- Production
-- Preview
-- Development, when needed
+1. Save the Apps Script changes.
+2. Click **Deploy → Manage deployments**.
+3. Select the active Web App deployment.
+4. Click **Edit**.
+5. Under Version, choose **New version**.
+6. Click **Deploy**.
+7. Keep using the same `/exec` deployment URL unless Google explicitly gives you a different active URL.
 
-Save the variables, then redeploy the latest Vercel deployment.
+This is preferable to creating unnecessary extra deployments every time.
 
-## Part 5 — Test the live contact form
+## Step 7 — Verify the /exec endpoint before Vercel
 
-1. Open the deployed website.
-2. Complete all required contact fields.
-3. Click **Send Message**.
-4. Expected result:
-   - The website displays **Message Sent**.
-   - `maeannbodiongan.ie@gmail.com` receives the complete inquiry.
-   - The visitor receives a professional confirmation email sent by Mae Ann's deployment account.
-   - Replying to Mae Ann's notification goes directly to the visitor's submitted email.
+Paste the `/exec` URL into a browser.
 
-## Updated website files
+Expected JSON-like response:
 
-- `src/components/sections/Contact.tsx`
-- `api/contact.js`
-- `.env.example`
-- `google-apps-script/Code.gs`
-- `google-apps-script/appsscript.json`
-- `CONTACT-BACKEND-SETUP.md`
+```json
+{
+  "success": true,
+  "service": "Mae Ann Portfolio Contact Backend",
+  "status": "ready"
+}
+```
 
-## Important security behavior
+If the browser instead shows a Google sign-in/permission page or an HTML error page, fix the Apps Script Web App access/deployment before testing the website. A non-JSON Apps Script page is what causes the Vercel bridge to report that the contact backend returned an unexpected response.
 
-- The Apps Script shared secret is stored only in Apps Script Script Properties and Vercel server-side environment variables.
-- The secret is never exposed in browser JavaScript.
-- A hidden honeypot blocks basic form bots.
-- The backend validates and sanitizes all fields.
-- Repeat submissions from the same email are temporarily rate-limited.
-- Contact messages are emailed; this implementation does not save them to a public database.
+## Step 8 — Configure Vercel
+
+Open the portfolio project in Vercel:
+
+**Project → Settings → Environment Variables**
+
+Add/update these exact server-side variables:
+
+### GOOGLE_APPS_SCRIPT_CONTACT_URL
+
+Value:
+
+```text
+https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
+```
+
+### CONTACT_FORM_SECRET
+
+Value:
+
+```text
+THE_EXACT_VALUE_PRINTED_BY_setupContactBackend
+```
+
+Apply them to the environments you use, especially **Production** (and Preview if you test preview deployments).
+
+Important: there is intentionally **no `VITE_CONTACT_API_URL`**. The React application posts to `/api/contact`, and Vercel privately forwards the request to Apps Script.
+
+## Step 9 — Redeploy Vercel
+
+Environment variable changes require a deployment that uses the updated environment.
+
+Normal workflow:
+
+```text
+Updated source
+   ↓
+Git commit
+   ↓
+Git push
+   ↓
+GitHub
+   ↓
+Vercel build/deployment
+   ↓
+Production website
+```
+
+After editing Vercel environment variables, redeploy the latest production deployment if needed so the function receives the new values.
+
+## Step 10 — Production test
+
+Use a real email address that you can check.
+
+```text
+Full Name: Test User
+Email: YOUR_TEST_EMAIL
+Company: Test Company
+Inquiry Type: Website Inquiry
+Message: Testing portfolio contact integration.
+```
+
+Expected website result:
+
+- button changes to `Sending...`,
+- double-clicking is blocked while sending,
+- success appears only after the backend confirms the sheet write,
+- a Reference ID such as `MAE-20260810-A7K9Q2` is displayed.
+
+Expected `Inquiries` row:
+
+```text
+Reference ID: MAE-...
+Date & Time: Asia/Manila server timestamp
+Full Name: Test User
+Email Address: YOUR_TEST_EMAIL
+Company / Organization: Test Company
+Inquiry Type: Website Inquiry
+Message: Testing portfolio contact integration.
+Status: New
+Confirmation Sent: Sent
+Remarks: Confirmation and admin notification sent successfully.
+```
+
+Expected `Email Logs`:
+
+1. `Visitor Confirmation` → visitor email → `Sent`
+2. `Admin Notification` → `maeannbodiongan.ie@gmail.com` → `Sent`
+
+## Sender verification
+
+The code does not spoof a `From:` header.
+
+For the sender to actually be the required Google account:
+
+1. the Apps Script must be authorized by `maeannbodiongan.ie@gmail.com`,
+2. the Web App must be deployed using **Execute as Me** from that account,
+3. the automated email must be generated by that deployed script.
+
+After a test submission, open the received confirmation email and inspect the sender/message details. The sender should resolve to the authenticated Apps Script deployment account, with display name `Mae Ann S. Bodiongan`.
+
+Simply typing another email address into a From header would not change the authenticated sender; this implementation does not do that.
+
+## Error behavior
+
+### Sheet write succeeds, emails succeed
+
+- inquiry remains saved,
+- `Confirmation Sent = Sent`,
+- email logs show both messages as `Sent`,
+- website shows success and the Reference ID.
+
+### Sheet write succeeds, visitor confirmation fails
+
+- inquiry remains saved,
+- `Confirmation Sent = Failed`,
+- sanitized failure detail is written to Remarks,
+- admin notification is still attempted,
+- website still says the message was received.
+
+### Sheet write fails
+
+- no fake success is returned,
+- website shows a friendly error,
+- the form is not reset.
+
+## Security notes
+
+- No Gmail password is stored anywhere.
+- No Google OAuth token or private key is placed in frontend code.
+- The Apps Script URL and shared secret are server-side Vercel variables.
+- The browser only calls same-origin `/api/contact`.
+- Apps Script validates all submitted fields again.
+- A honeypot blocks basic bots.
+- Cache-based rate limiting blocks rapid repeat submissions.
+- A client submission ID + server duplicate cache protects against accidental retry/duplicate rows.
+- `LockService` protects concurrent Google Sheet writes.
+- Errors saved to the sheet are sanitized and truncated.

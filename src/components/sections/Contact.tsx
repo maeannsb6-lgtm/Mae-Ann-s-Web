@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, Phone, Send, Terminal, XCircle } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
@@ -9,13 +9,25 @@ type SubmitStatus = 'idle' | 'sending' | 'success' | 'error';
 
 interface ContactResponse {
   success?: boolean;
+  referenceId?: string;
   message?: string;
   error?: string;
+  confirmationSent?: boolean;
+}
+
+function createSubmissionId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+
+  return `contact-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
 }
 
 export function Contact() {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  const [referenceId, setReferenceId] = useState('');
+  const submissionIdRef = useRef('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,17 +35,50 @@ export function Contact() {
     if (submitStatus === 'sending') return;
 
     const form = event.currentTarget;
+
+    // Run native browser validation before sending anything to the backend.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     const formData = new FormData(form);
+    const fullName = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const company = String(formData.get('company') || '').trim();
+    const inquiryType = String(formData.get('projectType') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+    const website = String(formData.get('website') || '').trim();
+
+    if (!fullName || !email || !inquiryType || !message) {
+      setSubmitStatus('error');
+      setStatusMessage('Please complete all required fields.');
+      return;
+    }
+
+    if (message.length < 10) {
+      setSubmitStatus('error');
+      setStatusMessage('Please enter a message with at least 10 characters.');
+      return;
+    }
+
+    // Keep one client ID for this submission attempt. This supports backend
+    // duplicate protection if the same request is retried unexpectedly.
+    if (!submissionIdRef.current) {
+      submissionIdRef.current = createSubmissionId();
+    }
 
     const payload = {
-      name: String(formData.get('name') || '').trim(),
-      email: String(formData.get('email') || '').trim(),
-      company: String(formData.get('company') || '').trim(),
-      projectType: String(formData.get('projectType') || '').trim(),
-      message: String(formData.get('message') || '').trim(),
-      website: String(formData.get('website') || '').trim(), // Honeypot: must remain blank.
+      fullName,
+      email,
+      company,
+      inquiryType,
+      message,
+      website, // Honeypot: real users leave this blank.
+      clientSubmissionId: submissionIdRef.current,
     };
 
+    setReferenceId('');
     setSubmitStatus('sending');
     setStatusMessage('Sending your message securely...');
 
@@ -49,15 +94,22 @@ export function Contact() {
       const result = (await response.json().catch(() => ({}))) as ContactResponse;
 
       if (!response.ok || !result.success) {
-        throw new Error(result.error || result.message || 'Your message could not be sent. Please try again.');
+        throw new Error(result.message || result.error || 'Your message could not be sent. Please try again.');
       }
 
+      const returnedReferenceId = String(result.referenceId || '').trim();
+
       form.reset();
+      submissionIdRef.current = '';
+      setReferenceId(returnedReferenceId);
       setSubmitStatus('success');
       setStatusMessage(
-        result.message || `Message sent successfully. A confirmation was sent from ${contactInfo.email}.`,
+        result.message || 'Thank you! Your message has been received successfully.',
       );
     } catch (error) {
+      // Keep the same submission ID on failure so a safe retry can be recognized
+      // by the backend if the first request was actually recorded before the
+      // network response was interrupted.
       setSubmitStatus('error');
       setStatusMessage(
         error instanceof Error
@@ -155,7 +207,7 @@ export function Contact() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-brand-text-secondary">Full Name</label>
-                  <input required minLength={2} maxLength={100} autoComplete="name" type="text" id="name" name="name" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary focus:ring-1 focus:ring-brand-pink-primary transition-colors" placeholder="Your name" />
+                  <input required minLength={2} maxLength={150} autoComplete="name" type="text" id="name" name="name" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary focus:ring-1 focus:ring-brand-pink-primary transition-colors" placeholder="Your name" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-brand-text-secondary">Email Address</label>
@@ -166,11 +218,11 @@ export function Contact() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="company" className="text-sm font-medium text-brand-text-secondary">Company or Organization</label>
-                  <input maxLength={150} autoComplete="organization" type="text" id="company" name="company" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary transition-colors" placeholder="Company name" />
+                  <input maxLength={200} autoComplete="organization" type="text" id="company" name="company" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary transition-colors" placeholder="Company name" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="projectType" className="text-sm font-medium text-brand-text-secondary">Inquiry Type</label>
-                  <select id="projectType" name="projectType" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary appearance-none transition-colors">
+                  <select required id="projectType" name="projectType" className="w-full bg-brand-bg-primary border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-pink-primary appearance-none transition-colors">
                     <option>Project Coordination</option>
                     <option>Process Analysis</option>
                     <option>Web Application</option>
@@ -187,7 +239,7 @@ export function Contact() {
               </div>
 
               <p className="text-xs text-brand-text-muted leading-relaxed">
-                Your message will be delivered securely to {contactInfo.email}. You will also receive an email confirmation from Mae Ann.
+                Your inquiry will be recorded securely and delivered to {contactInfo.email}. You will also receive an email confirmation when delivery succeeds.
               </p>
 
               {submitStatus !== 'idle' && (
@@ -205,14 +257,19 @@ export function Contact() {
                   {submitStatus === 'sending' && <Loader2 className="w-5 h-5 shrink-0 animate-spin" />}
                   {submitStatus === 'success' && <CheckCircle2 className="w-5 h-5 shrink-0" />}
                   {submitStatus === 'error' && <XCircle className="w-5 h-5 shrink-0" />}
-                  <span>{statusMessage}</span>
+                  <span>
+                    {statusMessage}
+                    {submitStatus === 'success' && referenceId && (
+                      <span className="block mt-1 font-semibold text-white">Reference ID: {referenceId}</span>
+                    )}
+                  </span>
                 </div>
               )}
 
               <Button type="submit" disabled={submitStatus === 'sending'} className="w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                 {submitStatus === 'sending' ? (
                   <>
-                    Sending Message
+                    Sending...
                     <Loader2 className="w-4 h-4 animate-spin" />
                   </>
                 ) : submitStatus === 'success' ? (

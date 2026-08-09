@@ -4,27 +4,60 @@
  * Google Apps Script Web App
  * =============================================================
  *
- * IMPORTANT:
- * Create and deploy this project while signed in as:
+ * Required owner/deployment account:
  * maeannbodiongan.ie@gmail.com
  *
- * Deploy as:
+ * Required deployment:
+ * - Type: Web app
  * - Execute as: Me
  * - Who has access: Anyone
+ *
+ * Data flow:
+ * Vercel /api/contact -> this Web App -> Google Sheets + email
  */
 
 const CONFIG = Object.freeze({
-  RECIPIENT_EMAIL: 'maeannbodiongan.ie@gmail.com',
-  SENDER_NAME: 'Mae Ann Bodiongan',
-  SUBJECT_PREFIX: 'Portfolio Inquiry',
-  SEND_CONFIRMATION_EMAIL: true,
+  SPREADSHEET_ID: '1hFcVvnHDi1pW9b1i1q1sEOOz5dtEtuxBAy5JxMTdu0Y',
+  INQUIRIES_SHEET: 'Inquiries',
+  EMAIL_LOGS_SHEET: 'Email Logs',
+  ADMIN_EMAIL: 'maeannbodiongan.ie@gmail.com',
+  SENDER_NAME: 'Mae Ann S. Bodiongan',
+  TIMEZONE: 'Asia/Manila',
   RATE_LIMIT_SECONDS: 90,
+  DUPLICATE_CACHE_SECONDS: 600,
   MIN_MESSAGE_LENGTH: 10,
   MAX_MESSAGE_LENGTH: 5000,
+  MAX_NAME_LENGTH: 150,
+  MAX_EMAIL_LENGTH: 254,
+  MAX_COMPANY_LENGTH: 200,
+  MAX_INQUIRY_TYPE_LENGTH: 100,
+  INQUIRY_HEADERS: [
+    'Reference ID',
+    'Date & Time',
+    'Full Name',
+    'Email Address',
+    'Company / Organization',
+    'Inquiry Type',
+    'Message',
+    'Status',
+    'Confirmation Sent',
+    'Remarks',
+  ],
+  EMAIL_LOG_HEADERS: [
+    'Timestamp',
+    'Reference ID',
+    'Full Name',
+    'Recipient Email',
+    'Email Type',
+    'Subject',
+    'Status',
+    'Error Message',
+  ],
 });
 
 /**
- * Health-check endpoint.
+ * Public health-check endpoint.
+ * It intentionally exposes no secrets or spreadsheet data.
  */
 function doGet() {
   return jsonResponse_({
@@ -35,234 +68,617 @@ function doGet() {
 }
 
 /**
- * Receives validated contact-form submissions from the Vercel bridge.
+ * Receives contact submissions from the Vercel serverless bridge.
  */
 function doPost(e) {
+  let rateLimitKey = '';
+
   try {
     verifyDeploymentOwner_();
 
     const payload = parsePayload_(e);
     verifySecret_(payload.secret);
 
-    // Honeypot field: bots often fill this hidden input.
+    // Honeypot: real visitors never fill this field.
     if (cleanText_(payload.website, 200)) {
-      return jsonResponse_({
-        success: true,
-        message: 'Your message was received.',
-        confirmationSent: false,
-      });
+      throw publicError_('Unable to process this submission.', 400);
     }
 
     const submission = validateSubmission_(payload);
-    enforceRateLimit_(submission.email);
+    const duplicateKey = buildDuplicateKey_(submission, payload.clientSubmissionId);
+    const duplicate = getCachedDuplicate_(duplicateKey);
 
-    const requiredRecipients = CONFIG.SEND_CONFIRMATION_EMAIL ? 2 : 1;
-    if (MailApp.getRemainingDailyQuota() < requiredRecipients) {
-      throw publicError_('The contact email limit has been reached for today. Please email Mae Ann directly.', 503);
+    if (duplicate) {
+      console.log('[contact] Duplicate retry recognized: ' + duplicate.referenceId);
+      return jsonResponse_({
+        success: true,
+        duplicate: true,
+        referenceId: duplicate.referenceId,
+        confirmationSent: duplicate.confirmationSent === true,
+        adminNotificationSent: duplicate.adminNotificationSent === true,
+        message: 'Your message has already been received successfully.',
+      });
     }
 
-    sendOwnerNotification_(submission);
+    rateLimitKey = enforceRateLimit_(submission.email);
 
-    let confirmationSent = false;
-    if (CONFIG.SEND_CONFIRMATION_EMAIL) {
-      try {
-        sendVisitorConfirmation_(submission);
-        confirmationSent = true;
-      } catch (confirmationError) {
-        console.error('Owner notification sent, but confirmation failed:', confirmationError);
-      }
-    }
+    // Highest priority: save the inquiry before attempting email delivery.
+    const saved = appendInquiry_(submission);
+    safeCacheDuplicate_(duplicateKey, {
+      referenceId: saved.referenceId,
+      confirmationSent: false,
+      adminNotificationSent: false,
+    });
+
+    console.log('[contact] Inquiry recorded: ' + saved.referenceId);
+
+    // Email failure must never remove or invalidate an already-saved inquiry.
+    const visitorResult = sendVisitorConfirmation_(submission, saved.referenceId);
+    const adminResult = sendAdminNotification_(submission, saved.referenceId, saved.timestamp);
+
+    updateInquiryEmailStatus_(
+      saved.rowNumber,
+      saved.referenceId,
+      visitorResult,
+      adminResult
+    );
+
+    safeCacheDuplicate_(duplicateKey, {
+      referenceId: saved.referenceId,
+      confirmationSent: visitorResult.sent,
+      adminNotificationSent: adminResult.sent,
+    });
+
+    console.log(
+      '[contact] Completed ' + saved.referenceId +
+      ' | visitor=' + visitorResult.status +
+      ' | admin=' + adminResult.status
+    );
 
     return jsonResponse_({
       success: true,
-      message: confirmationSent
-        ? 'Your message was sent successfully. Please check your email for confirmation.'
-        : 'Your message was sent successfully.',
-      confirmationSent: confirmationSent,
+      referenceId: saved.referenceId,
+      confirmationSent: visitorResult.sent,
+      adminNotificationSent: adminResult.sent,
+      message: visitorResult.sent
+        ? 'Thank you! Your message has been received successfully. A confirmation email has been sent.'
+        : 'Your message has been received successfully.',
     });
   } catch (error) {
-    console.error(error && error.stack ? error.stack : error);
+    if (rateLimitKey && isSheetWriteFailure_(error)) {
+      safeClearRateLimit_(rateLimitKey);
+    }
+
+    console.error('[contact] ' + sanitizeError_(error));
 
     return jsonResponse_({
       success: false,
-      error: error && error.publicMessage
+      message: error && error.publicMessage
         ? error.publicMessage
-        : 'Your message could not be sent right now. Please try again shortly.',
+        : 'Unable to process your inquiry right now. Please try again shortly.',
       statusCode: error && error.statusCode ? error.statusCode : 500,
     });
   }
 }
 
 /**
- * Run this function ONCE from the Apps Script editor.
- * It creates a secure shared secret, sends a test email, and prints the
- * CONTACT_FORM_SECRET value in the execution log for use in Vercel.
+ * Run ONCE after pasting the backend code, while signed in as
+ * maeannbodiongan.ie@gmail.com.
+ *
+ * This function:
+ * 1. verifies the exact spreadsheet and Inquiries headers,
+ * 2. creates Email Logs if missing,
+ * 3. creates/preserves the private CONTACT_FORM_SECRET,
+ * 4. sends a sender-account test email,
+ * 5. prints the secret for the Vercel environment variable.
  */
 function setupContactBackend() {
   verifyDeploymentOwner_();
+
+  const spreadsheet = getSpreadsheet_();
+  const inquiriesSheet = getInquiriesSheet_(spreadsheet);
+  validateInquiriesHeaders_(inquiriesSheet);
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    ensureEmailLogsSheet_(spreadsheet);
+  } finally {
+    lock.releaseLock();
+  }
 
   const properties = PropertiesService.getScriptProperties();
   let secret = properties.getProperty('CONTACT_FORM_SECRET');
 
   if (!secret) {
-    secret = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
+    secret = generateSecret_();
     properties.setProperty('CONTACT_FORM_SECRET', secret);
   }
 
   MailApp.sendEmail({
-    to: CONFIG.RECIPIENT_EMAIL,
-    subject: 'Mae Ann Portfolio Contact Backend — Test Successful',
-    body: 'Your Google Apps Script contact backend is authorized and ready for deployment.',
+    to: CONFIG.ADMIN_EMAIL,
+    subject: 'Mae Ann Portfolio Contact Backend — Setup Successful',
+    body: [
+      'Your portfolio contact backend is authorized and connected.',
+      '',
+      'Spreadsheet: Mae Ann Portfolio Contact Inquiries',
+      'Spreadsheet ID: ' + CONFIG.SPREADSHEET_ID,
+      'Inquiries tab: ' + CONFIG.INQUIRIES_SHEET,
+      'Email Logs tab: ' + CONFIG.EMAIL_LOGS_SHEET,
+      'Timezone: ' + CONFIG.TIMEZONE,
+      '',
+      'Deploy this Apps Script as a Web App using Execute as Me.',
+    ].join('\n'),
     htmlBody: [
       '<div style="font-family:Arial,sans-serif;line-height:1.6;color:#241c24">',
-      '<h2 style="color:#d92f86">Contact backend is ready</h2>',
-      '<p>Your Google Apps Script project is authorized to send portfolio contact emails.</p>',
-      '<p>Next: deploy it as a Web App using <strong>Execute as Me</strong> and <strong>Anyone</strong>.</p>',
+      '<h2>Portfolio contact backend is ready</h2>',
+      '<p>The backend is authorized to use the required Google Sheet and send email.</p>',
+      '<p><strong>Spreadsheet:</strong> Mae Ann Portfolio Contact Inquiries<br>',
+      '<strong>Inquiries:</strong> verified<br>',
+      '<strong>Email Logs:</strong> ready<br>',
+      '<strong>Timezone:</strong> Asia/Manila</p>',
+      '<p>Next: deploy as a Web App using <strong>Execute as Me</strong>.</p>',
       '</div>',
     ].join(''),
     name: CONFIG.SENDER_NAME,
-    replyTo: CONFIG.RECIPIENT_EMAIL,
+    replyTo: CONFIG.ADMIN_EMAIL,
   });
 
+  console.log('SETUP SUCCESSFUL');
+  console.log('Spreadsheet ID=' + CONFIG.SPREADSHEET_ID);
+  console.log('Deployment account=' + Session.getEffectiveUser().getEmail());
   console.log('COPY THIS EXACT VALUE INTO VERCEL:');
   console.log('CONTACT_FORM_SECRET=' + secret);
-  console.log('Sender/deployment account: ' + Session.getEffectiveUser().getEmail());
 
   return 'Setup complete. Copy CONTACT_FORM_SECRET from the execution log.';
 }
 
-function sendOwnerNotification_(submission) {
-  const subject = CONFIG.SUBJECT_PREFIX + ': ' + submission.projectType + ' — ' + submission.name;
-  const receivedAt = Utilities.formatDate(new Date(), Session.getScriptTimeZone() || 'Asia/Manila', 'MMMM d, yyyy h:mm a z');
-
-  const plainBody = [
-    'New portfolio inquiry',
-    '',
-    'Name: ' + submission.name,
-    'Email: ' + submission.email,
-    'Company/Organization: ' + (submission.company || 'Not provided'),
-    'Inquiry Type: ' + submission.projectType,
-    'Received: ' + receivedAt,
-    '',
-    'Message:',
-    submission.message,
-    '',
-    'Reply directly to this email to respond to ' + submission.name + '.',
-  ].join('\n');
-
-  const htmlBody = [
-    '<div style="margin:0;padding:32px 16px;background:#0c0b10;font-family:Arial,sans-serif;color:#f8f5f8">',
-    '<div style="max-width:640px;margin:0 auto;background:#17131c;border:1px solid #332536;border-radius:22px;overflow:hidden">',
-    '<div style="padding:28px 32px;background:linear-gradient(135deg,#241522,#17131c);border-bottom:1px solid #3f2740">',
-    '<div style="display:inline-block;padding:7px 12px;border-radius:999px;background:#e8449a;color:white;font-size:12px;font-weight:700;letter-spacing:.08em">NEW PORTFOLIO INQUIRY</div>',
-    '<h1 style="margin:18px 0 4px;font-size:26px;color:#ffffff">' + escapeHtml_(submission.projectType) + '</h1>',
-    '<p style="margin:0;color:#b9aebe">Received ' + escapeHtml_(receivedAt) + '</p>',
-    '</div>',
-    '<div style="padding:30px 32px">',
-    detailRow_('Full Name', submission.name),
-    detailRow_('Email Address', submission.email),
-    detailRow_('Company / Organization', submission.company || 'Not provided'),
-    detailRow_('Inquiry Type', submission.projectType),
-    '<div style="margin-top:24px;padding:22px;border-radius:16px;background:#0d0b10;border:1px solid #302431">',
-    '<div style="margin-bottom:10px;color:#ec65ad;font-size:12px;font-weight:700;letter-spacing:.08em">MESSAGE</div>',
-    '<div style="white-space:pre-wrap;color:#f4eef4;line-height:1.7">' + escapeHtml_(submission.message) + '</div>',
-    '</div>',
-    '<p style="margin:24px 0 0;color:#9e91a3;font-size:13px">Reply to this email to respond directly to ' + escapeHtml_(submission.name) + '.</p>',
-    '</div>',
-    '</div>',
-    '</div>',
-  ].join('');
-
-  MailApp.sendEmail({
-    to: CONFIG.RECIPIENT_EMAIL,
-    subject: subject,
-    body: plainBody,
-    htmlBody: htmlBody,
-    name: CONFIG.SENDER_NAME,
-    replyTo: submission.email,
-  });
+/**
+ * Optional maintenance helper. Run only when you intentionally want a new
+ * Vercel/App Script shared secret. Update Vercel immediately after running it.
+ */
+function rotateContactFormSecret() {
+  verifyDeploymentOwner_();
+  const secret = generateSecret_();
+  PropertiesService.getScriptProperties().setProperty('CONTACT_FORM_SECRET', secret);
+  console.log('NEW CONTACT_FORM_SECRET=' + secret);
+  return 'Secret rotated. Update CONTACT_FORM_SECRET in Vercel before testing.';
 }
 
-function sendVisitorConfirmation_(submission) {
-  const subject = 'Thank you for contacting Mae Ann Bodiongan';
+function appendInquiry_(submission) {
+  const lock = LockService.getScriptLock();
+
+  if (!lock.tryLock(10000)) {
+    throw publicError_('The contact service is busy. Please try again in a moment.', 503);
+  }
+
+  try {
+    const spreadsheet = getSpreadsheet_();
+    const sheet = getInquiriesSheet_(spreadsheet);
+    validateInquiriesHeaders_(sheet);
+
+    const referenceId = generateUniqueReferenceId_(sheet);
+    const timestamp = formatInquiryTimestamp_(new Date());
+    const rowNumber = sheet.getLastRow() + 1;
+
+    sheet.getRange(rowNumber, 1, 1, CONFIG.INQUIRY_HEADERS.length).setValues([[
+      referenceId,
+      timestamp,
+      submission.fullName,
+      submission.email,
+      submission.company,
+      submission.inquiryType,
+      submission.message,
+      'New',
+      'Not Sent',
+      'Inquiry recorded; email delivery pending.',
+    ]]);
+
+    SpreadsheetApp.flush();
+
+    return {
+      referenceId: referenceId,
+      timestamp: timestamp,
+      rowNumber: rowNumber,
+    };
+  } catch (error) {
+    const wrapped = new Error('Google Sheets write failed: ' + sanitizeError_(error));
+    wrapped.isSheetWriteFailure = true;
+    wrapped.publicMessage = 'Your inquiry could not be recorded right now. Please try again shortly.';
+    wrapped.statusCode = 500;
+    throw wrapped;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function updateInquiryEmailStatus_(rowNumber, referenceId, visitorResult, adminResult) {
+  const lock = LockService.getScriptLock();
+
+  if (!lock.tryLock(10000)) {
+    console.error('[contact] Could not acquire lock to update email status for ' + referenceId);
+    return;
+  }
+
+  try {
+    const spreadsheet = getSpreadsheet_();
+    const sheet = getInquiriesSheet_(spreadsheet);
+
+    const storedReferenceId = String(sheet.getRange(rowNumber, 1).getDisplayValue() || '').trim();
+    if (storedReferenceId !== referenceId) {
+      throw new Error('Reference ID mismatch while updating inquiry row.');
+    }
+
+    const confirmationStatus = visitorResult.sent ? 'Sent' : 'Failed';
+    const remarks = buildRemarks_(visitorResult, adminResult);
+
+    // I = Confirmation Sent, J = Remarks. Status (H) intentionally remains New.
+    sheet.getRange(rowNumber, 9, 1, 2).setValues([[
+      confirmationStatus,
+      remarks,
+    ]]);
+
+    SpreadsheetApp.flush();
+  } catch (error) {
+    console.error(
+      '[contact] Inquiry was saved, but email status update failed for ' +
+      referenceId + ': ' + sanitizeError_(error)
+    );
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function sendVisitorConfirmation_(submission, referenceId) {
+  const firstName = getFirstName_(submission.fullName);
+  const subject = 'Thank you for reaching out — Mae Ann S. Bodiongan';
 
   const plainBody = [
-    'Hi ' + submission.name + ',',
+    'Hi ' + firstName + ',',
     '',
-    'Thank you for reaching out. Your ' + submission.projectType + ' inquiry has been received successfully.',
+    'Thank you for reaching out.',
     '',
-    'Mae Ann will review your message and respond using the email address you provided.',
+    "I've received your message and will get back to you as soon as possible.",
     '',
-    'Copy of your message:',
-    submission.message,
+    'Reference ID: ' + referenceId,
+    'Inquiry Type: ' + submission.inquiryType,
     '',
-    'Regards,',
-    'Mae Ann Bodiongan',
-    CONFIG.RECIPIENT_EMAIL,
+    'Best regards,',
+    'Mae Ann S. Bodiongan',
+    CONFIG.ADMIN_EMAIL,
   ].join('\n');
 
   const htmlBody = [
     '<div style="margin:0;padding:32px 16px;background:#f6f1f5;font-family:Arial,sans-serif;color:#2a2029">',
-    '<div style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #eadde7;border-radius:22px;overflow:hidden;box-shadow:0 14px 40px rgba(74,30,61,.10)">',
-    '<div style="padding:30px 34px;background:linear-gradient(135deg,#2a1725,#151117);color:white">',
-    '<div style="font-size:12px;font-weight:700;letter-spacing:.10em;color:#ff72b9">MESSAGE RECEIVED</div>',
-    '<h1 style="margin:14px 0 6px;font-size:28px">Thank you for reaching out.</h1>',
-    '<p style="margin:0;color:#d5c7d2">Your inquiry has been delivered successfully.</p>',
+    '<div style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #eadde7;border-radius:20px;overflow:hidden">',
+    '<div style="padding:28px 32px;background:#211720;color:#ffffff">',
+    '<div style="font-size:12px;font-weight:700;letter-spacing:.09em;color:#f277b7">MESSAGE RECEIVED</div>',
+    '<h1 style="margin:12px 0 0;font-size:26px">Thank you for reaching out.</h1>',
     '</div>',
-    '<div style="padding:32px 34px">',
-    '<p style="font-size:16px;line-height:1.7">Hi <strong>' + escapeHtml_(submission.name) + '</strong>,</p>',
-    '<p style="font-size:15px;line-height:1.7;color:#5d4d59">Thank you for contacting me regarding <strong>' + escapeHtml_(submission.projectType) + '</strong>. I will review your message and respond through the email address you provided.</p>',
-    '<div style="margin:24px 0;padding:20px;border-radius:15px;background:#faf6f9;border-left:4px solid #e8449a">',
-    '<div style="margin-bottom:9px;color:#c72e7b;font-size:12px;font-weight:700;letter-spacing:.08em">YOUR MESSAGE</div>',
-    '<div style="white-space:pre-wrap;color:#4f414c;line-height:1.7">' + escapeHtml_(submission.message) + '</div>',
+    '<div style="padding:30px 32px">',
+    '<p style="font-size:16px;line-height:1.7">Hi <strong>' + escapeHtml_(firstName) + '</strong>,</p>',
+    '<p style="font-size:15px;line-height:1.7;color:#5d4d59">Thank you for reaching out. I’ve received your message and will get back to you as soon as possible.</p>',
+    '<div style="margin:22px 0;padding:18px;border-radius:14px;background:#faf6f9;border:1px solid #eadde7">',
+    '<div style="margin-bottom:8px;color:#8f657d;font-size:12px;font-weight:700">REFERENCE ID</div>',
+    '<div style="font-size:18px;font-weight:700;color:#241c24">' + escapeHtml_(referenceId) + '</div>',
+    '<div style="margin-top:14px;color:#8f657d;font-size:12px;font-weight:700">INQUIRY TYPE</div>',
+    '<div style="margin-top:4px;color:#473641">' + escapeHtml_(submission.inquiryType) + '</div>',
     '</div>',
-    '<p style="margin:24px 0 0;line-height:1.7">Regards,<br><strong>Mae Ann Bodiongan</strong><br><a href="mailto:' + CONFIG.RECIPIENT_EMAIL + '" style="color:#d92f86;text-decoration:none">' + CONFIG.RECIPIENT_EMAIL + '</a></p>',
+    '<p style="margin:24px 0 0;line-height:1.7">Best regards,<br><strong>Mae Ann S. Bodiongan</strong><br>',
+    '<a href="mailto:' + CONFIG.ADMIN_EMAIL + '" style="color:#c9337f;text-decoration:none">' + CONFIG.ADMIN_EMAIL + '</a></p>',
     '</div>',
     '</div>',
     '</div>',
   ].join('');
 
-  MailApp.sendEmail({
-    to: submission.email,
+  return sendEmailWithLog_({
+    referenceId: referenceId,
+    fullName: submission.fullName,
+    recipient: submission.email,
+    emailType: 'Visitor Confirmation',
     subject: subject,
     body: plainBody,
     htmlBody: htmlBody,
-    name: CONFIG.SENDER_NAME,
-    replyTo: CONFIG.RECIPIENT_EMAIL,
+    replyTo: CONFIG.ADMIN_EMAIL,
   });
 }
 
-function validateSubmission_(payload) {
-  const name = cleanText_(payload.name, 100);
-  const email = cleanText_(payload.email, 254).toLowerCase();
-  const company = cleanText_(payload.company, 150);
-  const projectType = cleanText_(payload.projectType, 100) || 'Professional Inquiry';
-  const message = cleanMultilineText_(payload.message, CONFIG.MAX_MESSAGE_LENGTH);
+function sendAdminNotification_(submission, referenceId, timestamp) {
+  const subject = 'New Portfolio Inquiry — ' + submission.fullName + ' — ' + referenceId;
 
-  if (name.length < 2) {
-    throw publicError_('Please enter your full name.', 400);
+  const plainBody = [
+    'New portfolio inquiry',
+    '',
+    'Reference ID: ' + referenceId,
+    'Date & Time: ' + timestamp,
+    'Full Name: ' + submission.fullName,
+    'Email Address: ' + submission.email,
+    'Company / Organization: ' + (submission.company || 'Not provided'),
+    'Inquiry Type: ' + submission.inquiryType,
+    '',
+    'Message:',
+    submission.message,
+    '',
+    'Reply to this email to respond directly to ' + submission.fullName + '.',
+  ].join('\n');
+
+  const htmlBody = [
+    '<div style="margin:0;padding:32px 16px;background:#0c0b10;font-family:Arial,sans-serif;color:#f8f5f8">',
+    '<div style="max-width:660px;margin:0 auto;background:#17131c;border:1px solid #332536;border-radius:20px;overflow:hidden">',
+    '<div style="padding:28px 32px;border-bottom:1px solid #3f2740">',
+    '<div style="display:inline-block;padding:7px 12px;border-radius:999px;background:#e8449a;color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em">NEW PORTFOLIO INQUIRY</div>',
+    '<h1 style="margin:18px 0 4px;font-size:25px;color:#fff">' + escapeHtml_(submission.fullName) + '</h1>',
+    '<p style="margin:0;color:#b9aebe">' + escapeHtml_(referenceId) + '</p>',
+    '</div>',
+    '<div style="padding:30px 32px">',
+    detailRow_('Reference ID', referenceId),
+    detailRow_('Date & Time', timestamp),
+    detailRow_('Full Name', submission.fullName),
+    detailRow_('Email Address', submission.email),
+    detailRow_('Company / Organization', submission.company || 'Not provided'),
+    detailRow_('Inquiry Type', submission.inquiryType),
+    '<div style="margin-top:24px;padding:20px;border-radius:14px;background:#0d0b10;border:1px solid #302431">',
+    '<div style="margin-bottom:10px;color:#ec65ad;font-size:12px;font-weight:700;letter-spacing:.08em">MESSAGE</div>',
+    '<div style="white-space:pre-wrap;color:#f4eef4;line-height:1.7">' + escapeHtml_(submission.message) + '</div>',
+    '</div>',
+    '<p style="margin:24px 0 0;color:#9e91a3;font-size:13px">Reply to this email to respond directly to ' + escapeHtml_(submission.fullName) + '.</p>',
+    '</div>',
+    '</div>',
+    '</div>',
+  ].join('');
+
+  return sendEmailWithLog_({
+    referenceId: referenceId,
+    fullName: submission.fullName,
+    recipient: CONFIG.ADMIN_EMAIL,
+    emailType: 'Admin Notification',
+    subject: subject,
+    body: plainBody,
+    htmlBody: htmlBody,
+    replyTo: submission.email,
+  });
+}
+
+function sendEmailWithLog_(mail) {
+  let sent = false;
+  let emailError = '';
+
+  try {
+    MailApp.sendEmail({
+      to: mail.recipient,
+      subject: mail.subject,
+      body: mail.body,
+      htmlBody: mail.htmlBody,
+      name: CONFIG.SENDER_NAME,
+      replyTo: mail.replyTo,
+    });
+    sent = true;
+  } catch (error) {
+    emailError = sanitizeError_(error);
+    console.error(
+      '[contact] ' + mail.emailType + ' failed for ' +
+      mail.referenceId + ': ' + emailError
+    );
   }
 
-  if (!isValidEmail_(email)) {
-    throw publicError_('Please enter a valid email address.', 400);
-  }
-
-  if (message.length < CONFIG.MIN_MESSAGE_LENGTH) {
-    throw publicError_('Please enter a message with at least ' + CONFIG.MIN_MESSAGE_LENGTH + ' characters.', 400);
+  let logError = '';
+  try {
+    writeEmailLog_({
+      referenceId: mail.referenceId,
+      fullName: mail.fullName,
+      recipient: mail.recipient,
+      emailType: mail.emailType,
+      subject: mail.subject,
+      status: sent ? 'Sent' : 'Failed',
+      errorMessage: emailError,
+    });
+  } catch (error) {
+    logError = sanitizeError_(error);
+    console.error(
+      '[contact] Email log write failed for ' +
+      mail.referenceId + ': ' + logError
+    );
   }
 
   return {
-    name: name,
-    email: email,
-    company: company,
-    projectType: projectType,
-    message: message,
+    sent: sent,
+    status: sent ? 'Sent' : 'Failed',
+    error: emailError,
+    logError: logError,
   };
 }
 
+function writeEmailLog_(entry) {
+  const lock = LockService.getScriptLock();
+
+  if (!lock.tryLock(10000)) {
+    throw new Error('Could not acquire a lock for Email Logs.');
+  }
+
+  try {
+    const spreadsheet = getSpreadsheet_();
+    const sheet = ensureEmailLogsSheet_(spreadsheet);
+    const rowNumber = sheet.getLastRow() + 1;
+
+    sheet.getRange(rowNumber, 1, 1, CONFIG.EMAIL_LOG_HEADERS.length).setValues([[
+      formatLogTimestamp_(new Date()),
+      entry.referenceId,
+      entry.fullName,
+      entry.recipient,
+      entry.emailType,
+      entry.subject,
+      entry.status,
+      entry.errorMessage || '',
+    ]]);
+
+    SpreadsheetApp.flush();
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function ensureEmailLogsSheet_(spreadsheet) {
+  let sheet = spreadsheet.getSheetByName(CONFIG.EMAIL_LOGS_SHEET);
+
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(CONFIG.EMAIL_LOGS_SHEET);
+    sheet.getRange(1, 1, 1, CONFIG.EMAIL_LOG_HEADERS.length).setValues([
+      CONFIG.EMAIL_LOG_HEADERS,
+    ]);
+    sheet.setFrozenRows(1);
+    sheet.autoResizeColumns(1, CONFIG.EMAIL_LOG_HEADERS.length);
+    return sheet;
+  }
+
+  const currentHeaders = sheet
+    .getRange(1, 1, 1, CONFIG.EMAIL_LOG_HEADERS.length)
+    .getDisplayValues()[0]
+    .map(function(value) { return String(value || '').trim(); });
+
+  const isCompletelyBlank = currentHeaders.every(function(value) { return !value; });
+
+  if (isCompletelyBlank) {
+    sheet.getRange(1, 1, 1, CONFIG.EMAIL_LOG_HEADERS.length).setValues([
+      CONFIG.EMAIL_LOG_HEADERS,
+    ]);
+    sheet.setFrozenRows(1);
+    return sheet;
+  }
+
+  for (let i = 0; i < CONFIG.EMAIL_LOG_HEADERS.length; i += 1) {
+    if (currentHeaders[i] !== CONFIG.EMAIL_LOG_HEADERS[i]) {
+      throw new Error(
+        'Email Logs header mismatch at column ' + (i + 1) +
+        '. Expected "' + CONFIG.EMAIL_LOG_HEADERS[i] + '" but found "' + currentHeaders[i] + '".'
+      );
+    }
+  }
+
+  return sheet;
+}
+
+function getSpreadsheet_() {
+  const spreadsheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+
+  if (!spreadsheet) {
+    throw new Error('Unable to open the configured Google Spreadsheet.');
+  }
+
+  return spreadsheet;
+}
+
+function getInquiriesSheet_(spreadsheet) {
+  const sheet = spreadsheet.getSheetByName(CONFIG.INQUIRIES_SHEET);
+
+  if (!sheet) {
+    throw new Error('Required worksheet "' + CONFIG.INQUIRIES_SHEET + '" was not found.');
+  }
+
+  return sheet;
+}
+
+function validateInquiriesHeaders_(sheet) {
+  const headers = sheet
+    .getRange(1, 1, 1, CONFIG.INQUIRY_HEADERS.length)
+    .getDisplayValues()[0]
+    .map(function(value) { return String(value || '').trim(); });
+
+  for (let i = 0; i < CONFIG.INQUIRY_HEADERS.length; i += 1) {
+    if (headers[i] !== CONFIG.INQUIRY_HEADERS[i]) {
+      throw new Error(
+        'Inquiries header mismatch at column ' + (i + 1) +
+        '. Expected "' + CONFIG.INQUIRY_HEADERS[i] + '" but found "' + headers[i] + '".'
+      );
+    }
+  }
+}
+
+function generateUniqueReferenceId_(sheet) {
+  const datePart = Utilities.formatDate(new Date(), CONFIG.TIMEZONE, 'yyyyMMdd');
+
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    const suffix = generateRandomCode_(6);
+    const referenceId = 'MAE-' + datePart + '-' + suffix;
+
+    const existing = sheet
+      .getRange('A:A')
+      .createTextFinder(referenceId)
+      .matchEntireCell(true)
+      .findNext();
+
+    if (!existing) {
+      return referenceId;
+    }
+  }
+
+  throw new Error('Could not generate a unique Reference ID.');
+}
+
+function generateRandomCode_(length) {
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const seed = Utilities.computeDigest(
+    Utilities.DigestAlgorithm.SHA_256,
+    Utilities.getUuid() + ':' + new Date().getTime() + ':' + Math.random(),
+    Utilities.Charset.UTF_8
+  );
+
+  let result = '';
+  for (let i = 0; i < length; i += 1) {
+    const byte = seed[i] < 0 ? seed[i] + 256 : seed[i];
+    result += alphabet.charAt(byte % alphabet.length);
+  }
+  return result;
+}
+
+function buildDuplicateKey_(submission, clientSubmissionId) {
+  const clientId = cleanText_(clientSubmissionId, 120);
+  const canonical = [
+    clientId,
+    submission.fullName.toLowerCase(),
+    submission.email.toLowerCase(),
+    submission.company.toLowerCase(),
+    submission.inquiryType.toLowerCase(),
+    submission.message,
+  ].join('|');
+
+  return 'duplicate_' + sha256_(canonical);
+}
+
+
+function safeCacheDuplicate_(key, data) {
+  try {
+    cacheDuplicate_(key, data);
+  } catch (error) {
+    // Duplicate protection is secondary. Never turn a successfully saved
+    // inquiry into a failure just because CacheService is temporarily unavailable.
+    console.error('[contact] Duplicate cache update failed: ' + sanitizeError_(error));
+  }
+}
+
+function cacheDuplicate_(key, data) {
+  CacheService.getScriptCache().put(
+    key,
+    JSON.stringify(data),
+    CONFIG.DUPLICATE_CACHE_SECONDS
+  );
+}
+
+function getCachedDuplicate_(key) {
+  const value = CacheService.getScriptCache().get(key);
+  if (!value) return null;
+
+  try {
+    const parsed = JSON.parse(value);
+    if (!parsed || !parsed.referenceId) return null;
+    return parsed;
+  } catch (error) {
+    return null;
+  }
+}
+
 function enforceRateLimit_(email) {
+  const key = 'rate_' + sha256_(email.toLowerCase());
   const cache = CacheService.getScriptCache();
-  const key = 'contact_' + sha256_(email);
   const lock = LockService.getScriptLock();
 
   if (!lock.tryLock(5000)) {
@@ -276,6 +692,23 @@ function enforceRateLimit_(email) {
     cache.put(key, '1', CONFIG.RATE_LIMIT_SECONDS);
   } finally {
     lock.releaseLock();
+  }
+
+  return key;
+}
+
+
+function safeClearRateLimit_(key) {
+  try {
+    clearRateLimit_(key);
+  } catch (error) {
+    console.error('[contact] Rate-limit cleanup failed: ' + sanitizeError_(error));
+  }
+}
+
+function clearRateLimit_(key) {
+  if (key) {
+    CacheService.getScriptCache().remove(key);
   }
 }
 
@@ -291,8 +724,48 @@ function parsePayload_(e) {
   }
 }
 
+function validateSubmission_(payload) {
+  const fullName = cleanText_(payload.fullName || payload.name, CONFIG.MAX_NAME_LENGTH);
+  const email = cleanText_(payload.email, CONFIG.MAX_EMAIL_LENGTH).toLowerCase();
+  const company = cleanText_(payload.company, CONFIG.MAX_COMPANY_LENGTH);
+  const inquiryType = cleanText_(
+    payload.inquiryType || payload.projectType,
+    CONFIG.MAX_INQUIRY_TYPE_LENGTH
+  );
+  const message = cleanMultilineText_(payload.message, CONFIG.MAX_MESSAGE_LENGTH);
+
+  if (fullName.length < 2) {
+    throw publicError_('Please enter your full name.', 400);
+  }
+
+  if (!isValidEmail_(email)) {
+    throw publicError_('Please enter a valid email address.', 400);
+  }
+
+  if (!inquiryType) {
+    throw publicError_('Please select an inquiry type.', 400);
+  }
+
+  if (message.length < CONFIG.MIN_MESSAGE_LENGTH) {
+    throw publicError_(
+      'Please enter a message with at least ' + CONFIG.MIN_MESSAGE_LENGTH + ' characters.',
+      400
+    );
+  }
+
+  return {
+    fullName: fullName,
+    email: email,
+    company: company,
+    inquiryType: inquiryType,
+    message: message,
+  };
+}
+
 function verifySecret_(receivedSecret) {
-  const expectedSecret = PropertiesService.getScriptProperties().getProperty('CONTACT_FORM_SECRET');
+  const expectedSecret = PropertiesService
+    .getScriptProperties()
+    .getProperty('CONTACT_FORM_SECRET');
 
   if (!expectedSecret) {
     throw new Error('CONTACT_FORM_SECRET is missing. Run setupContactBackend() first.');
@@ -305,14 +778,56 @@ function verifySecret_(receivedSecret) {
 
 function verifyDeploymentOwner_() {
   const effectiveEmail = String(Session.getEffectiveUser().getEmail() || '').toLowerCase();
-  const requiredEmail = CONFIG.RECIPIENT_EMAIL.toLowerCase();
+  const requiredEmail = CONFIG.ADMIN_EMAIL.toLowerCase();
 
   if (effectiveEmail && effectiveEmail !== requiredEmail) {
     throw new Error(
-      'This Apps Script must be created and deployed by ' + CONFIG.RECIPIENT_EMAIL +
+      'This Apps Script must be owned/deployed by ' + CONFIG.ADMIN_EMAIL +
       '. Current effective account: ' + effectiveEmail
     );
   }
+}
+
+function buildRemarks_(visitorResult, adminResult) {
+  const parts = [];
+
+  if (visitorResult.sent && adminResult.sent) {
+    parts.push('Confirmation and admin notification sent successfully.');
+  } else {
+    if (visitorResult.sent) {
+      parts.push('Visitor confirmation sent successfully.');
+    } else {
+      parts.push('Inquiry recorded but visitor confirmation failed: ' + (visitorResult.error || 'Unknown email error') + '.');
+    }
+
+    if (adminResult.sent) {
+      parts.push('Admin notification sent successfully.');
+    } else {
+      parts.push('Admin notification failed: ' + (adminResult.error || 'Unknown email error') + '.');
+    }
+  }
+
+  const logErrors = [];
+  if (visitorResult.logError) logErrors.push(visitorResult.logError);
+  if (adminResult.logError) logErrors.push(adminResult.logError);
+  if (logErrors.length) {
+    parts.push('Email logging issue: ' + logErrors.join(' | '));
+  }
+
+  return cleanText_(parts.join(' '), 1500);
+}
+
+function formatInquiryTimestamp_(date) {
+  return Utilities.formatDate(date, CONFIG.TIMEZONE, 'MMMM d, yyyy hh:mm a');
+}
+
+function formatLogTimestamp_(date) {
+  return Utilities.formatDate(date, CONFIG.TIMEZONE, 'yyyy-MM-dd HH:mm:ss');
+}
+
+function getFirstName_(fullName) {
+  const cleaned = cleanText_(fullName, CONFIG.MAX_NAME_LENGTH);
+  return cleaned ? cleaned.split(' ')[0] : 'there';
 }
 
 function cleanText_(value, maxLength) {
@@ -334,13 +849,22 @@ function cleanMultilineText_(value, maxLength) {
 }
 
 function isValidEmail_(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= 254;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= CONFIG.MAX_EMAIL_LENGTH;
+}
+
+function generateSecret_() {
+  return sha256_(
+    Utilities.getUuid() + ':' +
+    Utilities.getUuid() + ':' +
+    new Date().getTime() + ':' +
+    Math.random()
+  ) + sha256_(Utilities.getUuid() + ':' + Math.random());
 }
 
 function sha256_(value) {
   const digest = Utilities.computeDigest(
     Utilities.DigestAlgorithm.SHA_256,
-    value,
+    String(value || ''),
     Utilities.Charset.UTF_8
   );
 
@@ -348,6 +872,30 @@ function sha256_(value) {
     const normalized = byte < 0 ? byte + 256 : byte;
     return ('0' + normalized.toString(16)).slice(-2);
   }).join('');
+}
+
+function sanitizeError_(error) {
+  let message = '';
+
+  if (error && error.message) {
+    message = String(error.message);
+  } else {
+    message = String(error || 'Unknown error');
+  }
+
+  // Remove common secret/token-like strings from anything persisted to Sheets.
+  return message
+    .replace(/Bearer\s+[A-Za-z0-9._~+\/-]+=*/gi, 'Bearer [REDACTED]')
+    .replace(/AIza[A-Za-z0-9_-]{20,}/g, '[REDACTED_API_KEY]')
+    .replace(/[A-Fa-f0-9]{64,}/g, '[REDACTED_TOKEN]')
+    .replace(/[\r\n\t]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 500);
+}
+
+function isSheetWriteFailure_(error) {
+  return Boolean(error && error.isSheetWriteFailure);
 }
 
 function escapeHtml_(value) {
