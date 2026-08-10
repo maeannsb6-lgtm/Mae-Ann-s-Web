@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, Phone, Send, Terminal, XCircle } from 'lucide-react';
+import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, Phone, Send, XCircle } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Button } from '../ui/Button';
 import { contactInfo } from '../../data/content';
@@ -13,6 +13,19 @@ interface ContactResponse {
   message?: string;
   error?: string;
   confirmationSent?: boolean;
+}
+
+function FacebookIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M13.5 22v-8h2.75l.41-3.2H13.5V8.76c0-.93.26-1.56 1.59-1.56H16.8V4.34c-.3-.04-1.31-.13-2.5-.13-2.47 0-4.16 1.51-4.16 4.28v2.31H7.35V14h2.79v8h3.36Z" />
+    </svg>
+  );
 }
 
 function createSubmissionId() {
@@ -168,19 +181,19 @@ export function Contact() {
 
             <div>
               <p className="text-sm font-semibold text-white mb-4">Professional Links</p>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 {[
-                  { icon: Terminal, link: contactInfo.socials.github, label: 'GitHub' },
                   { icon: Briefcase, link: contactInfo.socials.linkedin, label: 'LinkedIn' },
+                  { icon: FacebookIcon, link: contactInfo.socials.facebook, label: 'Facebook' },
                 ].map((social) => (
                   <a
                     key={social.label}
                     href={social.link}
                     target="_blank"
-                    rel="noreferrer"
-                    aria-label={social.label}
+                    rel="noopener noreferrer"
+                    aria-label={social.label === 'Facebook' ? 'Mae Ann Bodiongan on Facebook' : social.label}
                     title={social.label}
-                    className="w-10 h-10 bg-brand-card rounded-lg flex items-center justify-center border border-white/5 hover:bg-brand-pink-primary hover:border-brand-pink-primary hover:text-white text-brand-text-secondary transition-all"
+                    className="w-10 h-10 bg-brand-card rounded-lg flex items-center justify-center border border-white/5 hover:-translate-y-0.5 hover:bg-brand-pink-primary/15 hover:border-brand-pink-primary hover:text-brand-pink-bright hover:shadow-[0_8px_22px_rgba(236,72,153,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg-secondary text-brand-text-secondary transition-all"
                   >
                     <social.icon className="w-5 h-5" />
                   </a>

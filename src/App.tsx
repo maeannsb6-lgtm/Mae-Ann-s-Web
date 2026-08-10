@@ -14,6 +14,7 @@ import { FeaturedWorks, AllProjects } from './components/sections/Projects';
 import { Experience } from './components/sections/Experience';
 import { Journey } from './components/sections/Journey';
 import { EducationTraining } from './components/sections/Testimonials';
+import { ResearchPublications } from './components/sections/ResearchPublications';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/layout/Footer';
 
@@ -33,6 +34,7 @@ export default function App() {
         <Experience />
         <Journey />
         <EducationTraining />
+        <ResearchPublications />
         <Contact />
       </main>
       <Footer />

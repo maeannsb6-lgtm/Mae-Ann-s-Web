@@ -421,5 +421,6 @@ export const contactInfo = {
   socials: {
     github: 'https://github.com/maeannsb6-lgtm',
     linkedin: 'https://www.linkedin.com/in/bsie-maeannbodiongan',
+    facebook: 'https://www.facebook.com/maeann.sotto.12/',
   },
 };

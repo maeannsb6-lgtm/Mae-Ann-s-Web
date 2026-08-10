@@ -5,6 +5,12 @@ import { navLinks } from '../../data/content';
 import { Button, MotionButton } from '../ui/Button';
 import { cn } from '../../lib/utils';
 
+const navigationLinks = [
+  ...navLinks.filter(link => link.href !== '#contact'),
+  { name: 'Research', href: '#research' },
+  ...navLinks.filter(link => link.href === '#contact'),
+];
+
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,7 +21,7 @@ export function Navbar() {
       setIsScrolled(window.scrollY > 20);
       
       // Determine active section based on scroll position
-      const sections = navLinks.map(link => link.href.substring(1));
+      const sections = navigationLinks.map(link => link.href.substring(1));
       let current = '';
       
       for (const section of sections) {
@@ -53,8 +59,8 @@ export function Navbar() {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-8">
+            {navigationLinks.map((link) => (
               <a 
                 key={link.name}
                 href={link.href}
@@ -86,6 +92,9 @@ export function Navbar() {
           <button 
             className="lg:hidden p-2 text-brand-text-secondary hover:text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -96,13 +105,14 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-brand-card border-b border-white/10 overflow-hidden"
           >
-            <div className="flex flex-col px-4 py-6 gap-4">
-              {navLinks.map((link) => (
+            <div className="flex max-h-[calc(100vh-5rem)] flex-col gap-4 overflow-y-auto px-4 py-6">
+              {navigationLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
