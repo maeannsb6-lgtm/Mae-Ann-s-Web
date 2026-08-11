@@ -146,7 +146,7 @@ export function Hero() {
                       z: { duration: 0.55, delay: 0.65 },
                     }
               }
-              className="absolute -bottom-6 -right-3 sm:-right-10 z-20 hidden sm:block rounded-xl border border-brand-pink-primary/30 bg-brand-card/90 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.42),0_0_30px_rgba(236,72,153,0.12)] backdrop-blur-md"
+              className="absolute -bottom-14 -right-3 sm:-right-10 z-20 hidden sm:block rounded-xl border border-brand-pink-primary/30 bg-brand-card/90 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.42),0_0_30px_rgba(236,72,153,0.12)] backdrop-blur-md"
             >
               <pre className="text-xs font-mono leading-relaxed text-brand-text-secondary">
                 <span className="text-brand-pink-soft">const</span> impact = {'{'}
