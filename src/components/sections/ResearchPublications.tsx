@@ -84,8 +84,8 @@ export function ResearchPublications() {
               whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.45, delay: shouldReduceMotion ? 0 : index * 0.06 }}
-              whileHover={shouldReduceMotion ? undefined : { y: -6 }}
-              className="group relative flex h-full flex-col rounded-2xl border border-white/[0.08] bg-gradient-to-b from-brand-card to-[#0c0c12] p-5 sm:p-6 lg:p-7 shadow-[0_16px_50px_rgba(0,0,0,0.22)] transition-[border-color,box-shadow] duration-300 hover:border-brand-pink-primary/35 hover:shadow-[0_22px_60px_rgba(236,72,153,0.09)] focus-within:border-brand-pink-primary/40"
+              whileHover={shouldReduceMotion ? undefined : { y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
+              className="depth-card group relative flex h-full flex-col rounded-2xl border border-white/[0.08] bg-gradient-to-b from-brand-card to-[#0c0c12] p-5 sm:p-6 lg:p-7 transition-[border-color,box-shadow] duration-300 hover:border-brand-pink-primary/35 focus-within:border-brand-pink-primary/40"
             >
               <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-pink-primary/45 to-transparent opacity-70" />
 
@@ -151,7 +151,7 @@ export function ResearchPublications() {
           whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.4 }}
-          className="mt-10 rounded-2xl border border-white/[0.07] bg-brand-bg-secondary/70 p-5 sm:p-6"
+          className="depth-panel mt-10 rounded-2xl border border-white/[0.07] bg-brand-bg-secondary/70 p-5 sm:p-6"
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-md">
@@ -165,7 +165,7 @@ export function ResearchPublications() {
               {capabilities.map((capability) => (
                 <span
                   key={capability}
-                  className="rounded-full border border-white/[0.07] bg-brand-card px-3 py-1.5 text-xs font-medium text-brand-text-secondary"
+                  className="depth-chip rounded-full border border-white/[0.07] bg-brand-card px-3 py-1.5 text-xs font-medium text-brand-text-secondary"
                 >
                   {capability}
                 </span>

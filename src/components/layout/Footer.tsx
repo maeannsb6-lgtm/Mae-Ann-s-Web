@@ -1,16 +1,15 @@
-import { Code2 } from 'lucide-react';
 import { contactInfo, navLinks, services } from '../../data/content';
 
 export function Footer() {
   return (
-    <footer className="bg-brand-bg-primary border-t border-white/10 pt-16 pb-8">
+    <footer className="relative z-10 bg-brand-bg-primary/95 border-t border-white/[0.08] pt-16 pb-8 shadow-[0_-18px_50px_rgba(0,0,0,0.22)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           
           {/* Brand */}
           <div className="col-span-1 lg:col-span-1">
             <a href="#home" className="flex items-center gap-2 mb-4">
-              <div className="flex items-center justify-center w-9 h-9 bg-brand-pink-primary/10 rounded-lg border border-brand-pink-primary/20">
+              <div className="depth-chip flex items-center justify-center w-9 h-9 bg-brand-pink-primary/10 rounded-lg border border-brand-pink-primary/20">
                 <span className="font-bold text-xl text-brand-pink-bright leading-none -mt-1">m.</span>
               </div>
               <span className="font-bold text-xl tracking-tight text-white">
@@ -77,8 +76,8 @@ export function Footer() {
             © {new Date().getFullYear()} Mae. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a href={contactInfo.socials.github} target="_blank" rel="noreferrer" className="text-brand-text-muted hover:text-white transition-colors text-sm">GitHub</a>
-            <a href={contactInfo.socials.linkedin} target="_blank" rel="noreferrer" className="text-brand-text-muted hover:text-white transition-colors text-sm">LinkedIn</a>
+            <a href={contactInfo.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-brand-text-muted hover:text-brand-pink-soft transition-colors text-sm">LinkedIn</a>
+            <a href={contactInfo.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-brand-text-muted hover:text-brand-pink-soft transition-colors text-sm">Facebook</a>
           </div>
         </div>
       </div>

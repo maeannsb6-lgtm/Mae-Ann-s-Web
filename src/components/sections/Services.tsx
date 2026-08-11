@@ -26,8 +26,8 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="bg-brand-card p-8 rounded-3xl border border-white/5 hover:border-brand-pink-primary/40 hover:shadow-[0_0_30px_rgba(236,72,153,0.1)] transition-all duration-300 group flex flex-col h-full"
+                whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
+                className="depth-card bg-brand-card p-8 rounded-3xl border border-white/5 hover:border-brand-pink-primary/40 transition-all duration-300 group flex flex-col h-full"
               >
                 <div className="w-14 h-14 bg-brand-bg-primary rounded-2xl flex items-center justify-center mb-6 border border-white/5 group-hover:bg-brand-pink-primary/10 group-hover:border-brand-pink-primary/30 transition-colors">
                   <Icon className="w-7 h-7 text-brand-pink-primary group-hover:text-brand-pink-bright transition-colors" />

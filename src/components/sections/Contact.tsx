@@ -164,7 +164,7 @@ export function Contact() {
                   transition={{ delay: index * 0.1 }}
                   className="flex items-center gap-4 group"
                 >
-                  <div className="w-12 h-12 bg-brand-card rounded-xl flex items-center justify-center border border-white/5 group-hover:border-brand-pink-primary/30 group-hover:bg-brand-pink-primary/10 transition-colors">
+                  <div className="depth-chip w-12 h-12 bg-brand-card rounded-xl flex items-center justify-center border border-white/5 group-hover:border-brand-pink-primary/30 group-hover:bg-brand-pink-primary/10 transition-colors">
                     <item.icon className="w-5 h-5 text-brand-pink-primary group-hover:text-brand-pink-bright" />
                   </div>
                   <div>
@@ -193,7 +193,7 @@ export function Contact() {
                     rel="noopener noreferrer"
                     aria-label={social.label === 'Facebook' ? 'Mae Ann Bodiongan on Facebook' : social.label}
                     title={social.label}
-                    className="w-10 h-10 bg-brand-card rounded-lg flex items-center justify-center border border-white/5 hover:-translate-y-0.5 hover:bg-brand-pink-primary/15 hover:border-brand-pink-primary hover:text-brand-pink-bright hover:shadow-[0_8px_22px_rgba(236,72,153,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg-secondary text-brand-text-secondary transition-all"
+                    className="depth-button w-10 h-10 bg-brand-card rounded-lg flex items-center justify-center border border-white/5 hover:bg-brand-pink-primary/15 hover:border-brand-pink-primary hover:text-brand-pink-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg-secondary text-brand-text-secondary transition-all"
                   >
                     <social.icon className="w-5 h-5" />
                   </a>
@@ -206,7 +206,7 @@ export function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-brand-card p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden"
+            className="depth-panel bg-brand-card p-8 md:p-10 rounded-3xl border border-white/5 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-pink-primary/10 blur-[80px] rounded-full pointer-events-none" />
 

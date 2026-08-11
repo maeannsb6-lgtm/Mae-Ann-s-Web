@@ -24,8 +24,8 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.12 }}
-              whileHover={{ y: -6 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/[0.07] bg-brand-card/90 p-6 shadow-[0_22px_55px_rgba(0,0,0,0.28)] transition-[border-color,box-shadow] duration-300 hover:border-brand-pink-primary/35 hover:shadow-[0_26px_65px_rgba(236,72,153,0.10)] sm:p-7"
+              whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
+              className="depth-card group relative overflow-hidden rounded-3xl border border-white/[0.07] bg-brand-card/90 p-6 transition-[border-color,box-shadow] duration-300 hover:border-brand-pink-primary/35 sm:p-7"
             >
               <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-pink-primary/80 to-transparent" />
               <div className="pointer-events-none absolute -right-16 -top-20 h-40 w-40 rounded-full bg-brand-pink-primary/[0.08] blur-3xl opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
@@ -61,7 +61,7 @@ export function Skills() {
                       }}
                       className="group/skill"
                     >
-                      <div className="flex items-center gap-3 rounded-2xl border border-white/[0.055] bg-brand-bg-primary/65 px-4 py-3.5 transition-all duration-300 hover:border-brand-pink-primary/25 hover:bg-brand-card-hover">
+                      <div className="depth-chip flex items-center gap-3 rounded-2xl border border-white/[0.055] bg-brand-bg-primary/65 px-4 py-3.5 transition-all duration-300 hover:border-brand-pink-primary/25 hover:bg-brand-card-hover">
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-brand-card transition-all duration-300 group-hover/skill:border-brand-pink-primary/25 group-hover/skill:bg-brand-pink-primary/10">
                           <Icon className="h-4 w-4 text-brand-text-secondary transition-colors duration-300 group-hover/skill:text-brand-pink-bright" />
                         </div>

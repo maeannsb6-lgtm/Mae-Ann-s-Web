@@ -41,7 +41,7 @@ export function Achievements() {
         <SectionHeading 
           label="VERIFIED ACHIEVEMENTS" 
           title="Competition, Research, and Training Highlights" 
-          description="Every item below is based on the dates and recognitions listed in my current CV."
+          description="Selected competition, research, conference, and training recognitions with documented dates and results."
           className="mb-16"
         />
 
@@ -56,7 +56,7 @@ export function Achievements() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-brand-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-pink-primary transition-all duration-300 group shadow-lg"
+                className="depth-card bg-brand-card p-6 rounded-2xl border border-white/[0.06] hover:border-brand-pink-primary/35 transition-all duration-300 group"
               >
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-4xl font-bold text-white group-hover:text-brand-pink-soft transition-colors">
@@ -76,7 +76,7 @@ export function Achievements() {
         {/* Detailed Achievements */}
         <div className="text-center mb-12">
           <span className="px-3 py-1 text-xs font-semibold tracking-wider text-brand-pink-bright uppercase bg-brand-pink-primary/10 rounded-full border border-brand-pink-primary/20">
-            CV-LISTED RECOGNITIONS
+            SELECTED RECOGNITIONS
           </span>
         </div>
 
@@ -90,8 +90,8 @@ export function Achievements() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                className="bg-brand-card p-6 md:p-8 rounded-3xl border border-white/5 relative overflow-hidden group"
+                whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
+                className="depth-card bg-brand-card p-6 md:p-8 rounded-3xl border border-white/5 relative overflow-hidden group"
               >
                 {/* Hover line indicator */}
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-pink-primary opacity-0 group-hover:opacity-100 transition-opacity" />

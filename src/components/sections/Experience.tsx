@@ -29,7 +29,7 @@ export function Experience() {
                 {/* Timeline Dot */}
                 <div className="absolute left-[-4px] md:left-[28px] top-1.5 w-2 h-2 rounded-full bg-brand-pink-primary shadow-[0_0_10px_rgba(236,72,153,0.8)] ring-4 ring-brand-bg-primary" />
                 
-                <div className="bg-brand-card p-6 md:p-8 rounded-3xl border border-white/5 hover:border-brand-pink-primary/30 transition-colors group">
+                <div className="depth-card bg-brand-card p-6 md:p-8 rounded-3xl border border-white/5 hover:border-brand-pink-primary/30 transition-colors group">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                     <div>
                       <h3 className="text-xl font-bold text-white group-hover:text-brand-pink-soft transition-colors">{exp.title}</h3>

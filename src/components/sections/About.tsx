@@ -40,7 +40,7 @@ export function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                In my current role at SUWECO Tablas Energy Corp., I support solar and diesel power plant projects, coordinate documentation and compliance requirements, collaborate with engineering, finance, and management teams, and develop AI-assisted web and Google Workspace automations using the tools listed in my CV.
+                In my current role at SUWECO Tablas Energy Corp., I support solar and diesel power plant projects, coordinate documentation and compliance requirements, collaborate with engineering, finance, and management teams, and develop AI-assisted web and Google Workspace automations.
               </motion.p>
             </div>
             
@@ -62,7 +62,8 @@ export function About() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-brand-card border border-white/5 p-8 rounded-3xl shadow-2xl relative overflow-hidden"
+            whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
+            className="depth-card bg-brand-card border border-white/5 p-8 rounded-3xl relative overflow-hidden"
           >
             {/* Decorative Glow */}
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-brand-pink-primary/20 blur-[80px] rounded-full pointer-events-none" />

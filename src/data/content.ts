@@ -32,8 +32,8 @@ export const navLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
-// Skills listed in Mae Ann's current CV. Percentages are intentionally omitted
-// because the CV does not provide measured proficiency scores.
+// Core professional and technical capabilities. Percentages are intentionally omitted
+// because measured proficiency scores are not used in this portfolio.
 export const skills = [
   {
     category: 'Industrial Engineering',
@@ -73,9 +73,9 @@ export const skills = [
 ];
 
 export const achievementsStats = [
-  { value: '5', label: 'Industry Roles', description: 'One current project-coordination role, three internship roles, and one work-immersion role listed in the CV.', icon: Briefcase },
+  { value: '5', label: 'Industry Roles', description: 'One current project-coordination role, three internship roles, and one work-immersion role across engineering and operations.', icon: Briefcase },
   { value: '7', label: 'Competition & Research Highlights', description: 'Documented competition, presentation, conference, and research recognitions.', icon: Trophy },
-  { value: '5', label: 'Trainings & Certifications', description: 'Current CV-listed training and certifications in AI, continuous improvement, and Lean Six Sigma.', icon: Award },
+  { value: '5', label: 'Trainings & Certifications', description: 'Training and certifications in AI, continuous improvement, and Lean Six Sigma.', icon: Award },
   { value: '4', label: 'Organizations & Engagements', description: 'Documented memberships and career-center engagement at TIP Quezon City.', icon: Users },
 ];
 
@@ -247,7 +247,7 @@ export const projects = [
     description: 'This responsive portfolio presenting verified experience, skills, training, achievements, and selected digital work.',
     image: 'https://images.unsplash.com/photo-1507238692062-710e906385d0?auto=format&fit=crop&q=80&w=800',
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    achievement: 'Turned the content of the current CV into an accessible and interactive web portfolio.',
+    achievement: 'Built an accessible and interactive web portfolio presenting verified professional experience, capabilities, and selected work.',
     year: '2026',
     status: 'Current',
     liveUrl: '#',

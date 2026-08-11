@@ -25,7 +25,8 @@ export function Journey() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-brand-card p-6 rounded-3xl border border-white/5 relative group flex flex-col h-full"
+                whileHover={{ y: -5, rotateX: 0.6, rotateY: -0.6, scale: 1.01 }}
+                className="depth-card bg-brand-card p-6 rounded-3xl border border-white/5 relative group flex flex-col h-full"
               >
                 {/* Connecting Line (Desktop only) */}
                 {index < journey.length - 1 && (

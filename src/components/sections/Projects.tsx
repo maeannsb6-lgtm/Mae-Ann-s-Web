@@ -41,7 +41,8 @@ export function FeaturedWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-brand-card rounded-3xl border border-white/5 overflow-hidden group flex flex-col h-full"
+              whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
+              className="depth-card bg-brand-card rounded-3xl border border-white/5 overflow-hidden group flex flex-col h-full"
             >
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
@@ -174,9 +175,10 @@ export function AllProjects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
+                whileHover={{ y: -5, rotateX: 0.6, rotateY: -0.6, scale: 1.01 }}
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
-                className="bg-brand-card rounded-2xl border border-white/5 overflow-hidden cursor-pointer group hover:border-brand-pink-primary/40 transition-colors"
+                className="depth-card bg-brand-card rounded-2xl border border-white/5 overflow-hidden cursor-pointer group hover:border-brand-pink-primary/40 transition-colors"
               >
                 <div className="h-40 overflow-hidden relative">
                   <div className="absolute inset-0 bg-brand-bg-primary/20 group-hover:bg-transparent transition-colors z-10" />
@@ -222,7 +224,7 @@ export function AllProjects() {
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="relative w-full max-w-4xl bg-brand-card border border-brand-pink-primary/30 rounded-3xl overflow-hidden shadow-2xl shadow-brand-pink-primary/10 max-h-[90vh] flex flex-col"
+              className="depth-panel relative w-full max-w-4xl bg-brand-card border border-brand-pink-primary/30 rounded-3xl overflow-hidden max-h-[90vh] flex flex-col"
             >
               <button 
                 onClick={() => setSelectedProject(null)}

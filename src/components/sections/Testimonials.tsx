@@ -10,7 +10,7 @@ export function EducationTraining() {
         <SectionHeading
           label="QUALIFICATIONS"
           title="Education, Training, and Certifications"
-          description="Institutions, providers, and dates are presented as listed in my current CV."
+          description="Education, training, and certifications presented with their documented institutions, providers, and dates."
           className="mb-16"
         />
 
@@ -31,7 +31,8 @@ export function EducationTraining() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.08 }}
-                  className="bg-brand-card p-6 rounded-2xl border border-white/5"
+                  whileHover={{ y: -4, rotateX: 0.5, rotateY: -0.5, scale: 1.005 }}
+                  className="depth-card bg-brand-card p-6 rounded-2xl border border-white/5"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                     <h4 className="text-white font-semibold">{item.level}</h4>
@@ -62,7 +63,8 @@ export function EducationTraining() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.08 }}
-                  className="bg-brand-card p-6 rounded-2xl border border-white/5 hover:border-brand-pink-primary/30 transition-colors"
+                  whileHover={{ y: -4, rotateX: 0.5, rotateY: -0.5, scale: 1.005 }}
+                  className="depth-card bg-brand-card p-6 rounded-2xl border border-white/5 hover:border-brand-pink-primary/30 transition-colors"
                 >
                   <h4 className="text-white font-semibold mb-2">{item.title}</h4>
                   <p className="text-brand-text-secondary text-sm">{item.provider}</p>

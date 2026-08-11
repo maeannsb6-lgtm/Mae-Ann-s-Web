@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { navLinks } from '../../data/content';
 import { Button, MotionButton } from '../ui/Button';
 import { cn } from '../../lib/utils';
@@ -40,17 +40,17 @@ export function Navbar() {
   return (
     <header 
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        "fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter,border-color,box-shadow,padding] duration-300 border-b",
         isScrolled 
-          ? "bg-brand-bg-primary/80 backdrop-blur-md border-white/10 py-3" 
-          : "bg-transparent border-transparent py-5"
+          ? "bg-brand-bg-primary/80 backdrop-blur-xl border-white/[0.08] py-3 shadow-[0_12px_34px_rgba(0,0,0,0.24)]" 
+          : "bg-brand-bg-primary/10 backdrop-blur-[2px] border-transparent py-5"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="flex items-center justify-center w-9 h-9 bg-brand-pink-primary/10 rounded-lg group-hover:bg-brand-pink-primary/20 transition-colors border border-brand-pink-primary/20">
+          <a href="#home" className="group flex items-center gap-2 [perspective:800px]">
+            <div className="depth-chip flex items-center justify-center w-9 h-9 bg-brand-pink-primary/10 rounded-lg group-hover:bg-brand-pink-primary/20 transition-colors border border-brand-pink-primary/20">
               <span className="font-bold text-xl text-brand-pink-bright leading-none -mt-1">m.</span>
             </div>
             <span className="font-bold text-xl tracking-tight text-white">
@@ -74,7 +74,7 @@ export function Navbar() {
                 {activeSection === link.href.substring(1) && (
                   <motion.div 
                     layoutId="activeNav"
-                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-brand-pink-primary shadow-[0_0_10px_rgba(236,72,153,0.5)]"
+                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-brand-pink-primary shadow-[0_4px_12px_rgba(236,72,153,0.25)]"
                   />
                 )}
               </a>
@@ -90,7 +90,7 @@ export function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="lg:hidden p-2 text-brand-text-secondary hover:text-white"
+            className="depth-button lg:hidden p-2 rounded-lg border border-transparent text-brand-text-secondary hover:text-white hover:border-white/10 hover:bg-brand-card"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isMobileMenuOpen}
@@ -109,7 +109,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-brand-card border-b border-white/10 overflow-hidden"
+            className="depth-panel lg:hidden bg-brand-card/95 backdrop-blur-xl border-b border-white/10 overflow-hidden shadow-[0_22px_45px_rgba(0,0,0,0.32)]"
           >
             <div className="flex max-h-[calc(100vh-5rem)] flex-col gap-4 overflow-y-auto px-4 py-6">
               {navigationLinks.map((link) => (
