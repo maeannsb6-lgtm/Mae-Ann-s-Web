@@ -1,305 +1,133 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, GitBranch, ExternalLink, X } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, PlayCircle, Workflow as WorkflowIcon } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
-import { projects } from '../../data/content';
-import { useState } from 'react';
-import { Button, MotionButton } from '../ui/Button';
+import { ProcessImpact, ProcessMetrics, Workflow } from '../ui/Workflow';
+import { processImpact, projectLinks } from '../../data/content';
+import { GithubMark } from '../ui/BrandIcons';
 
-interface ProjectType {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  achievement: string;
-  year: string;
-  status: string;
-  liveUrl: string;
-  githubUrl: string;
-  featured: boolean;
-}
+const solarFlow = ['Client Intake', 'Data Validation', 'Engineering Analysis', 'System Configuration', 'AI-Assisted Recommendation', 'Proposal Generation', 'Database Storage', 'Client Communication'];
+const beforeFlow = ['Client Inquiry', 'Manual Information Collection', 'Excel', 'Manual Engineering Check', 'Manual Recommendation', 'Manual Proposal', 'Manual Email'];
+const afterFlow = ['Client Inquiry', 'Structured Intake', 'Validation', 'Central Database', 'Engineering Logic', 'AI Assistance', 'Proposal Generation', 'Client Workflow'];
+
+const linkClass = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/12 px-4 text-sm font-semibold text-white transition hover:border-brand-accent/50 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent';
 
 export function FeaturedWorks() {
-  const featuredProjects = projects.filter(p => p.featured).slice(0, 3);
-
   return (
-    <section id="works" className="py-24 bg-brand-bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading 
-          label="FEATURED WORKS" 
-          title="Selected Projects and Digital Solutions" 
-          description="A collection of web applications, automation systems, Notion workspaces, dashboards, and digital solutions I have designed and developed."
-          className="mb-16"
-        />
+    <section id="projects" className="section-shell bg-brand-bg-secondary">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading label="Featured Case Study" title="AI-Enabled Solar Proposal & Client Workflow System" description="Industrial Engineering × AI Automation × Client Workflow Design" className="mb-12" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
-              className="depth-card bg-brand-card rounded-3xl border border-white/5 overflow-hidden group flex flex-col h-full"
-            >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-brand-pink-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute top-4 left-4 z-20">
-                  <span className="px-3 py-1 text-xs font-semibold tracking-wider text-brand-pink-bright bg-brand-bg-primary/80 backdrop-blur-md rounded-full border border-brand-pink-primary/30">
-                    {project.category}
-                  </span>
-                </div>
-                <div className="absolute top-4 right-4 z-20">
-                  <span className="text-white/60 font-mono text-sm">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
+        <article id="solar-case-study" className="overflow-hidden rounded-[2rem] border border-white/[0.09] bg-brand-card">
+          <div className="grid gap-px bg-white/[0.07] lg:grid-cols-3">
+            <CaseColumn number="01" title="Problem" items={['Manual and repeated client information gathering', 'Separate engineering calculation and recommendation steps', 'Time-consuming proposal preparation', 'Fragmented project and client information']} />
+            <CaseColumn number="02" title="My Role" items={['Industrial Engineering', 'Process design', 'Project coordination', 'Automation and AI integration', 'System development']} />
+            <CaseColumn number="03" title="Solution" items={['Structured client intake', 'Validated engineering workflow', 'AI-assisted guidance', 'Automated proposal process', 'Centralized project data']} />
+          </div>
+
+          <div className="border-t border-white/[0.08] p-6 sm:p-8 lg:p-10">
+            <p className="eyebrow">Solution workflow</p>
+            <Workflow steps={solarFlow} ariaLabel="Solar proposal system workflow" />
+          </div>
+
+          <div className="grid border-t border-white/[0.08] lg:grid-cols-2">
+            <div className="p-6 sm:p-8 lg:p-10"><p className="eyebrow">Process impact</p><h3 className="mb-6 text-2xl font-semibold text-white">What changed in the workflow</h3><ProcessImpact items={processImpact} /></div>
+            <div className="border-t border-white/[0.08] p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+              <p className="eyebrow">System architecture</p>
+              <details className="group rounded-xl border border-white/[0.09] bg-brand-bg-primary/60 p-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">Expand architecture <ChevronDown className="h-5 w-5 transition group-open:rotate-180" /></summary>
+                <div className="mt-5"><Workflow compact steps={['Web App', 'Business Logic / Automation', 'Gemini', 'Supabase', 'Email / Workspace']} ariaLabel="Solar system architecture" /><p className="mt-4 text-sm leading-6 text-brand-text-muted">The public project demonstrates a React web application, engineering and pricing logic, AI assistance through Gemini, Supabase-backed data workflows, and proposal/email support.</p></div>
+              </details>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <a href={projectLinks.solarLive} target="_blank" rel="noopener noreferrer" className={linkClass} data-track="solar-live-demo">Live Demo <ArrowUpRight className="h-4 w-4" /></a>
+                <a href={projectLinks.solarGithub} target="_blank" rel="noopener noreferrer" className={linkClass} data-track="solar-github">GitHub <GithubMark className="h-4 w-4" /></a>
               </div>
+            </div>
+          </div>
+          <ProcessMetrics />
+        </article>
 
-              {/* Content */}
-              <div className="p-6 md:p-8 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-brand-pink-soft transition-colors">{project.title}</h3>
-                <p className="text-brand-text-muted text-sm mb-6 flex-grow">{project.description}</p>
-                
-                {/* Achievement Highlight */}
-                <div className="bg-brand-bg-primary/50 p-4 rounded-xl border border-white/5 mb-6">
-                  <p className="text-sm text-brand-text-secondary"><strong className="text-white">Result:</strong> {project.achievement}</p>
-                </div>
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <FlowComparison title="Before automation" items={['Repetitive manual entry', 'Fragmented records', 'Manual calculation workflow', 'Repeated communication', 'Separate systems', 'Difficult tracking']} steps={beforeFlow} />
+          <FlowComparison title="After automation" items={['Structured client intake', 'Centralized data', 'Standardized calculations', 'Automated workflow', 'AI assistance', 'Easier project tracking']} steps={afterFlow} accent />
+        </div>
 
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {project.technologies.slice(0, 4).map(tech => (
-                    <span key={tech} className="px-2.5 py-1 text-xs font-medium text-brand-text-secondary bg-white/5 rounded border border-white/5">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <span className="px-2.5 py-1 text-xs font-medium text-brand-text-secondary bg-white/5 rounded border border-white/5">
-                      +{project.technologies.length - 4}
-                    </span>
-                  )}
-                </div>
+        <details className="group mt-6 rounded-2xl border border-white/[0.08] bg-brand-card p-6 sm:p-8">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-lg font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">Portfolio sample: Client Inquiry Automation SOP <ChevronDown className="h-5 w-5 transition group-open:rotate-180" /></summary>
+          <div className="mt-6 grid gap-5 text-sm leading-6 text-brand-text-muted sm:grid-cols-2 lg:grid-cols-4">
+            <SopItem title="Purpose" text="Standardize how website inquiries are captured, acknowledged, routed, and tracked." />
+            <SopItem title="Scope & trigger" text="Starts when a visitor submits a validated portfolio inquiry form." />
+            <SopItem title="Process & outputs" text="Validate, store, notify, acknowledge, schedule follow-up, and maintain status." />
+            <SopItem title="Exceptions & escalation" text="Reject spam or invalid data; log backend failures and provide a direct-email fallback." />
+          </div>
+        </details>
+      </div>
+    </section>
+  );
+}
 
-                {/* Actions */}
-                <div className="flex items-center gap-3 mt-auto">
-                  {project.liveUrl !== '#' ? (
-                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex-1">
-                      <Button variant="secondary" className="w-full flex items-center justify-center gap-2 group/btn">
-                        Live Demo <ExternalLink className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                      </Button>
-                    </a>
-                  ) : (
-                    <a href="#contact" className="flex-1">
-                      <Button variant="secondary" className="w-full flex items-center justify-center gap-2 group/btn">
-                        Ask About This Work <ArrowUpRight className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                      </Button>
-                    </a>
-                  )}
-                  {project.githubUrl !== '#' && (
-                    <a href={project.githubUrl} target="_blank" rel="noreferrer" title="View Source">
-                      <Button variant="ghost" size="icon" className="border border-white/10 hover:border-brand-pink-primary/50">
-                        <GitBranch className="w-5 h-5" />
-                      </Button>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+const selectedProjects = [
+  {
+    number: '01', title: 'AI-Enabled Solar Proposal & Client Workflow System', label: 'Professional project',
+    description: 'A structured client-to-proposal workflow connecting intake, engineering logic, AI assistance, proposal generation, and project information.',
+    role: 'Industrial Engineering • Process Design • Automation • Project Coordination',
+    flow: ['Intake', 'Engineering Logic', 'AI Assistance', 'Proposal', 'Database'],
+    liveUrl: projectLinks.solarLive, githubUrl: projectLinks.solarGithub,
+  },
+  {
+    number: '02', title: 'Google Workspace Operations Automation', label: 'Professional / project experience',
+    description: 'n8n and Google Workspace workflows designed to support project tracking, routine reporting, information processing, and notifications.',
+    role: 'Workflow Mapping • n8n • Google Workspace • Operational Reporting',
+    flow: ['Trigger', 'n8n', 'Data Processing', 'Google Workspace', 'Reporting', 'Notification'],
+  },
+  {
+    number: '03', title: 'Client Relations Automation System', label: 'Portfolio demo',
+    description: 'A transparent demo architecture for lead capture, inquiry classification, acknowledgement, follow-up, status tracking, and team visibility.',
+    role: 'Portfolio concept • Local rule-based demo • No commercial-client claim',
+    flow: ['Inquiry', 'Lead Capture', 'Classification', 'Response', 'Follow-up', 'Status'],
+    demoAnchor: '#automation-lab',
+  },
+];
+
+export function AllProjects() {
+  return (
+    <section className="section-shell bg-brand-bg-primary" aria-labelledby="selected-projects-title">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading id="selected-projects-title" label="Selected Projects" title="Proof through workflows, systems, and documentation." description="Projects distinguish professional experience, project experience, and portfolio demonstrations." className="mb-12" />
+        <div className="grid gap-6 lg:grid-cols-3">
+          {selectedProjects.map((project) => <ProjectCard key={project.number} {...project} />)}
         </div>
       </div>
     </section>
   );
 }
 
-export function AllProjects() {
-  const [filter, setFilter] = useState('All');
-  const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
+function CaseColumn({ number, title, items }: { number: string; title: string; items: string[] }) {
+  return <div className="bg-brand-card p-6 sm:p-8"><p className="mb-4 text-sm font-semibold text-brand-accent">{number}</p><h3 className="mb-5 text-xl font-semibold text-white">{title}</h3><ul className="space-y-3">{items.map((item) => <li key={item} className="flex gap-3 text-sm leading-6 text-brand-text-muted"><span className="text-brand-accent">—</span>{item}</li>)}</ul></div>;
+}
 
-  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+function FlowComparison({ title, items, steps, accent = false }: { title: string; items: string[]; steps: string[]; accent?: boolean }) {
+  return <article className={`rounded-2xl border p-6 sm:p-8 ${accent ? 'border-brand-accent/25 bg-brand-accent/[0.04]' : 'border-white/[0.08] bg-brand-card'}`}><p className="eyebrow">{title}</p><ul className="mb-6 grid gap-2 sm:grid-cols-2">{items.map((item) => <li key={item} className="text-sm text-brand-text-secondary"><span className="mr-2 text-brand-accent">{accent ? '✓' : '—'}</span>{item}</li>)}</ul><details className="group"><summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-white">View workflow <ChevronDown className="h-4 w-4 transition group-open:rotate-180" /></summary><div className="mt-5"><Workflow compact steps={steps} ariaLabel={`${title} workflow`} /></div></details></article>;
+}
 
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === filter);
+function SopItem({ title, text }: { title: string; text: string }) {
+  return <div><h4 className="mb-2 font-semibold text-white">{title}</h4><p>{text}</p></div>;
+}
 
-  // Stop body scroll when modal is open
-  if (typeof document !== 'undefined') {
-    if (selectedProject) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'unset';
-  }
+interface ProjectCardProps {
+  number: string; title: string; label: string; description: string; role: string; flow: string[];
+  liveUrl?: string; githubUrl?: string; demoAnchor?: string;
+}
 
+function ProjectCard({ number, title, label, description, role, flow, liveUrl, githubUrl, demoAnchor }: ProjectCardProps) {
   return (
-    <section className="py-24 bg-brand-bg-secondary border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <SectionHeading 
-            label="MY WORK" 
-            title="More Projects I’ve Built" 
-            align="left"
-            className="mb-0"
-          />
-          
-          {/* Filters */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-                  filter === cat 
-                    ? 'bg-brand-pink-primary text-white shadow-[0_0_15px_rgba(236,72,153,0.4)]' 
-                    : 'bg-brand-card text-brand-text-secondary hover:text-white border border-white/5 hover:border-brand-pink-primary/30'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Project Gallery Grid */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <AnimatePresence>
-            {filteredProjects.map((project) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ y: -5, rotateX: 0.6, rotateY: -0.6, scale: 1.01 }}
-                key={project.id}
-                onClick={() => setSelectedProject(project)}
-                className="depth-card bg-brand-card rounded-2xl border border-white/5 overflow-hidden cursor-pointer group hover:border-brand-pink-primary/40 transition-colors"
-              >
-                <div className="h-40 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-brand-bg-primary/20 group-hover:bg-transparent transition-colors z-10" />
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute bottom-2 right-2 z-20">
-                     <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-bg-primary bg-white rounded">
-                      {project.year}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-5 flex flex-col h-[calc(100%-10rem)]">
-                  <span className="text-[10px] font-semibold text-brand-pink-bright uppercase tracking-wider mb-2 block">{project.category}</span>
-                  <h4 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-brand-pink-soft transition-colors line-clamp-2">{project.title}</h4>
-                  <p className="text-brand-text-muted text-xs line-clamp-3 mb-4">{project.description}</p>
-                  
-                  <div className="mt-auto flex items-center justify-between">
-                    <span className="text-[10px] text-brand-text-secondary bg-white/5 px-2 py-1 rounded border border-white/5">
-                      {project.status}
-                    </span>
-                    <span className="text-brand-pink-primary text-xs font-medium group-hover:underline flex items-center gap-1">
-                      Details <ArrowUpRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+    <article className="flex h-full flex-col rounded-2xl border border-white/[0.08] bg-brand-card p-6">
+      <div className="mb-6 flex items-center justify-between"><span className="text-sm font-semibold text-brand-accent">{number}</span><span className="rounded-full border border-white/10 px-3 py-1 text-xs text-brand-text-muted">{label}</span></div>
+      <h3 className="text-xl font-semibold leading-7 text-white">{title}</h3><p className="mt-4 text-sm leading-6 text-brand-text-muted">{description}</p><p className="mt-5 text-xs leading-5 text-brand-text-secondary">{role}</p>
+      <div className="mt-6 rounded-xl border border-white/[0.07] bg-brand-bg-primary/60 p-4"><div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.14em] text-brand-accent"><WorkflowIcon className="h-4 w-4" />Workflow</div><p className="mt-3 text-sm leading-6 text-brand-text-muted">{flow.join(' → ')}</p></div>
+      <div className="mt-auto flex flex-wrap gap-3 pt-6">
+        {liveUrl && <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>Live Demo <ArrowUpRight className="h-4 w-4" /></a>}
+        {githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub <GithubMark className="h-4 w-4" /></a>}
+        {demoAnchor && <a href={demoAnchor} className={linkClass}>Try Demo <PlayCircle className="h-4 w-4" /></a>}
       </div>
-
-      {/* Project Detail Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-brand-bg-primary/90 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="depth-panel relative w-full max-w-4xl bg-brand-card border border-brand-pink-primary/30 rounded-3xl overflow-hidden max-h-[90vh] flex flex-col"
-            >
-              <button 
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-50 p-2 bg-brand-bg-primary/80 hover:bg-brand-pink-primary text-white rounded-full transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="overflow-y-auto custom-scrollbar">
-                <div className="h-64 sm:h-80 w-full relative">
-                  <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-card to-transparent" />
-                </div>
-                
-                <div className="p-6 sm:p-10 -mt-20 relative z-10">
-                  <div className="flex flex-wrap items-center gap-3 mb-4">
-                    <span className="px-3 py-1 text-xs font-semibold tracking-wider text-brand-pink-bright bg-brand-pink-primary/10 rounded-full border border-brand-pink-primary/20">
-                      {selectedProject.category}
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium text-brand-text-secondary bg-white/5 rounded-full border border-white/5">
-                      {selectedProject.year} • {selectedProject.status}
-                    </span>
-                  </div>
-                  
-                  <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">{selectedProject.title}</h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                    <div className="md:col-span-2 space-y-6">
-                      <div>
-                        <h4 className="text-lg font-semibold text-white mb-2">Overview</h4>
-                        <p className="text-brand-text-muted leading-relaxed">{selectedProject.description}</p>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-white mb-2">Key Result</h4>
-                        <div className="p-4 bg-brand-pink-primary/5 border border-brand-pink-primary/20 rounded-xl">
-                          <p className="text-brand-pink-soft">{selectedProject.achievement}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-lg font-semibold text-white mb-3">Technologies</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.technologies.map(tech => (
-                            <span key={tech} className="px-2.5 py-1 text-xs font-medium text-brand-text-secondary bg-brand-bg-primary rounded border border-white/5">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-3">
-                        {selectedProject.liveUrl !== '#' ? (
-                          <a href={selectedProject.liveUrl} target="_blank" rel="noreferrer">
-                            <Button className="w-full flex justify-center gap-2">Live Demo <ExternalLink className="w-4 h-4" /></Button>
-                          </a>
-                        ) : (
-                          <a href="#contact" onClick={() => setSelectedProject(null)}>
-                            <Button className="w-full flex justify-center gap-2">Ask About This Work <ArrowUpRight className="w-4 h-4" /></Button>
-                          </a>
-                        )}
-                        {selectedProject.githubUrl !== '#' && (
-                          <a href={selectedProject.githubUrl} target="_blank" rel="noreferrer">
-                            <Button variant="secondary" className="w-full flex justify-center gap-2">View Source <GitBranch className="w-4 h-4" /></Button>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </section>
+    </article>
   );
 }

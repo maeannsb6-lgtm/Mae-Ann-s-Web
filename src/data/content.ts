@@ -1,407 +1,148 @@
 import {
-  Award,
-  Bot,
-  Briefcase,
-  ClipboardList,
-  Code2,
-  Database,
-  FileSpreadsheet,
-  Globe,
-  GraduationCap,
-  Layout,
-  Lightbulb,
-  LineChart,
-  Medal,
-  Presentation,
-  Search,
-  Server,
-  Settings,
-  Trophy,
-  Users,
-  Workflow,
+  BarChart3, Bot, BriefcaseBusiness, ClipboardCheck, Database, FileText, Gauge,
+  GitBranch, LineChart, Network, SearchCheck, Settings2, Users, Workflow,
 } from 'lucide-react';
 
 export const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
-  { name: 'Achievements', href: '#achievements' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Services', href: '#services' },
-  { name: 'Works', href: '#works' },
+  { name: 'Capabilities', href: '#capabilities' },
+  { name: 'Projects', href: '#projects' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Certifications', href: '#certifications' },
   { name: 'Contact', href: '#contact' },
 ];
 
-// Core professional and technical capabilities. Percentages are intentionally omitted
-// because measured proficiency scores are not used in this portfolio.
-export const skills = [
-  {
-    category: 'Industrial Engineering',
-    items: [
-      { name: 'Lean Six Sigma', icon: LineChart },
-      { name: 'Time and Motion Study', icon: Settings },
-      { name: 'Business Process Development', icon: Workflow },
-      { name: 'Feasibility Study', icon: Search },
-      { name: 'Operations Research', icon: LineChart },
-      { name: 'Project Management', icon: ClipboardList },
-    ],
-  },
-  {
-    category: 'Digital Tools',
-    items: [
-      { name: 'Microsoft Software', icon: FileSpreadsheet },
-      { name: 'Google AI Studio', icon: Bot },
-      { name: 'Firebase Studio', icon: Database },
-      { name: 'Supabase', icon: Database },
-      { name: 'Vercel', icon: Server },
-      { name: 'GitHub', icon: Code2 },
-      { name: 'Google Automation', icon: Workflow },
-      { name: 'Web Development', icon: Globe },
-    ],
-  },
-  {
-    category: 'Professional Skills',
-    items: [
-      { name: 'Leadership', icon: Users },
-      { name: 'Communication and Interpersonal Skills', icon: Users },
-      { name: 'Analytical and Problem-Solving Skills', icon: Lightbulb },
-      { name: 'Technical Documentation', icon: ClipboardList },
-      { name: 'Process Mapping and Flowcharts', icon: Layout },
-      { name: 'Technical Presentation', icon: Presentation },
-    ],
-  },
+export const recruiterSummary = [
+  { label: 'Industrial Engineering', value: 'Process Improvement • Operations • Lean', icon: LineChart },
+  { label: 'Automation', value: 'n8n • AI Workflows • Business Automation', icon: Workflow },
+  { label: 'Systems', value: 'Supabase • Web Apps • Databases', icon: Database },
+  { label: 'Focus', value: 'Operations & Client Workflow Automation', icon: Network },
 ];
 
-export const achievementsStats = [
-  { value: '5', label: 'Industry Roles', description: 'One current project-coordination role, three internship roles, and one work-immersion role across engineering and operations.', icon: Briefcase },
-  { value: '7', label: 'Competition & Research Highlights', description: 'Documented competition, presentation, conference, and research recognitions.', icon: Trophy },
-  { value: '5', label: 'Trainings & Certifications', description: 'Training and certifications in AI, continuous improvement, and Lean Six Sigma.', icon: Award },
-  { value: '4', label: 'Organizations & Engagements', description: 'Documented memberships and career-center engagement at TIP Quezon City.', icon: Users },
-];
-
-export const detailedAchievements = [
+export const whatIDo = [
   {
-    id: 1,
-    title: 'PIIE-NSC Academic Competition — Champion',
-    description: 'Champion in the NCR qualifying rounds for the Feasibility Study Competition.',
-    icon: Trophy,
-    year: 'May 4, 2024',
-    badges: ['Feasibility Study', 'Champion'],
+    title: 'Process Improvement',
+    description: 'Analyze how work moves, identify bottlenecks, and redesign processes using Industrial Engineering methods.',
+    items: ['Process analysis', 'Process mapping', 'Lean / continuous improvement', 'Root cause analysis', 'Time and motion study', 'Workflow optimization'],
+    icon: Settings2,
   },
   {
-    id: 2,
-    title: 'Industrial Engineering Fest 2024',
-    description: 'Received Best Presenter, Best Technical Feasibility, Best Financial Feasibility, and Best Feasibility Study.',
-    icon: Medal,
-    year: 'April 13, 2024',
-    badges: ['Best Presenter', 'Feasibility Study'],
-  },
-  {
-    id: 3,
-    title: '9th North American IEOM Conference',
-    description: 'Participated in the IEOM conference held in Washington, USA.',
-    icon: Globe,
-    year: 'June 4, 2024',
-    badges: ['IEOM', 'Participant'],
-  },
-  {
-    id: 4,
-    title: '5th Asia Pacific IEOM Conference',
-    description: 'Earned Third Place at the Industrial Engineering and Operations Management conference in Tokyo, Japan.',
-    icon: Trophy,
-    year: 'September 10, 2024',
-    badges: ['IEOM', 'Third Place'],
-  },
-  {
-    id: 5,
-    title: 'Spotlight 2025 Design Project',
-    description: 'Named Best Spotlight Presenter and runner-up for both Best Spotlight Design Project and Best Spotlight Presentation at TIP Quezon City.',
-    icon: Presentation,
-    year: 'May 9, 2025',
-    badges: ['Best Presenter', 'Design Project'],
-  },
-  {
-    id: 6,
-    title: 'StartUp QC Student Competition',
-    description: 'Received the Gold Awardee recognition.',
-    icon: Medal,
-    year: 'May 23, 2025',
-    badges: ['Gold Awardee', 'StartUp QC'],
-  },
-  {
-    id: 7,
-    title: 'Industrial Engineering Research — TIP QC',
-    description: 'Received Best Presenter for “Innovate, Integrate, Elevate: Unveiling.”',
-    icon: Presentation,
-    year: 'May 16, 2025',
-    badges: ['Best Presenter', 'Research'],
-  },
-];
-
-export const services = [
-  {
-    id: 1,
-    title: 'Project Coordination & Technical Compliance',
-    description: 'Support for project execution, documentation, compliance requirements, and coordination across engineering, finance, and management teams.',
-    features: ['Project documentation', 'Compliance tracking', 'Progress monitoring', 'Cross-functional coordination', 'Internal reporting'],
-    icon: Briefcase,
-  },
-  {
-    id: 2,
-    title: 'Process Analysis & Improvement',
-    description: 'Industrial engineering methods used to understand workflows, identify bottlenecks, and recommend practical improvements.',
-    features: ['Time and motion study', 'Process mapping', 'Root cause analysis', 'Workload balancing', 'KPI monitoring'],
-    icon: LineChart,
-  },
-  {
-    id: 3,
-    title: 'Feasibility & Business Research',
-    description: 'Structured research and analysis to support technical, financial, market, and business-development decisions.',
-    features: ['Feasibility study', 'Market research', 'Benchmarking', 'Operational analysis', 'Management presentation'],
-    icon: Search,
-  },
-  {
-    id: 4,
-    title: 'Web Application Development',
-    description: 'Responsive web tools that support forms, tracking, information access, and operational workflows.',
-    features: ['Responsive interfaces', 'Dashboard development', 'Form workflows', 'Database integration', 'Deployment support'],
-    icon: Globe,
-  },
-  {
-    id: 5,
-    title: 'Google & AI-Assisted Automation',
-    description: 'Workflow automation for tracking, reporting, Google Workspace tasks, and routine project operations.',
-    features: ['Google automation', 'AI-assisted workflows', 'Automated reporting', 'Task routing', 'Information processing'],
+    title: 'AI & Workflow Automation',
+    description: 'Build project-based automations that reduce repetitive handling and connect routine operational work.',
+    items: ['n8n', 'AI workflow automation', 'AI agents', 'Google Workspace automation', 'AI-assisted workflows', 'Automated reporting'],
     icon: Bot,
   },
   {
-    id: 6,
-    title: 'Technical Documentation',
-    description: 'Clear, structured documentation and visual communication for operational and technical processes.',
-    features: ['SOP drafting', 'Technical reports', 'Process diagrams', 'Flowcharts', 'Presentation materials'],
-    icon: ClipboardList,
+    title: 'Business Systems',
+    description: 'Design practical digital systems for structured information, decisions, reporting, and operational visibility.',
+    items: ['Supabase', 'Database-backed workflows', 'Business web applications', 'Digital forms', 'Automated proposal systems', 'Operational dashboards'],
+    icon: Database,
+  },
+  {
+    title: 'Client Workflow Automation',
+    description: 'Create portfolio and project workflows that connect inquiry, onboarding, proposals, follow-up, and tracking.',
+    items: ['Lead and inquiry collection', 'Client onboarding', 'Information collection', 'Automated follow-ups', 'Proposal workflows', 'AI-assisted interaction'],
+    icon: Users,
   },
 ];
 
-export const projects = [
-  {
-    id: 1,
-    title: 'Notion-Based Energy Operations Portal',
-    category: 'Web Application',
-    description: 'A protected operations portal designed to show Notion-managed project and procurement information inside a role-based web application.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
-    technologies: ['React', 'TypeScript', 'Notion API', 'Supabase', 'Vercel'],
-    achievement: 'Connected authentication, role-based access, and a Notion-backed operational data flow in one application concept.',
-    year: '2026',
-    status: 'In Development',
-    liveUrl: '#',
-    githubUrl: '#',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'Wedding RSVP Web Application',
-    category: 'Web Application',
-    description: 'A mobile-responsive RSVP website with guest submission, event details, a countdown, and confirmation messaging.',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800',
-    technologies: ['Web Development', 'Google Apps Script', 'Google Sheets', 'Vercel', 'Cloudinary'],
-    achievement: 'Combined guest registration, spreadsheet-based records, and automated confirmation emails in one RSVP flow.',
-    year: '2026',
-    status: 'Completed',
-    liveUrl: '#',
-    githubUrl: '#',
-    featured: true,
-  },
-  {
-    id: 3,
-    title: 'Notion Project Operations Workspace',
-    category: 'Notion',
-    description: 'A structured workspace for project phases, tasks, procurement, budgets, documentation, and reporting.',
-    image: 'https://images.unsplash.com/photo-1611224885990-ab7363d1f2a9?auto=format&fit=crop&q=80&w=800',
-    technologies: ['Notion', 'Databases', 'Templates', 'Google Workspace'],
-    achievement: 'Organized project information into connected databases and reusable project views.',
-    year: '2026',
-    status: 'Active',
-    liveUrl: '#',
-    githubUrl: '#',
-    featured: true,
-  },
-  {
-    id: 4,
-    title: 'Google Drive Backup Manager',
-    category: 'Google Automation',
-    description: 'A Google Apps Script workflow for batching folder and file backups between Drive locations while respecting execution limits.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
-    technologies: ['Google Apps Script', 'Google Drive', 'Google Workspace'],
-    achievement: 'Added resumable batch processing and execution tracking for large Drive backup jobs.',
-    year: '2026',
-    status: 'Active',
-    liveUrl: '#',
-    githubUrl: '#',
-    featured: false,
-  },
-  {
-    id: 5,
-    title: 'Professional Portfolio Website',
-    category: 'Web Application',
-    description: 'This responsive portfolio presenting verified experience, skills, training, achievements, and selected digital work.',
-    image: 'https://images.unsplash.com/photo-1507238692062-710e906385d0?auto=format&fit=crop&q=80&w=800',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    achievement: 'Built an accessible and interactive web portfolio presenting verified professional experience, capabilities, and selected work.',
-    year: '2026',
-    status: 'Current',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/maeannsb6-lgtm',
-    featured: false,
-  },
+export const capabilityGroups = [
+  { title: 'Process & Operations', items: ['Process Improvement', 'Workflow Analysis', 'Operations Analysis', 'Process Optimization'], icon: Gauge },
+  { title: 'Automation', items: ['Workflow Automation', 'Business Automation', 'AI Automation', 'Client Workflow Automation'], icon: GitBranch },
+  { title: 'Project & Business', items: ['Project Coordination', 'Feasibility Analysis', 'Technical Documentation', 'Stakeholder Communication'], icon: BriefcaseBusiness },
+];
+
+export const industrialEngineeringCapabilities = [
+  'Process Improvement', 'Process Analysis', 'Process Mapping', 'Time and Motion Study',
+  'Work Measurement', 'Lean Manufacturing', 'Lean Six Sigma', 'Continuous Improvement',
+  'Root Cause Analysis', 'Operations Research', 'KPI Monitoring', 'Workload Balancing',
+  'Process Optimization', 'Feasibility Studies', 'Operations Analysis', 'Business Process Development',
+  'Technical Documentation', 'SOP Development', 'Project Coordination',
+  'Quality / Compliance Documentation', 'Data Analysis', 'Stakeholder Communication',
+];
+
+export const technologyTools = [
+  'n8n', 'Supabase', 'Gemini / Google AI Studio', 'Vercel', 'GitHub',
+  'Microsoft Excel', 'Microsoft Office', 'Google Workspace', 'Notion',
+];
+
+export const demonstratedIntegrationSkills = [
+  'REST-style serverless endpoints', 'Webhooks and trigger-based workflows', 'JSON data handling',
+  'Server-side API key handling', 'Data transformation', 'Database operations',
+  'Scheduled workflows', 'Validation and error states',
+];
+
+export const currentlyExploring = [
+  'CRM Automation', 'Advanced API Integration', 'Client Lifecycle Automation',
+  'AI Agent Workflows', 'OAuth fundamentals', 'Advanced error handling',
+];
+
+export const processImpact = [
+  'Reduced manual handoffs', 'Centralized project information', 'Standardized workflow',
+  'Reduced repetitive data entry', 'Improved process visibility', 'Streamlined proposal preparation',
+];
+
+export const approachSteps = [
+  { number: '01', title: 'Understand', description: 'Understand the business or operational process.' },
+  { number: '02', title: 'Map', description: 'Map inputs, activities, decisions, bottlenecks, and outputs.' },
+  { number: '03', title: 'Improve', description: 'Remove unnecessary steps and redesign the process.' },
+  { number: '04', title: 'Design', description: 'Design the improved workflow and information flow.' },
+  { number: '05', title: 'Automate', description: 'Use AI, n8n, APIs, and databases where they add value.' },
+  { number: '06', title: 'Validate', description: 'Test logic, errors, exceptions, and outputs.' },
+  { number: '07', title: 'Document', description: 'Document the workflow, controls, and system.' },
 ];
 
 export const experience = [
   {
-    id: 1,
-    title: 'Industrial Engineering | Project Coordinator – Technical Compliance',
-    company: 'SUWECO Tablas Energy Corp.',
-    period: 'Aug 7, 2025 – Present',
-    location: 'Philippine Stock Exchange, Ortigas, Pasig City',
-    description: 'Project coordination, documentation, technical compliance, and digital workflow support for solar and diesel power plant projects.',
-    responsibilities: [
-      'Coordinated project execution, documentation, and compliance for solar and diesel power plant projects.',
-      'Developed an AI-powered web app using Google AI Studio, Google Antigravity, Vercel, and Supabase.',
-      'Built Google automation using n8n to streamline tracking, reporting, and workflows.',
+    id: 1, title: 'Industrial Engineer | Project Coordinator – Technical Compliance', company: 'SUWECO Tablas Energy Corp.',
+    period: 'Aug 2025 – Present', location: 'Ortigas, Pasig City',
+    summary: 'Coordinates technical documentation, compliance, and digital workflow support for solar and diesel power plant projects.',
+    highlights: [
+      'Coordinated project execution, documentation, and compliance across engineering, finance, and management teams.',
+      'Developed an AI-powered solar proposal web application using Google AI Studio, Vercel, and Supabase.',
+      'Designed n8n automations for Google Workspace tasks, project tracking, reporting, and routine operations.',
     ],
-    achievements: [
-      'Designed and deployed AI agents with n8n to automate Google Workspace tasks and project operations.',
-      'Collaborated with engineering, finance, and management teams to support project delivery.',
-      'Improved operational efficiency through AI-driven automation and process optimization.',
-    ],
-    tools: ['Google AI Studio', 'Google Antigravity', 'Vercel', 'Supabase', 'n8n', 'Google Workspace'],
   },
   {
-    id: 2,
-    title: 'Corporate Business Development Intern',
-    company: 'Expressions Stationery Shop Inc.',
-    period: 'Feb 24, 2025 – May 7, 2025',
-    location: '2303 Pasong Tamo, Makati City',
-    description: 'Business-development research and industrial engineering support for internal improvement initiatives.',
-    responsibilities: [
-      'Prepared internal reports for corporate development initiatives.',
-      'Applied industrial engineering tools to evaluate system performance and suggest enhancements.',
-      'Participated in benchmarking to align internal practices with industry standards.',
+    id: 2, title: 'Corporate Business Development Intern', company: 'Expressions Stationery Shop Inc.',
+    period: 'Feb 2025 – May 2025', location: 'Makati City',
+    summary: 'Supported business-development research and Industrial Engineering improvement initiatives.',
+    highlights: [
+      'Conducted market research and feasibility analysis for business opportunities.',
+      'Evaluated system performance and benchmarked internal practices against industry approaches.',
+      'Presented structured findings and recommendations to management.',
     ],
-    achievements: [
-      'Conducted market research and feasibility analysis for new business opportunities.',
-      'Presented insights and recommendations to management to support growth planning.',
-    ],
-    tools: ['Industrial Engineering Tools', 'Benchmarking', 'Market Research', 'Feasibility Analysis'],
   },
   {
-    id: 3,
-    title: 'Industrial Engineering Intern | Field Analyst',
-    company: 'ELPS Industries Corporation Inc.',
-    period: 'Sep 2, 2024 – May 2, 2025',
-    location: '16 Tandang Sora Street, Marikina City',
-    description: 'Process analysis, operational-data interpretation, continuous improvement, and technical documentation support.',
-    responsibilities: [
-      'Analyzed processes and identified areas for operational improvement using lean manufacturing principles.',
-      'Interpreted operational data and tracked key performance indicators to monitor productivity.',
-      'Drafted technical documentation, including SOPs, and applied structured root cause analysis.',
+    id: 3, title: 'Industrial Engineering Intern | Field Analyst', company: 'ELPS Industries Corporation Inc.',
+    period: 'Sep 2024 – May 2025', location: 'Marikina City',
+    summary: 'Supported process analysis, KPI monitoring, continuous improvement, and technical documentation.',
+    highlights: [
+      'Analyzed workflows and identified improvement opportunities using Lean principles.',
+      'Tracked operational KPIs and interpreted productivity data.',
+      'Documented SOPs, root cause analysis, process maps, and stakeholder recommendations.',
     ],
-    achievements: [
-      'Designed diagrams and flowcharts for process analysis.',
-      'Presented technical insights and recommendations to stakeholders.',
+  },
+  {
+    id: 4, title: 'Industrial Engineering Intern | Field Analyst', company: 'JCV Enterprises',
+    period: 'Mar 2023 – May 2024', location: 'Marikina City',
+    summary: 'Performed operational analysis focused on productivity, scheduling, workload, and quality documentation.',
+    highlights: [
+      'Conducted time and motion studies and analyzed operational data.',
+      'Mapped processes, identified bottlenecks, and designed workload-balancing approaches.',
+      'Prepared operations-research scheduling recommendations, dashboards, and ISO-aligned documentation.',
     ],
-    tools: ['Lean Manufacturing', 'KPI Tracking', 'SOPs', 'Root Cause Analysis', 'Process Flowcharts'],
   },
   {
-    id: 4,
-    title: 'Industrial Engineering Intern | Field Analyst',
-    company: 'JCV Enterprises',
-    period: 'Mar 7, 2023 – May 14, 2024',
-    location: '71 Rajah Soliman St., Marikina City',
-    description: 'Operational analysis and industrial engineering support focused on productivity, scheduling, and quality documentation.',
-    responsibilities: [
-      'Conducted time and motion studies and analyzed operational data to improve process efficiency.',
-      'Developed process maps and implemented workload-balancing strategies.',
-      'Collaborated with cross-functional teams to troubleshoot process bottlenecks and streamline workflows.',
+    id: 5, title: 'Industrial Engineering Student Assistant | Work Immersion', company: 'Rex Book Store',
+    period: 'Aug 2019 – Sep 2019', location: 'Quezon City',
+    summary: 'Supported logistics, inventory movement, shipment checking, and records.',
+    highlights: [
+      'Coordinated branch book transfers and checked shipment accuracy.',
+      'Updated delivery and stock-movement records using Microsoft Excel.',
     ],
-    achievements: [
-      'Participated in operations research modeling and proposed optimized scheduling solutions.',
-      'Created technical reports and visual dashboards to communicate findings.',
-      'Assisted in maintaining ISO-aligned documentation for quality compliance.',
-    ],
-    tools: ['Time and Motion Study', 'Process Mapping', 'Operations Research', 'Dashboards', 'ISO-Aligned Documentation'],
   },
-  {
-    id: 5,
-    title: 'Industrial Engineering Student Assistant | Work Immersion',
-    company: 'Rex Book Store',
-    period: 'Aug 12, 2019 – Sep 14, 2019',
-    location: 'Sen. M. Cuenco Sr., Quezon City, Metro Manila',
-    description: 'Inventory and shipment support during an industrial engineering work-immersion placement.',
-    responsibilities: [
-      'Coordinated book transfers between branches to support timely supply and balanced inventory.',
-      'Supported warehouse staff in preparing and checking shipments for accuracy.',
-    ],
-    achievements: [
-      'Updated delivery records and stock movements using Excel and manual tracking sheets.',
-    ],
-    tools: ['Microsoft Excel', 'Inventory Records', 'Shipment Checking'],
-  },
-];
-
-export const journey = [
-  {
-    id: 1,
-    period: '2009 – 2014',
-    title: 'Elementary School',
-    description: 'Bacolod Elementary School, Bacolod, Lanao del Norte.',
-    learned: 'Primary education',
-    achievement: 'Completed elementary education.',
-    icon: GraduationCap,
-  },
-  {
-    id: 2,
-    period: '2015 – 2017',
-    title: 'Junior High School',
-    description: 'Francisco P. Felix Memorial National High School and Liangan National High School.',
-    learned: 'Secondary education',
-    achievement: 'Completed junior high school.',
-    icon: GraduationCap,
-  },
-  {
-    id: 3,
-    period: '2018 – 2020',
-    title: 'Senior High School',
-    description: 'Cainta Catholic College, A. Bonifacio Avenue, Poblacion, Cainta, Rizal.',
-    learned: 'Senior high school education',
-    achievement: 'Completed senior high school.',
-    icon: GraduationCap,
-  },
-  {
-    id: 4,
-    period: '2021 – 2025',
-    title: 'BS Industrial Engineering',
-    description: 'Technological Institute of the Philippines, 938 Aurora Boulevard, Cubao, Quezon City.',
-    learned: 'Industrial Engineering',
-    achievement: 'Completed the Bachelor of Science in Industrial Engineering program.',
-    icon: GraduationCap,
-  },
-  {
-    id: 5,
-    period: '2025 – Present',
-    title: 'Project Coordination',
-    description: 'Industrial Engineering and Project Coordinator – Technical Compliance at SUWECO Tablas Energy Corp.',
-    learned: 'Energy project coordination, compliance, documentation, and digital workflows',
-    achievement: 'Current professional role.',
-    icon: Briefcase,
-  },
-];
-
-export const education = [
-  { id: 1, level: 'Bachelor of Science in Industrial Engineering', institution: 'Technological Institute of the Philippines', location: '938 Aurora Boulevard, Cubao, Quezon City', period: '2021 – 2025' },
-  { id: 2, level: 'Senior High School', institution: 'Cainta Catholic College', location: 'A. Bonifacio Avenue, Poblacion, Cainta, Rizal', period: '2018 – 2020' },
-  { id: 3, level: 'Junior High School', institution: 'Francisco P. Felix Memorial National High School / Liangan National High School', location: '', period: '2015 – 2017' },
-  { id: 4, level: 'Elementary School', institution: 'Bacolod Elementary School', location: 'Bacolod, Lanao del Norte', period: '2009 – 2014' },
 ];
 
 export const trainings = [
@@ -412,15 +153,39 @@ export const trainings = [
   { id: 5, title: 'Certified Lean Six Sigma White Belt (CLSSWB)', provider: 'SixSigma PH', date: 'January 11, 2023' },
 ];
 
+export const selectedAwards = [
+  { title: 'PIIE-NSC Feasibility Study Competition — Champion', date: 'May 2024', icon: SearchCheck },
+  { title: 'IE Fest — Best Presenter and Feasibility Study Recognitions', date: 'April 2024', icon: ClipboardCheck },
+  { title: '5th Asia Pacific IEOM Conference — Third Place', date: 'September 2024', icon: BarChart3 },
+  { title: '9th North American IEOM Conference — Participant', date: 'June 2024', icon: Network },
+  { title: 'Spotlight Design Project — Best Spotlight Presenter', date: 'May 2025', icon: FileText },
+  { title: 'StartUp QC Student Competition — Gold Awardee', date: 'May 2025', icon: BriefcaseBusiness },
+  { title: 'Industrial Engineering Research — Best Presenter', date: 'May 2025', icon: ClipboardCheck },
+];
+
+export const opportunityGroups = [
+  { title: 'Industrial Engineering', items: ['Industrial Engineer', 'Process Improvement', 'Continuous Improvement', 'Operations Analysis'] },
+  { title: 'Automation', items: ['AI Automation', 'n8n Automation', 'Workflow Automation', 'Business Automation'] },
+  { title: 'Hybrid', items: ['Operations Automation', 'Process Automation', 'AI-enabled Operations', 'Client Workflow Automation', 'Technical Project Coordination'] },
+];
+
+export const hireMeFor = [
+  'Process & Workflow Analysis', 'n8n / Workflow Automation', 'AI-enabled Business Systems',
+  'Client Workflow Automation', 'Operational Reporting Automation', 'Process Documentation',
+];
+
 export const contactInfo = {
-  email: 'maeannbodiongan.ie@gmail.com',
-  phone: '+63 915 064 3939',
-  location: 'Philippines',
-  availability: 'Open to Opportunities',
+  email: 'maeannbodiongan.ie@gmail.com', phone: '+63 915 064 3939', location: 'Philippines',
+  availability: 'Open to remote opportunities and selected automation projects.',
   cvUrl: 'https://canva.link/90yrx3qw2e660jf',
   socials: {
     github: 'https://github.com/maeannsb6-lgtm',
     linkedin: 'https://www.linkedin.com/in/bsie-maeannbodiongan',
-    facebook: 'https://www.facebook.com/maeann.sotto.12/',
   },
+};
+
+export const projectLinks = {
+  solarLive: 'https://stec-independent-app.vercel.app',
+  solarGithub: 'https://github.com/maeannsb6-lgtm/STEC-NEW',
+  portfolioGithub: 'https://github.com/maeannsb6-lgtm/Mae-Ann-s-Web',
 };

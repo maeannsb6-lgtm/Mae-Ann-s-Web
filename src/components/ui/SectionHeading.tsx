@@ -2,6 +2,7 @@ import { cn } from '../../lib/utils';
 import { motion, useReducedMotion } from 'framer-motion';
 
 interface SectionHeadingProps {
+  id?: string;
   label: string;
   title: string;
   description?: string;
@@ -9,7 +10,7 @@ interface SectionHeadingProps {
   align?: 'left' | 'center';
 }
 
-export function SectionHeading({ label, title, description, className, align = 'center' }: SectionHeadingProps) {
+export function SectionHeading({ id, label, title, description, className, align = 'center' }: SectionHeadingProps) {
   const shouldReduceMotion = useReducedMotion();
   const initial = shouldReduceMotion ? false : { opacity: 0, y: 14, z: -18 };
   const visible = { opacity: 1, y: 0, z: 0 };
@@ -21,11 +22,12 @@ export function SectionHeading({ label, title, description, className, align = '
         whileInView={visible}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.45 }}
-        className="px-3 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-pink-primary/10 text-brand-pink-bright rounded-full border border-brand-pink-primary/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+        className="text-sm font-semibold tracking-[0.18em] uppercase text-brand-accent"
       >
         {label}
       </motion.span>
       <motion.h2
+        id={id}
         initial={initial}
         whileInView={visible}
         viewport={{ once: true, amount: 0.4 }}
@@ -39,7 +41,7 @@ export function SectionHeading({ label, title, description, className, align = '
         whileInView={{ opacity: 1, scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.45, delay: shouldReduceMotion ? 0 : 0.1 }}
-        className={cn('h-px w-16 origin-left bg-gradient-to-r from-brand-pink-primary/80 to-transparent', align === 'center' && 'origin-center')}
+        className={cn('h-px w-16 origin-left bg-gradient-to-r from-brand-accent/90 to-transparent', align === 'center' && 'origin-center')}
         aria-hidden="true"
       />
       {description && (

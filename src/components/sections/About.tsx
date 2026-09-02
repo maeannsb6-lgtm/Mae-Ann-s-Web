@@ -1,103 +1,27 @@
-import { motion } from 'framer-motion';
-import { User, MapPin, Briefcase, Calendar, Code2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
-import { MotionButton } from '../ui/Button';
+import { contactInfo } from '../../data/content';
+
+const collaboration = ['Asynchronous communication', 'Clear technical documentation', 'GitHub collaboration', 'Cross-functional coordination'];
 
 export function About() {
-  const infoItems = [
-    { icon: User, label: 'Name', value: 'Mae Ann S. Bodiongan' },
-    { icon: Briefcase, label: 'Role', value: 'Industrial Engineer | Project Coordinator – Technical Compliance' },
-    { icon: MapPin, label: 'Location', value: 'Philippines' },
-    { icon: Code2, label: 'Focus', value: 'Project Coordination, Process Improvement, Digital Workflows' },
-    { icon: Calendar, label: 'Availability', value: 'Open to Opportunities' },
-  ];
-
   return (
-    <section id="about" className="py-24 bg-brand-bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          {/* Left Column */}
-          <div>
-            <SectionHeading 
-              label="ABOUT ME" 
-              title="Industrial engineering applied to real project and process needs." 
-              align="left"
-              className="mb-8"
-            />
-            
-            <div className="space-y-6 text-brand-text-muted text-base leading-relaxed">
-              <motion.p 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                I am an Industrial Engineering graduate of the Technological Institute of the Philippines. My background includes project coordination, technical compliance, process analysis, feasibility studies, operations research, and technical documentation.
-              </motion.p>
-              <motion.p 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-              >
-                In my current role at SUWECO Tablas Energy Corp., I support solar and diesel power plant projects, coordinate documentation and compliance requirements, collaborate with engineering, finance, and management teams, and develop AI-assisted web and Google Workspace automations.
-              </motion.p>
-            </div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="mt-10"
-            >
-              <a href="#experience">
-                <MotionButton variant="outline">Learn More About Me</MotionButton>
-              </a>
-            </motion.div>
+    <section id="about" className="section-shell bg-brand-bg-primary">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
+        <SectionHeading label="About" title="Process thinking first. Technology where it helps." align="left" />
+        <div className="space-y-7 text-base leading-8 text-brand-text-muted">
+          <p>I understand processes as an Industrial Engineer, identify inefficiencies, redesign workflows, and use AI, automation, databases, and digital systems where appropriate.</p>
+          <p>My experience spans energy project coordination, technical compliance, process analysis, feasibility studies, operations research, SOP development, n8n automation, Google Workspace workflows, and database-backed web applications.</p>
+          <div className="rounded-2xl border-l-2 border-brand-accent bg-brand-card px-6 py-5 text-white">
+            I’m particularly interested in designing automated client journeys—from inquiry and onboarding to proposal generation, follow-up, and operational tracking.
           </div>
-
-          {/* Right Column */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5, rotateX: 0.7, rotateY: -0.7, scale: 1.01 }}
-            className="depth-card bg-brand-card border border-white/5 p-8 rounded-3xl relative overflow-hidden"
-          >
-            {/* Decorative Glow */}
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-brand-pink-primary/20 blur-[80px] rounded-full pointer-events-none" />
-            
-            <h3 className="text-xl font-semibold text-white mb-8 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-brand-pink-primary" />
-              Professional Profile
-            </h3>
-            
-            <ul className="space-y-6 relative z-10">
-              {infoItems.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.li 
-                    key={item.label}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + (index * 0.1) }}
-                    className="flex items-start gap-4"
-                  >
-                    <div className="p-2 bg-brand-pink-primary/10 rounded-lg shrink-0 mt-0.5">
-                      <Icon className="w-5 h-5 text-brand-pink-bright" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-brand-text-secondary font-medium">{item.label}</p>
-                      <p className="text-white mt-1">{item.value}</p>
-                    </div>
-                  </motion.li>
-                );
-              })}
+          <div>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[.16em] text-brand-text-secondary">Remote collaboration</p>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {collaboration.map((item) => <li key={item} className="flex items-center gap-2 text-sm"><CheckCircle2 className="h-4 w-4 shrink-0 text-brand-accent" />{item}</li>)}
             </ul>
-          </motion.div>
-
+          </div>
+          <p className="text-sm text-brand-accent">{contactInfo.availability}</p>
         </div>
       </div>
     </section>

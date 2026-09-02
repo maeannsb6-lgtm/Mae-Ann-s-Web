@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mae-ann-s-web.vercel.app/sitemap.xml

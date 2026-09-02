@@ -1,91 +1,26 @@
-import { motion } from 'framer-motion';
+import { MapPin } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
 import { experience } from '../../data/content';
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 bg-brand-bg-primary">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading 
-          label="EXPERIENCE" 
-          title="My Professional Experience" 
-          className="mb-16"
-        />
-
-        <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-0 md:left-8 top-4 bottom-4 w-px bg-white/10" />
-          
-          <div className="space-y-12">
-            {experience.map((exp, index) => (
-              <motion.div 
-                key={exp.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="relative pl-8 md:pl-24"
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-[-4px] md:left-[28px] top-1.5 w-2 h-2 rounded-full bg-brand-pink-primary shadow-[0_0_10px_rgba(236,72,153,0.8)] ring-4 ring-brand-bg-primary" />
-                
-                <div className="depth-card bg-brand-card p-6 md:p-8 rounded-3xl border border-white/5 hover:border-brand-pink-primary/30 transition-colors group">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-brand-pink-soft transition-colors">{exp.title}</h3>
-                      <p className="text-brand-pink-primary font-medium">{exp.company}</p>
-                    </div>
-                    <div className="text-left md:text-right">
-                      <span className="inline-block px-3 py-1 bg-white/5 rounded-full text-xs font-medium text-brand-text-secondary border border-white/5 mb-1">
-                        {exp.period}
-                      </span>
-                      <p className="text-xs text-brand-text-muted">{exp.location}</p>
-                    </div>
-                  </div>
-
-                  <p className="text-brand-text-muted text-sm mb-6">
-                    {exp.description}
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <h4 className="text-sm font-semibold text-white mb-3">Responsibilities</h4>
-                      <ul className="space-y-2">
-                        {exp.responsibilities.map((resp, i) => (
-                          <li key={i} className="text-sm text-brand-text-secondary flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-brand-pink-primary/50 mt-1.5 shrink-0" />
-                            {resp}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-white mb-3">Additional Contributions</h4>
-                      <ul className="space-y-2">
-                        {exp.achievements.map((ach, i) => (
-                          <li key={i} className="text-sm text-brand-text-secondary flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-brand-pink-bright mt-1.5 shrink-0" />
-                            {ach}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xs font-semibold text-brand-text-muted uppercase tracking-wider mb-3">Tools & Technologies</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.tools.map(tool => (
-                        <span key={tool} className="px-2.5 py-1 text-xs font-medium text-brand-text-secondary bg-brand-bg-primary rounded border border-white/5">
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+    <section id="experience" className="section-shell bg-brand-bg-primary">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading label="Experience" title="Industrial Engineering across projects, operations, and improvement work." className="mb-12" />
+        <div className="relative space-y-5 before:absolute before:bottom-0 before:left-[1.05rem] before:top-0 before:w-px before:bg-white/10 sm:before:left-[8.5rem]">
+          {experience.map((item) => (
+            <article key={item.id} className="relative grid gap-4 pl-12 sm:grid-cols-[7rem_1fr] sm:pl-0">
+              <time className="pt-1 text-sm font-semibold text-brand-accent">{item.period}</time>
+              <span className="absolute left-[.78rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-brand-bg-primary bg-brand-accent sm:left-[8.22rem]" aria-hidden="true" />
+              <div className="rounded-2xl border border-white/[0.08] bg-brand-card p-6 sm:p-8">
+                <p className="text-sm font-semibold text-brand-accent">{item.company}</p>
+                <h3 className="mt-2 text-xl font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 flex items-center gap-2 text-sm text-brand-text-muted"><MapPin className="h-4 w-4" />{item.location}</p>
+                <p className="mt-5 leading-7 text-brand-text-secondary">{item.summary}</p>
+                <ul className="mt-5 space-y-3">{item.highlights.map((highlight) => <li key={highlight} className="flex gap-3 text-sm leading-6 text-brand-text-muted"><span className="text-brand-accent">—</span>{highlight}</li>)}</ul>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

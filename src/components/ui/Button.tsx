@@ -1,6 +1,8 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { forwardRef } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
 import { cn } from '../../lib/utils';
-import { motion, HTMLMotionProps, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import type { HTMLMotionProps } from 'framer-motion';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -9,17 +11,17 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', ...props }, ref) => {
-    const baseStyles = 'depth-button inline-flex items-center justify-center rounded-lg font-medium transition-[transform,box-shadow,border-color,background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink-primary disabled:pointer-events-none disabled:opacity-50';
+    const baseStyles = 'depth-button inline-flex items-center justify-center rounded-lg font-semibold transition-[transform,box-shadow,border-color,background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg-primary disabled:pointer-events-none disabled:opacity-50';
 
     const variants = {
-      primary: 'bg-gradient-to-r from-brand-pink-primary to-brand-pink-rose text-white border border-white/10 shadow-[0_10px_24px_rgba(157,23,77,0.24)] hover:shadow-[0_14px_30px_rgba(236,72,153,0.24)]',
-      secondary: 'bg-brand-card text-brand-text-white border border-white/10 hover:border-brand-pink-primary/45 hover:bg-brand-card-hover',
-      outline: 'border border-brand-pink-primary/70 text-brand-pink-soft bg-brand-bg-primary/45 hover:bg-brand-pink-primary/10 hover:border-brand-pink-primary',
+      primary: 'bg-brand-accent text-brand-bg-primary border border-brand-accent shadow-[0_10px_24px_rgba(45,212,191,0.14)] hover:bg-brand-accent-bright hover:border-brand-accent-bright',
+      secondary: 'bg-brand-card text-brand-text-white border border-white/10 hover:border-brand-accent/45 hover:bg-brand-card-hover',
+      outline: 'border border-brand-accent/70 text-brand-accent-bright bg-brand-bg-primary/45 hover:bg-brand-accent/10 hover:border-brand-accent',
       ghost: 'hover:bg-brand-card hover:text-brand-text-white text-brand-text-secondary border border-transparent hover:border-white/10',
     };
 
     const sizes = {
-      sm: 'h-9 px-4 text-xs',
+      sm: 'h-10 px-4 text-sm',
       md: 'h-11 px-6 text-sm',
       lg: 'h-14 px-8 text-base',
       icon: 'h-10 w-10',
