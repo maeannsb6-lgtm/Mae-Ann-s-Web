@@ -93,6 +93,16 @@ button, summary, select { cursor: pointer; }
 
 .scene-reveal { min-width: 0; }
 
+.cinematic-grid {
+  opacity: .4;
+  background:
+    radial-gradient(circle at 68% 48%, rgba(45, 212, 191, .09), transparent 24rem),
+    linear-gradient(rgba(45, 212, 191, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, .03) 1px, transparent 1px);
+  background-size: auto, 72px 72px, 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
 .workflow-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -28,7 +28,7 @@ export default function App() {
         <Hero />
         <SceneReveal><Highlights /></SceneReveal>
         <SceneReveal><About /></SceneReveal>
-        <SceneReveal><Services /></SceneReveal>
+        <Services />
         <SceneReveal><Skills /></SceneReveal>
         <SceneReveal><FeaturedWorks /></SceneReveal>
         <SceneReveal><AllProjects /></SceneReveal>
