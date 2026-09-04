@@ -6,6 +6,80 @@ import { whatIDo } from '../../data/content';
 
 type Offering = (typeof whatIDo)[number];
 
+function ProcessEngine3D() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className="overflow-hidden rounded-[2rem] border border-brand-accent/20 bg-brand-bg-primary/70 p-4 shadow-[0_30px_90px_rgba(0,0,0,.42)] sm:p-5">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-accent">
+          <Move3D className="h-4 w-4" />
+          Live 3D process engine
+        </div>
+        <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.14em] text-brand-text-muted">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-accent shadow-[0_0_10px_rgba(45,212,191,.9)]" />
+          Auto rotating
+        </span>
+      </div>
+
+      <div
+        className="relative mx-auto h-[19rem] w-full max-w-[21rem] [perspective:900px]"
+        role="img"
+        aria-label="A rotating three-dimensional walkthrough of four connected capabilities: process improvement, AI and workflow automation, business systems, and client workflow automation."
+      >
+        <div className="pointer-events-none absolute inset-x-7 top-1/2 h-32 -translate-y-1/2 rounded-[50%] border border-brand-accent/20 [transform:rotateX(72deg)] shadow-[0_0_45px_rgba(45,212,191,.12)]" aria-hidden="true" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-accent/10 blur-2xl" aria-hidden="true" />
+
+        <motion.div
+          className="absolute inset-0 [transform-style:preserve-3d]"
+          animate={reduceMotion ? { rotateX: -5, rotateY: -18 } : { rotateX: [-6, 3, -6], rotateY: [-18, 342] }}
+          transition={reduceMotion ? undefined : { rotateX: { duration: 12, repeat: Infinity, ease: 'easeInOut' }, rotateY: { duration: 24, repeat: Infinity, ease: 'linear' } }}
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {whatIDo.map(({ title, icon: Icon }, index) => (
+            <div
+              key={title}
+              className="absolute left-1/2 top-1/2 flex h-28 w-[13.5rem] flex-col justify-between rounded-2xl border border-brand-accent/30 bg-[#0d2234]/95 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.08),0_20px_50px_rgba(0,0,0,.55),0_0_28px_rgba(45,212,191,.08)]"
+              style={{
+                backfaceVisibility: 'hidden',
+                transform: `translate(-50%, -50%) rotateY(${index * 90}deg) translateZ(126px)`,
+              }}
+              aria-hidden="true"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-brand-accent">0{index + 1}</span>
+                <span className="rounded-xl border border-brand-accent/20 bg-brand-accent/10 p-2">
+                  <Icon className="h-4 w-4 text-brand-accent" />
+                </span>
+              </div>
+              <p className="max-w-[10rem] text-sm font-semibold leading-5 text-white">{title}</p>
+            </div>
+          ))}
+
+          <div
+            className="absolute left-1/2 top-1/2 flex h-20 w-20 items-center justify-center rounded-[1.4rem] border border-brand-accent/40 bg-brand-accent/15 text-center text-[9px] font-bold uppercase tracking-[0.15em] text-brand-accent shadow-[inset_0_0_25px_rgba(45,212,191,.14),0_0_35px_rgba(45,212,191,.22)]"
+            style={{ transform: 'translate(-50%, -50%) translateZ(0)', backfaceVisibility: 'hidden' }}
+            aria-hidden="true"
+          >
+            Process<br />Core
+          </div>
+        </motion.div>
+
+        <div className="pointer-events-none absolute bottom-5 left-1/2 h-5 w-48 -translate-x-1/2 rounded-[50%] bg-black/50 blur-md" aria-hidden="true" />
+      </div>
+
+      <ol className="grid grid-cols-2 gap-2 border-t border-white/[0.06] pt-4">
+        {whatIDo.map(({ title }, index) => (
+          <li key={title} className="flex items-center gap-2 rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-2 text-[10px] leading-4 text-brand-text-muted">
+            <span className="font-bold text-brand-accent">0{index + 1}</span>
+            {title}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 function WalkthroughCard({ offering, index }: { offering: Offering; index: number }) {
   const reduceMotion = useReducedMotion();
   const rotateX = useMotionValue(0);
@@ -107,17 +181,7 @@ export function Services() {
           <div className="lg:sticky lg:top-28">
             <SectionHeading id="what-i-do-title" label="What I Do" title="Walk through how I improve and automate work." description="Four connected capability areas, grounded in Industrial Engineering and demonstrated through professional or project work." className="mb-8" />
 
-            <div className="hidden rounded-2xl border border-white/[0.07] bg-brand-bg-primary/45 p-5 lg:block">
-              <div className="mb-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-brand-accent"><Move3D className="h-4 w-4" />3D capability walkthrough</div>
-              <div className="space-y-4">
-                {whatIDo.map(({ title }, index) => (
-                  <div key={title} className="flex items-center gap-3">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-brand-accent/20 bg-brand-accent/[0.06] text-[10px] font-bold text-brand-accent">0{index + 1}</span>
-                    <span className="text-sm text-brand-text-secondary">{title}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ProcessEngine3D />
           </div>
 
           <div className="space-y-10 lg:space-y-16">
