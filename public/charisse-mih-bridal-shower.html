@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bridal Shower — Charisse Mih</title>
+<meta name="description" content="Bridal shower for Charisse Mih. Saturday, September 12, 2026, 5:30 to 9:00 PM at the Joseph Room, CCF Manila.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bridal Shower — Charisse Mih">
+<meta property="og:description" content="Saturday, September 12, 2026 · 5:30–9:00 PM · Joseph Room, CCF Manila. Dress code: butter yellow or sage green.">
+<meta property="og:locale" content="en_PH">
+<meta name="theme-color" content="#213A2C">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#213A2C;
+    --forest-deep:#1A2E22;
+    --butter:#F0EDA2;
+    --gold:#E4D3A6;
+    --gold-soft:rgba(228,211,166,.72);
+    --gold-line:rgba(228,211,166,.34);
+    --sage:#9CB08C;
+    --error:#E9B8A0;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{max-width:100%;overflow-x:hidden}
+
+  body{
+    background:#131E17;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    display:flex;flex-direction:column;align-items:center;
+    padding:clamp(12px,4vw,36px) clamp(10px,4vw,20px) 48px;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .invite{
+    width:100%;max-width:5in;
+    background:radial-gradient(125% 80% at 50% 8%, #27442F 0%, var(--forest) 55%, var(--forest-deep) 100%);
+    color:var(--gold);
+    text-align:center;
+    padding:clamp(30px,8vw,44px) clamp(22px,6.5vw,40px) clamp(26px,7vw,36px);
+    position:relative;
+    box-shadow:0 22px 50px rgba(0,0,0,.45);
+  }
+  .invite::after{
+    content:"";position:absolute;inset:clamp(9px,2.6vw,15px);
+    border:1px solid var(--gold-line);pointer-events:none;
+  }
+  .invite > *{position:relative;z-index:1}
+
+  .fade{opacity:0;transform:translateY(8px);animation:rise .9s ease-out forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.25s}.d3{animation-delay:.45s}.d4{animation-delay:.65s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;animation:none}
+    *{transition:none!important;animation:none!important}
+  }
+
+  .emblem{width:clamp(44px,12vw,58px);height:auto;display:block;margin:0 auto}
+
+  .occasion{
+    margin-top:clamp(12px,3.5vw,16px);
+    font-size:clamp(9.5px,2.7vw,11px);
+    letter-spacing:.34em;text-indent:.34em;color:var(--gold-soft);
+  }
+
+  .script{
+    font-family:"Great Vibes",cursive;
+    font-size:clamp(19px,5.6vw,24px);
+    line-height:1.25;color:var(--gold);
+    margin-top:clamp(10px,3vw,14px);
+  }
+
+  .name{
+    font-family:"Playfair Display",serif;font-weight:400;
+    font-size:clamp(34px,10.6vw,52px);line-height:1.05;
+    color:var(--butter);
+    margin:clamp(4px,1.4vw,8px) 0 clamp(8px,2.4vw,12px);
+  }
+
+  .blessing{font-size:clamp(13px,3.9vw,16px);font-style:italic;color:var(--gold-soft)}
+
+  .divider{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin:clamp(18px,5vw,26px) auto;
+  }
+  .divider i{display:block;width:clamp(46px,15vw,72px);height:0;border-top:1px solid var(--gold-line)}
+  .divider s{display:block;width:4px;height:4px;border-radius:50%;background:var(--gold-soft)}
+
+  .weekday{font-size:clamp(10px,2.9vw,12px);letter-spacing:.3em;text-indent:.3em;color:var(--gold-soft)}
+  .date{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(23px,6.8vw,31px);line-height:1.15;
+    color:var(--butter);margin:clamp(3px,1vw,6px) 0 2px;
+  }
+  .year{font-size:clamp(13px,3.7vw,15px);letter-spacing:.22em;text-indent:.22em;color:var(--gold-soft)}
+  .time{font-size:clamp(15px,4.3vw,18px);font-style:italic;color:var(--gold);margin-top:clamp(6px,1.8vw,9px)}
+
+  .pin{width:14px;height:auto;vertical-align:-2px;margin-right:5px}
+  .venue{font-family:"Playfair Display",serif;font-size:clamp(16px,4.6vw,19px);color:var(--butter)}
+  .address{font-size:clamp(13px,3.7vw,15px);line-height:1.45;color:var(--gold-soft);margin-top:4px}
+
+  .pill{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    padding:12px 22px;min-height:44px;
+    border:1px solid var(--gold);border-radius:999px;
+    background:transparent;color:var(--gold);
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(12px,3.3vw,13.5px);
+    letter-spacing:.18em;text-indent:.18em;
+    text-decoration:none;cursor:pointer;
+    transition:background-color .3s ease,color .3s ease,border-color .3s ease;
+  }
+  .pill svg{flex:none}
+  .pill:hover,.pill:focus-visible{background:var(--butter);color:var(--forest-deep);border-color:var(--butter)}
+  .pill:hover svg path,.pill:hover svg circle,
+  .pill:focus-visible svg path,.pill:focus-visible svg circle{stroke:var(--forest-deep)}
+  .pill:focus-visible{outline:2px solid var(--butter);outline-offset:3px}
+  .pill:active{transform:scale(.98)}
+  .pill[disabled]{opacity:.6;cursor:default}
+  .pill[disabled]:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
+  #mapLink{margin-top:clamp(12px,3.4vw,16px)}
+
+  .label{font-size:clamp(9.5px,2.7vw,11px);letter-spacing:.3em;text-indent:.3em;color:var(--gold-soft)}
+  .swatches{display:flex;justify-content:center;gap:clamp(20px,7vw,34px);margin-top:clamp(10px,3vw,14px)}
+  .swatch{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .chip{width:clamp(22px,6.4vw,27px);height:clamp(22px,6.4vw,27px);border-radius:50%;border:1px solid rgba(240,237,162,.35)}
+  .chip.butter{background:var(--butter)}
+  .chip.sage{background:var(--sage)}
+  .swatch span{font-size:clamp(12px,3.5vw,14px);font-style:italic;color:var(--gold)}
+  .dress-note{margin-top:clamp(8px,2.4vw,11px);font-size:clamp(12.5px,3.6vw,14px);color:var(--gold-soft)}
+
+  .info{display:grid;gap:clamp(16px,4.6vw,22px)}
+  .info h3{font-size:clamp(9.5px,2.7vw,11px);font-weight:400;letter-spacing:.3em;text-indent:.3em;color:var(--gold-soft)}
+  .info p{font-size:clamp(13.5px,3.9vw,15.5px);line-height:1.5;color:var(--gold);margin-top:5px}
+  .info em{font-style:italic;color:var(--butter)}
+
+  .closing{font-size:clamp(13.5px,3.9vw,15.5px);line-height:1.6;color:var(--gold)}
+  .closing .highlight{
+    font-family:"Great Vibes",cursive;
+    font-size:clamp(19px,5.4vw,23px);color:var(--butter);
+    display:block;margin:6px 0 2px;line-height:1.3;
+  }
+
+  /* ---------- RSVP ---------- */
+  .rsvp-zone{margin-top:clamp(16px,4.6vw,22px)}
+  .rsvp-call{font-size:clamp(14px,4vw,16px);color:var(--butter);margin-bottom:clamp(10px,3vw,14px)}
+
+  .rsvp-hint{
+    margin-top:clamp(10px,3vw,13px);
+    font-size:clamp(12.5px,3.6vw,14px);
+    font-style:italic;color:var(--gold-soft);
+  }
+
+  .rsvp-form{text-align:left;margin-top:clamp(14px,4vw,18px)}
+  .print-only{display:none}
+
+  /* ---------- controls outside the card ---------- */
+  .controls{margin-top:26px;text-align:center}
+  .print-btn{
+    padding:12px 26px;min-height:44px;
+    background:var(--gold);color:var(--forest-deep);
+    border:none;border-radius:999px;cursor:pointer;
+    font-family:"Cormorant Garamond",serif;
+    font-size:15px;letter-spacing:.14em;text-indent:.14em;
+    transition:background-color .3s ease;
+  }
+  .print-btn:hover{background:var(--butter)}
+  .print-btn:focus-visible{outline:2px solid var(--butter);outline-offset:3px}
+  .note{margin-top:12px;font-size:14px;line-height:1.5;color:#8FA093;max-width:5in}
+
+  /* ---------- print 5in x 7in ---------- */
+  @media print{
+    @page{size:5in 7in;margin:0}
+    html,body{background:#fff}
+    body{padding:0;display:block}
+    .invite{
+      max-width:none;width:5in;height:7in;
+      padding:.42in .46in .34in;box-shadow:none;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;
+      display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .invite::after{inset:.16in}
+    .fade{opacity:1;transform:none;animation:none}
+    .controls,#rsvpLink,.rsvp-hint,#mapLink{display:none!important}
+    .print-only{display:block}
+    .divider{margin:.13in auto}
+    .name{font-size:38px}
+    .date{font-size:26px}
+    .script{font-size:21px}
+  }
+</style>
+</head>
+<body>
+
+<main class="invite" aria-label="Bridal shower invitation for Charisse Mih">
+
+  <svg class="emblem fade d1" viewBox="0 0 80 96" fill="none" role="img" aria-label="Botanical emblem with a heart and cross">
+    <path d="M40 22c-4.5-7-13.5-5.5-15 2-1.4 6.6 7.6 11 15 15.5 7.4-4.5 16.4-8.9 15-15.5-1.5-7.5-10.5-9-15-2Z" stroke="#F0EDA2" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M40 39v33" stroke="#F0EDA2" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M27 51h26" stroke="#F0EDA2" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M18 66c5.4-4.6 11.6-5.4 16.4-2.6-4.2 5.4-11 6.8-16.4 2.6Z" stroke="#9CB08C" stroke-width="1.1" fill="#9CB08C" fill-opacity=".18" stroke-linejoin="round"/>
+    <path d="M62 66c-5.4-4.6-11.6-5.4-16.4-2.6 4.2 5.4 11 6.8 16.4 2.6Z" stroke="#9CB08C" stroke-width="1.1" fill="#9CB08C" fill-opacity=".18" stroke-linejoin="round"/>
+    <circle cx="40" cy="79" r="1.6" fill="#E4D3A6"/>
+  </svg>
+
+  <p class="occasion fade d1">BRIDAL SHOWER</p>
+  <p class="script fade d2">Join us as we shower</p>
+  <h1 class="name fade d2">Charisse Mih</h1>
+  <p class="blessing fade d2">with love, laughter &amp; blessings</p>
+
+  <div class="divider fade d3" role="presentation"><i></i><s></s><i></i></div>
+
+  <section aria-label="Date and time">
+    <p class="weekday fade d3">SATURDAY</p>
+    <p class="date fade d3">September 12</p>
+    <p class="year fade d3">2026</p>
+    <p class="time fade d3">5:30 PM &ndash; 9:00 PM</p>
+  </section>
+
+  <div class="divider fade d3" role="presentation"><i></i><s></s><i></i></div>
+
+  <section aria-label="Location">
+    <p class="venue fade d3">
+      <svg class="pin" viewBox="0 0 16 20" fill="none" aria-hidden="true">
+        <path d="M8 1.2c3.1 0 5.6 2.5 5.6 5.6 0 4.2-5.6 11.9-5.6 11.9S2.4 11 2.4 6.8C2.4 3.7 4.9 1.2 8 1.2Z" stroke="#E4D3A6" stroke-width="1.2"/>
+        <circle cx="8" cy="6.8" r="2.1" stroke="#E4D3A6" stroke-width="1.2"/>
+      </svg>
+      Joseph Room
+    </p>
+    <p class="address fade d3">
+      CCF Manila &middot; Mezzanine, 3rd Floor<br>
+      Robinsons Manila, Padre Faura St., Ermita
+    </p>
+
+    <!-- plain href: works with JavaScript disabled -->
+    <a id="mapLink" class="pill fade d3"
+       href="https://maps.google.com/?cid=4680419356571606389"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="View the Joseph Room at CCF Manila on Google Maps. Opens in a new tab.">
+      <svg width="13" height="16" viewBox="0 0 16 20" fill="none" aria-hidden="true">
+        <path d="M8 1.2c3.1 0 5.6 2.5 5.6 5.6 0 4.2-5.6 11.9-5.6 11.9S2.4 11 2.4 6.8C2.4 3.7 4.9 1.2 8 1.2Z" stroke="#E4D3A6" stroke-width="1.3"/>
+        <circle cx="8" cy="6.8" r="2.1" stroke="#E4D3A6" stroke-width="1.3"/>
+      </svg>
+      VIEW ON GOOGLE MAPS
+    </a>
+  </section>
+
+  <div class="divider fade d4" role="presentation"><i></i><s></s><i></i></div>
+
+  <section class="fade d4" aria-label="Dress code">
+    <h2 class="label">DRESS CODE</h2>
+    <div class="swatches">
+      <div class="swatch"><span class="chip butter" aria-hidden="true"></span><span>Butter Yellow</span></div>
+      <div class="swatch"><span class="chip sage" aria-hidden="true"></span><span>Sage Green</span></div>
+    </div>
+    <p class="dress-note">Any shade of either colour is welcome</p>
+  </section>
+
+  <div class="divider fade d4" role="presentation"><i></i><s></s><i></i></div>
+
+  <section class="info fade d4">
+    <div>
+      <h3>POT BLESS</h3>
+      <p>Please bring a dish to share, <em>good for 9 people</em>.</p>
+    </div>
+    <div>
+      <h3>GIFT</h3>
+      <p>Entirely optional. <em>Your presence is the best gift.</em></p>
+    </div>
+  </section>
+
+  <div class="divider fade d4" role="presentation"><i></i><s></s><i></i></div>
+
+  <section class="fade d4">
+    <p class="closing">
+      Let's shower our bride-to-be with
+      <span class="highlight">love, laughter &amp; blessings</span>
+      and good food.
+    </p>
+
+    <div class="rsvp-zone">
+      <p class="rsvp-call">Kindly RSVP &#128149;</p>
+      <p class="print-only address">Kindly RSVP with the host.</p>
+
+      <a id="rsvpLink" class="pill" href="#" target="_blank" rel="noopener noreferrer"
+         aria-label="Send your RSVP by message. Opens in a new tab.">
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M10 1.7c-4.6 0-8.3 3.4-8.3 7.7 0 2.4 1.2 4.6 3.1 6v3.1l2.9-1.6c.7.2 1.5.3 2.3.3 4.6 0 8.3-3.4 8.3-7.8S14.6 1.7 10 1.7Z" stroke="#E4D3A6" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M5.6 11.6l3.7-3.9 2 2.1 3.1-2.1-3.7 3.9-2-2.1-3.1 2.1Z" stroke="#E4D3A6" stroke-width="1.3" stroke-linejoin="round"/>
+        </svg>
+        RSVP ON MESSENGER
+      </a>
+
+      <p class="rsvp-hint">Message us your name and whether you can join &#128155;</p>
+    </div>
+  </section>
+
+</main>
+
+<div class="controls">
+  <button class="print-btn" type="button" onclick="window.print()">SAVE AS PDF / PRINT</button>
+  <p class="note">
+    RSVP goes to <strong>m.me/maeann.sotto.12</strong>. Tap the button once to confirm it opens your chat.
+    When printing, switch on “Background graphics”.
+  </p>
+</div>
+
+<script>
+/* =====================================================================
+   RSVP LINK — replace this one value.
+
+   Messenger:  https://m.me/YOUR_USERNAME
+               (find it in Messenger: Menu > your profile > Username)
+               Note: Messenger cannot pre-fill a message. It opens the chat.
+
+   Other options, which CAN pre-fill the message:
+     Viber     viber://chat?number=%2B639XXXXXXXXX
+     WhatsApp  https://wa.me/639XXXXXXXXX?text=Hi!%20RSVP%20for%20Charisse
+     SMS       sms:+639XXXXXXXXX?&body=Hi!%20RSVP%20for%20Charisse
+   ===================================================================== */
+const RSVP_LINK = "https://m.me/maeann.sotto.12";
+
+(function () {
+  "use strict";
+  const link = document.getElementById("rsvpLink");
+  if (!link) return;
+
+  if (!RSVP_LINK || RSVP_LINK.indexOf("YOUR_") !== -1) {
+    console.error("RSVP_LINK is not configured yet.");
+    link.removeAttribute("href");
+    link.setAttribute("aria-disabled", "true");
+    link.style.opacity = ".55";
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      alert("Set RSVP_LINK in this file before sending the invitation.");
+    });
+    return;
+  }
+  link.href = RSVP_LINK;
+})();
+</script>
+
+</body>
+</html>
