@@ -101,7 +101,7 @@ function lineData(chapter: number, progress: number, compact: boolean) {
     const origin: Point = [0, 0, -4];
     const rays = compact ? 4 : 7;
     for (let i = 0; i < rays; i += 1) {
-      const t = rays === 1 ? 0 : i / (rays - 1);
+      const t = i / (rays - 1);
       const x = -3.4 + t * 6.8;
       const y = (t - .5) * 2.4;
       lines.push([origin, [x, y, -10 - progress * 3]]);
