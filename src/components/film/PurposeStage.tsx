@@ -1,63 +1,25 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-import type { CSSProperties } from 'react';
 import { approachSteps, experience, opportunityGroups, whatIDo } from '../../data/content';
 import { solarCaseStudy } from '../../data/story';
 import { useFilm } from './FilmController';
 
-const labFlow = ['Website Inquiry', 'Supabase', 'n8n', 'Acknowledgement', 'Owner Notification', 'Follow-up'];
-const storySteps = ['Observe', 'Analyze', 'Improve'];
+const labFlow = ['Inquiry', 'Supabase', 'n8n', 'Acknowledgement', 'Notification', 'Follow-up'];
 
 export default function PurposeStage() {
   const { active, local, reducedMotion, compact } = useFilm();
-  const stageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage || compact || reducedMotion) return;
-
-    let targetX = 0;
-    let targetY = 0;
-    let x = 0;
-    let y = 0;
-    let frame = 0;
-
-    const move = (event: PointerEvent) => {
-      targetX = (event.clientX / Math.max(1, window.innerWidth) - .5) * 2;
-      targetY = (event.clientY / Math.max(1, window.innerHeight) - .5) * 2;
-    };
-
-    const render = () => {
-      x += (targetX - x) * .045;
-      y += (targetY - y) * .045;
-      stage.style.setProperty('--film-ry', `${x * 3.2}deg`);
-      stage.style.setProperty('--film-rx', `${y * -2.4}deg`);
-      frame = requestAnimationFrame(render);
-    };
-
-    window.addEventListener('pointermove', move, { passive: true });
-    frame = requestAnimationFrame(render);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('pointermove', move);
-    };
-  }, [compact, reducedMotion]);
-
-  const travelZ = reducedMotion || compact ? 0 : (local - .5) * 72;
-  const travelY = reducedMotion || compact ? 0 : (local - .5) * -18;
+  const drift = reducedMotion || compact ? 0 : (local - .5) * -16;
 
   return (
-    <div ref={stageRef} className={`purpose-stage purpose-stage--${active}`} aria-hidden="true">
-      <div className="purpose-stage-camera" style={{ transform: `translate3d(0,${travelY}px,${travelZ}px) rotateX(var(--film-rx)) rotateY(var(--film-ry))` }}>
-        <AnimatePresence mode="sync" initial={false}>
+    <div className={`purpose-stage purpose-stage--${active}`} aria-hidden="true">
+      <div className="purpose-stage-camera" style={{ transform: `translate3d(0,${drift}px,0)` }}>
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={active}
             className="purpose-stage-scene"
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: .88, z: -240 }}
-            animate={{ opacity: 1, scale: 1, z: 0 }}
-            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.08, z: 180 }}
-            transition={{ duration: reducedMotion ? .12 : .75, ease: [0.16, 1, 0.3, 1] }}
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, z: -110 }}
+            animate={{ opacity: 1, z: 0 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, z: 90 }}
+            transition={{ duration: reducedMotion ? .12 : .62, ease: [0.22, 1, 0.36, 1] }}
           >
             <SceneContent scene={active} />
           </motion.div>
@@ -69,135 +31,148 @@ export default function PurposeStage() {
 }
 
 function SceneContent({ scene }: { scene: number }) {
-  if (scene === 0) return <IdentitySystem />;
-  if (scene === 1) return <StorySystem />;
-  if (scene === 2) return <CapabilitySystem />;
-  if (scene === 3) return <ProcessSystem />;
-  if (scene === 4) return <ProjectSystem />;
-  if (scene === 5) return <JourneySystem />;
-  if (scene === 6) return <LabSystem />;
-  if (scene === 7) return <FutureSystem />;
-  return <ContactSystem />;
+  if (scene === 0) return <IdentityScene />;
+  if (scene === 1) return <StoryScene />;
+  if (scene === 2) return <CapabilityScene />;
+  if (scene === 3) return <ProcessScene />;
+  if (scene === 4) return <ProjectScene />;
+  if (scene === 5) return <JourneyScene />;
+  if (scene === 6) return <LabScene />;
+  if (scene === 7) return <FutureScene />;
+  return <ContactScene />;
 }
 
-function IdentitySystem() {
-  const layers = ['Process', 'Systems', 'Automation'];
+function IdentityScene() {
   return (
-    <div className="stage-system stage-system--identity">
-      <div className="stage-core"><span>IE</span><strong>Industrial<br/>Engineering</strong></div>
-      {layers.map((item, index) => (
-        <div key={item} className="stage-plate" style={{ '--i': index } as CSSProperties}>
-          <span>0{index + 1}</span><strong>{item}</strong>
-        </div>
-      ))}
-      <div className="stage-axis stage-axis--x" />
-      <div className="stage-axis stage-axis--y" />
+    <div className="simple-stage simple-stage--identity">
+      <div className="simple-core">
+        <span>IE</span>
+        <strong>Industrial Engineering</strong>
+      </div>
+      <div className="simple-ring simple-ring--one" />
+      <div className="simple-ring simple-ring--two" />
+      <div className="simple-label simple-label--a">Process</div>
+      <div className="simple-label simple-label--b">Systems</div>
+      <div className="simple-label simple-label--c">Automation</div>
     </div>
   );
 }
 
-function StorySystem() {
+function StoryScene() {
+  const steps = ['Observe', 'Analyze', 'Improve'];
   return (
-    <div className="stage-system stage-system--story">
-      {storySteps.map((item, index) => (
-        <div key={item} className="stage-story-module" style={{ '--i': index } as CSSProperties}>
+    <div className="simple-stage simple-stage--story">
+      <div className="simple-line" />
+      {steps.map((step, index) => (
+        <div key={step} className="simple-story-step">
           <span>0{index + 1}</span>
-          <strong>{item}</strong>
-          <small>{index === 0 ? 'How does work move?' : index === 1 ? 'Where is the constraint?' : 'What should change?'}</small>
-        </div>
-      ))}
-      <div className="stage-story-path" />
-    </div>
-  );
-}
-
-function CapabilitySystem() {
-  return (
-    <div className="stage-system stage-system--capabilities">
-      <div className="stage-capability-core"><span>Foundation</span><strong>Industrial<br/>Engineering</strong></div>
-      {whatIDo.map((item, index) => (
-        <div key={item.title} className="stage-capability-module" style={{ '--i': index } as CSSProperties}>
-          <span>0{index + 1}</span><strong>{item.title}</strong>
+          <strong>{step}</strong>
         </div>
       ))}
     </div>
   );
 }
 
-function ProcessSystem() {
+function CapabilityScene() {
   return (
-    <div className="stage-system stage-system--process">
-      <div className="stage-process-track" />
+    <div className="simple-stage simple-stage--capabilities">
+      <div className="simple-capability-core">Industrial Engineering</div>
+      <div className="simple-capability-grid">
+        {whatIDo.map((item, index) => (
+          <div key={item.title}>
+            <span>0{index + 1}</span>
+            <strong>{item.title}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProcessScene() {
+  return (
+    <div className="simple-stage simple-stage--process">
+      <div className="simple-process-track" />
       {approachSteps.map((step, index) => (
-        <div key={step.number} className="stage-process-step" style={{ '--i': index } as CSSProperties}>
-          <span>{step.number}</span><strong>{step.title}</strong>
+        <div key={step.number} className="simple-process-node">
+          <span>{step.number}</span>
+          <strong>{step.title}</strong>
+          {index < approachSteps.length - 1 && <i />}
         </div>
       ))}
     </div>
   );
 }
 
-function ProjectSystem() {
+function ProjectScene() {
   return (
-    <div className="stage-system stage-system--project">
-      <div className="stage-project-spine" />
-      {solarCaseStudy.flow.map((step, index) => (
-        <div key={step} className="stage-project-station" style={{ '--i': index } as CSSProperties}>
-          <span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong>
-        </div>
-      ))}
-      <div className="stage-project-output"><span>Output</span><strong>Proposal + Client Workflow</strong></div>
+    <div className="simple-stage simple-stage--project">
+      <div className="simple-project-title">Solar Proposal System</div>
+      <div className="simple-project-track">
+        {solarCaseStudy.flow.map((step, index) => (
+          <div key={step}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step}</strong>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-function JourneySystem() {
+function JourneyScene() {
   return (
-    <div className="stage-system stage-system--journey">
-      <div className="stage-journey-path" />
-      {experience.slice().reverse().map((item, index) => (
-        <div key={item.id} className="stage-journey-stop" style={{ '--i': index } as CSSProperties}>
-          <span>{item.period}</span><strong>{item.company}</strong>
-        </div>
-      ))}
-      <div className="stage-journey-degree"><span>2021–2025</span><strong>BS Industrial Engineering</strong></div>
-    </div>
-  );
-}
-
-function LabSystem() {
-  return (
-    <div className="stage-system stage-system--lab">
-      {labFlow.map((step, index) => (
-        <div key={step} className="stage-lab-node" style={{ '--i': index } as CSSProperties}>
-          <span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong>
-        </div>
-      ))}
-      <div className="stage-lab-pulse" />
-    </div>
-  );
-}
-
-function FutureSystem() {
-  return (
-    <div className="stage-system stage-system--future">
-      <div className="stage-future-origin"><span>Next</span></div>
-      {opportunityGroups.map((group, index) => (
-        <div key={group.title} className="stage-future-path" style={{ '--i': index } as CSSProperties}>
-          <span>0{index + 1}</span><strong>{group.title}</strong>
+    <div className="simple-stage simple-stage--journey">
+      <div className="simple-journey-line" />
+      {experience.slice().reverse().map((item) => (
+        <div key={item.id} className="simple-journey-stop">
+          <span>{item.period}</span>
+          <strong>{item.company}</strong>
         </div>
       ))}
     </div>
   );
 }
 
-function ContactSystem() {
+function LabScene() {
   return (
-    <div className="stage-system stage-system--contact">
-      <div className="stage-contact-source stage-contact-source--a">Role</div>
-      <div className="stage-contact-source stage-contact-source--b">Process</div>
-      <div className="stage-contact-source stage-contact-source--c">System</div>
-      <div className="stage-contact-destination"><span>Contact</span><strong>Let’s work together.</strong></div>
+    <div className="simple-stage simple-stage--lab">
+      <div className="simple-lab-track">
+        {labFlow.map((item, index) => (
+          <div key={item}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{item}</strong>
+          </div>
+        ))}
+      </div>
+      <div className="simple-lab-pulse" />
+    </div>
+  );
+}
+
+function FutureScene() {
+  return (
+    <div className="simple-stage simple-stage--future">
+      <div className="simple-future-core">Next</div>
+      {opportunityGroups.map((group) => (
+        <div key={group.title} className="simple-future-path">
+          <strong>{group.title}</strong>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ContactScene() {
+  return (
+    <div className="simple-stage simple-stage--contact">
+      <div className="simple-contact-line simple-contact-line--a" />
+      <div className="simple-contact-line simple-contact-line--b" />
+      <div className="simple-contact-line simple-contact-line--c" />
+      <div className="simple-contact-core">
+        <span>Contact</span>
+        <strong>Let’s work together.</strong>
+      </div>
     </div>
   );
 }
