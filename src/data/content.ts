@@ -4,12 +4,13 @@ import {
 } from 'lucide-react';
 
 export const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
+  { name: 'Origin', href: '#home' },
+  { name: 'Curiosity', href: '#about' },
   { name: 'Capabilities', href: '#capabilities' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Certifications', href: '#certifications' },
+  { name: 'Process', href: '#approach' },
+  { name: 'Work', href: '#projects' },
+  { name: 'Journey', href: '#journey' },
+  { name: 'Lab', href: '#automation-lab' },
   { name: 'Contact', href: '#contact' },
 ];
 
