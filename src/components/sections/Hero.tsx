@@ -1,7 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDownRight, ArrowUpRight, Download, Mail } from 'lucide-react';
 import { contactInfo } from '../../data/content';
 import { GithubMark, LinkedinMark } from '../ui/BrandIcons';
+
+const Hero3DScene = lazy(() => import('../three/Hero3DScene'));
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -57,13 +60,17 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          className="pro-portrait-wrap"
+          className="pro-portrait-wrap pro-portrait-wrap--3d"
           initial={reduceMotion ? false : { opacity: 0, x: 24, clipPath: 'inset(6% 0 8% 0)' }}
           animate={{ opacity: 1, x: 0, clipPath: 'inset(0% 0 0% 0)' }}
           transition={{ duration: .88, delay: reduceMotion ? 0 : .1, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="pro-portrait-index" aria-hidden="true">01</div>
-          <div className="pro-portrait-frame">
+          <div className="pro-portrait-stage">
+            <Suspense fallback={<div className="hero-3d-fallback" aria-hidden="true" />}>
+              <Hero3DScene />
+            </Suspense>
+            <div className="pro-portrait-index" aria-hidden="true">01</div>
+            <div className="pro-portrait-frame">
             <img
               src="https://res.cloudinary.com/dape9qptt/image/upload/v1785206634/photo_2026-03-06_13-46-52_idmazn.jpg"
               alt="Mae Ann S. Bodiongan, Industrial Engineer focused on process improvement and automation"
@@ -72,14 +79,17 @@ export function Hero() {
               fetchPriority="high"
               className="pro-portrait"
             />
-            <div className="pro-portrait-caption">
-              <span>Process thinking</span>
-              <span>Automation</span>
-              <span>Systems</span>
+              <div className="pro-portrait-caption">
+                <span>Process thinking</span>
+                <span>Automation</span>
+                <span>Systems</span>
+              </div>
             </div>
+            <div className="pro-portrait-depth" aria-hidden="true" />
+            <div className="pro-3d-orbit-label pro-3d-orbit-label--a" aria-hidden="true">Process</div>
+            <div className="pro-3d-orbit-label pro-3d-orbit-label--b" aria-hidden="true">Systems</div>
+            <div className="pro-3d-orbit-label pro-3d-orbit-label--c" aria-hidden="true">Automation</div>
           </div>
-
-          <div className="pro-portrait-depth" aria-hidden="true" />
           <div className="pro-portrait-note" aria-hidden="true">
             <span>Industrial Engineering</span>
             <i />
