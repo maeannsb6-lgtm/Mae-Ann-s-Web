@@ -11,12 +11,20 @@ export function Hero() {
       <div className="pro-hero-shell">
         <motion.div
           className="pro-hero-copy"
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: .7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: .72, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="pro-kicker">Industrial Engineering · Process Automation · Business Systems</p>
-          <h1>Mae Ann<br />S. Bodiongan</h1>
+          <div className="pro-hero-overline">
+            <span className="pro-hero-overline-mark" aria-hidden="true" />
+            <p className="pro-kicker">Industrial Engineering · Process Automation · Business Systems</p>
+          </div>
+
+          <h1>
+            <span className="pro-name-line pro-name-line--first">Mae Ann S.</span>
+            <span className="pro-name-line">Bodiongan</span>
+          </h1>
+
           <p className="pro-hero-role">Industrial Engineer | AI &amp; Process Automation</p>
           <p className="pro-hero-value">
             I improve how work moves—combining Industrial Engineering, automation, and practical digital systems to make operations clearer, faster, and easier to manage.
@@ -24,15 +32,21 @@ export function Hero() {
 
           <div className="pro-hero-actions">
             <a href="#projects" className="pro-btn pro-btn--primary">View selected work <ArrowDownRight className="h-4 w-4" /></a>
-            <a href="#contact" className="pro-btn">Contact me</a>
-            <a href={contactInfo.cvUrl} target="_blank" rel="noopener noreferrer" className="pro-text-link" data-track="resume-download">
-              Resume <Download className="h-4 w-4" />
+            <a href="#contact" className="pro-btn pro-btn--secondary">Contact me</a>
+            <a href={contactInfo.cvUrl} target="_blank" rel="noopener noreferrer" className="pro-resume-link" data-track="resume-download">
+              <span>Resume</span><Download className="h-4 w-4" />
             </a>
           </div>
 
-          <div className="pro-hero-meta">
-            <span>{contactInfo.location}</span>
-            <span>{contactInfo.availability}</span>
+          <div className="pro-hero-proof">
+            <div>
+              <span className="pro-small-label">Based in</span>
+              <strong>{contactInfo.location}</strong>
+            </div>
+            <div>
+              <span className="pro-small-label">Available for</span>
+              <strong>Remote roles · Selected automation projects</strong>
+            </div>
           </div>
 
           <div className="pro-socials" aria-label="Professional links">
@@ -44,10 +58,11 @@ export function Hero() {
 
         <motion.div
           className="pro-portrait-wrap"
-          initial={reduceMotion ? false : { opacity: 0, clipPath: 'inset(8% 0 12% 0)' }}
-          animate={{ opacity: 1, clipPath: 'inset(0% 0 0% 0)' }}
-          transition={{ duration: .9, delay: reduceMotion ? 0 : .12, ease: [0.16, 1, 0.3, 1] }}
+          initial={reduceMotion ? false : { opacity: 0, x: 24, clipPath: 'inset(6% 0 8% 0)' }}
+          animate={{ opacity: 1, x: 0, clipPath: 'inset(0% 0 0% 0)' }}
+          transition={{ duration: .88, delay: reduceMotion ? 0 : .1, ease: [0.16, 1, 0.3, 1] }}
         >
+          <div className="pro-portrait-index" aria-hidden="true">01</div>
           <div className="pro-portrait-frame">
             <img
               src="https://res.cloudinary.com/dape9qptt/image/upload/v1785206634/photo_2026-03-06_13-46-52_idmazn.jpg"
@@ -63,7 +78,13 @@ export function Hero() {
               <span>Systems</span>
             </div>
           </div>
+
           <div className="pro-portrait-depth" aria-hidden="true" />
+          <div className="pro-portrait-note" aria-hidden="true">
+            <span>Industrial Engineering</span>
+            <i />
+            <span>Systems thinking</span>
+          </div>
           <a href="#about" className="pro-scroll-cue">Explore <ArrowUpRight className="h-4 w-4" /></a>
         </motion.div>
       </div>
