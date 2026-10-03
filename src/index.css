@@ -545,3 +545,256 @@ button,summary,select { cursor: pointer; }
   .pro-portrait-stage .pro-portrait-frame,
   .pro-portrait-wrap--3d:hover .pro-portrait-stage .pro-portrait-frame { transform:none; }
 }
+
+
+/* continuous cinematic journey */
+.cinematic-site { position:relative; isolation:isolate; overflow:clip; }
+.cinematic-main { position:relative; z-index:2; }
+.cinematic-world,
+.cinematic-world-fallback {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+.cinematic-world {
+  opacity:.52;
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 18px rgba(45,212,191,.08));
+}
+.cinematic-world-fallback {
+  opacity:.2;
+  background:
+    radial-gradient(circle at 72% 24%, rgba(45,212,191,.08), transparent 24rem),
+    linear-gradient(90deg, transparent 49.92%, rgba(45,212,191,.16) 50%, transparent 50.08%);
+}
+.cinematic-scene {
+  position:relative;
+  z-index:2;
+  transform-origin:50% 50%;
+  will-change:transform,opacity;
+}
+.cinematic-scene::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.65;
+  background:linear-gradient(180deg, rgba(7,17,31,.25), rgba(7,17,31,.74) 38%, rgba(7,17,31,.82));
+}
+.cinematic-scene--0::before { background:linear-gradient(180deg, rgba(7,17,31,.2), rgba(7,17,31,.74)); }
+.cinematic-scene--5::before,
+.cinematic-scene--10::before { background:linear-gradient(180deg, rgba(7,17,31,.52), rgba(9,22,36,.9)); }
+
+.cinematic-scene-marker {
+  position:absolute;
+  top:clamp(4.8rem,8vw,7rem);
+  left:max(1rem,calc((100% - 80rem)/2));
+  z-index:6;
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  color:#607387;
+  pointer-events:none;
+}
+.cinematic-scene-marker span {
+  color:var(--accent);
+  font-size:.58rem;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+.cinematic-scene-marker i {
+  width:2.2rem;
+  height:1px;
+  background:rgba(45,212,191,.28);
+}
+.cinematic-scene-marker em {
+  font-style:normal;
+  font-size:.58rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.cinematic-progress {
+  position:fixed;
+  inset:0 0 auto;
+  z-index:60;
+  pointer-events:none;
+}
+.cinematic-progress-track {
+  width:100%;
+  height:2px;
+  background:rgba(255,255,255,.025);
+}
+.cinematic-progress-track span {
+  display:block;
+  width:100%;
+  height:100%;
+  transform-origin:left center;
+  background:linear-gradient(90deg,var(--accent),rgba(45,212,191,.3));
+  transition:transform .16s linear;
+}
+.cinematic-progress-meta {
+  position:absolute;
+  right:1rem;
+  top:1rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  color:#6d8196;
+}
+.cinematic-progress-meta span {
+  color:var(--accent);
+  font-size:.58rem;
+  font-weight:800;
+}
+.cinematic-progress-meta i {
+  width:1.5rem;
+  height:1px;
+  background:rgba(45,212,191,.25);
+}
+.cinematic-progress-meta em {
+  font-style:normal;
+  font-size:.56rem;
+  font-weight:700;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+/* make every section feel like a camera scene rather than a hard cut */
+.cinematic-scene .pro-section,
+.cinematic-scene .pro-highlights,
+.cinematic-scene .pro-hero {
+  background-color:transparent !important;
+}
+.cinematic-scene .pro-section-shell,
+.cinematic-scene .pro-highlights-shell,
+.cinematic-scene .pro-hero-shell {
+  position:relative;
+}
+.cinematic-scene .pro-section-shell::after,
+.cinematic-scene .pro-highlights-shell::after {
+  content:"";
+  position:absolute;
+  inset:-8% -4%;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.28;
+  background:radial-gradient(circle at 50% 45%, rgba(45,212,191,.035), transparent 58%);
+  transform:translateZ(-70px) scale(1.04);
+}
+
+/* subtle section-specific parallax planes */
+.cinematic-scene--2 .pro-about-title,
+.cinematic-scene--4 .pro-skill-tabs,
+.cinematic-scene--6 .pro-section-intro,
+.cinematic-scene--8 .pro-degree,
+.cinematic-scene--11 .pro-hire-list {
+  transform:translateZ(34px);
+}
+.cinematic-scene--3 .pro-service-preview,
+.cinematic-scene--5 .pro-project-visual,
+.cinematic-scene--7 .pro-exp-main,
+.cinematic-scene--10 .pro-lab-state,
+.cinematic-scene--12 .pro-contact-form {
+  transform:translateZ(58px);
+}
+.cinematic-scene--3 .pro-service-list,
+.cinematic-scene--5 .pro-project-copy,
+.cinematic-scene--7 .pro-exp-meta,
+.cinematic-scene--10 .pro-lab-input,
+.cinematic-scene--12 .pro-contact-copy {
+  transform:translateZ(22px);
+}
+
+/* stronger spatial interactions */
+@media (hover:hover) and (pointer:fine) {
+  .pro-service-list button,
+  .pro-skill-tabs button,
+  .pro-project-list article,
+  .pro-experience-list article,
+  .pro-achievement-grid article,
+  .pro-training-list article {
+    transition:transform .32s var(--ease), background-color .32s ease, border-color .32s ease, color .32s ease;
+  }
+  .pro-service-list button:hover { transform:translate3d(10px,-2px,24px); }
+  .pro-skill-tabs button:hover { transform:translate3d(6px,0,16px); }
+  .pro-project-list article:hover { transform:translate3d(0,-4px,28px); background:rgba(255,255,255,.012); }
+  .pro-experience-list article:hover { transform:translate3d(0,-3px,22px); }
+  .pro-achievement-grid article:hover { transform:translate3d(0,-5px,26px); background:rgba(255,255,255,.014); }
+  .pro-training-list article:hover { transform:translate3d(6px,0,18px); }
+}
+
+/* transitions read as one continuous shot */
+.cinematic-scene + .cinematic-scene {
+  margin-top:-2px;
+}
+.cinematic-scene .pro-section,
+.cinematic-scene .pro-highlights {
+  border-top-color:rgba(255,255,255,.025);
+}
+.cinematic-scene--5 .pro-project-screen,
+.cinematic-scene--10 .pro-lab-layout {
+  box-shadow:0 34px 110px rgba(0,0,0,.32), 0 0 70px rgba(45,212,191,.035);
+}
+
+/* camera-like depth for featured content */
+.pro-featured-project,
+.pro-services-layout,
+.pro-skill-browser,
+.pro-experience-list,
+.pro-education-layout,
+.pro-achievement-grid,
+.pro-lab-layout,
+.pro-opportunity-layout,
+.pro-contact-layout {
+  transform-style:preserve-3d;
+  perspective:1600px;
+}
+.pro-project-screen,
+.pro-service-preview,
+.pro-lab-state,
+.pro-contact-form {
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+@media (hover:hover) and (pointer:fine) {
+  .pro-project-visual:hover .pro-project-screen { transform:translate3d(0,-6px,42px) rotateX(.8deg) rotateY(-.8deg); }
+  .pro-service-preview:hover { transform:translate3d(0,-4px,32px); }
+  .pro-lab-state:hover { transform:translate3d(0,-3px,26px); }
+  .pro-contact-form:hover { transform:translate3d(0,-2px,18px); }
+}
+
+@media (max-width:900px) {
+  .cinematic-world { opacity:.3; }
+  .cinematic-scene-marker { display:none; }
+  .cinematic-progress-meta { display:none; }
+  .cinematic-scene {
+    transform:none !important;
+    opacity:1 !important;
+  }
+  .cinematic-scene--2 .pro-about-title,
+  .cinematic-scene--4 .pro-skill-tabs,
+  .cinematic-scene--6 .pro-section-intro,
+  .cinematic-scene--8 .pro-degree,
+  .cinematic-scene--11 .pro-hire-list,
+  .cinematic-scene--3 .pro-service-preview,
+  .cinematic-scene--5 .pro-project-visual,
+  .cinematic-scene--7 .pro-exp-main,
+  .cinematic-scene--10 .pro-lab-state,
+  .cinematic-scene--12 .pro-contact-form,
+  .cinematic-scene--3 .pro-service-list,
+  .cinematic-scene--5 .pro-project-copy,
+  .cinematic-scene--7 .pro-exp-meta,
+  .cinematic-scene--10 .pro-lab-input,
+  .cinematic-scene--12 .pro-contact-copy { transform:none; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .cinematic-world { opacity:.2; }
+  .cinematic-scene { transform:none !important; opacity:1 !important; }
+  .cinematic-progress-track span { transition:none; }
+}
