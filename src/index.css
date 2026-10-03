@@ -798,3 +798,842 @@ button,summary,select { cursor: pointer; }
   .cinematic-scene { transform:none !important; opacity:1 !important; }
   .cinematic-progress-track span { transition:none; }
 }
+
+
+/* PURPOSEFUL 3D FILM — content drives the scene */
+.film-site {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+.film-main {
+  position: relative;
+  z-index: 3;
+}
+.film-scene {
+  position: relative;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.film-scene + .film-scene {
+  margin-top: -1px;
+}
+.film-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7,17,31,.28), rgba(7,17,31,.78) 28%, rgba(7,17,31,.88) 72%, rgba(7,17,31,.74));
+}
+.film-scene--0::before {
+  background: linear-gradient(90deg, rgba(7,17,31,.92) 0%, rgba(7,17,31,.75) 48%, rgba(7,17,31,.34) 100%);
+}
+.film-scene--4::before,
+.film-scene--6::before {
+  background: linear-gradient(180deg, rgba(7,17,31,.42), rgba(7,17,31,.9));
+}
+
+/* global stage */
+.purpose-stage,
+.purpose-stage-fallback {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(58vw, 62rem);
+  z-index: 1;
+  pointer-events: none;
+}
+.purpose-stage {
+  --film-rx: 0deg;
+  --film-ry: 0deg;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+.purpose-stage::before {
+  content: "";
+  position: absolute;
+  inset: 12% 5% 8% 0;
+  background: radial-gradient(circle at 50% 50%, rgba(45,212,191,.055), transparent 62%);
+  filter: blur(20px);
+}
+.purpose-stage-camera {
+  position: absolute;
+  inset: 8% 2% 7% 0;
+  transform-style: preserve-3d;
+  transition: transform .14s linear;
+}
+.purpose-stage-scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+.purpose-stage-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7,17,31,1) 0%, rgba(7,17,31,.78) 8%, transparent 27%),
+    linear-gradient(180deg, rgba(7,17,31,.38), transparent 20%, transparent 80%, rgba(7,17,31,.7));
+}
+.purpose-stage-fallback {
+  opacity: .32;
+  background:
+    radial-gradient(circle at 68% 40%, rgba(45,212,191,.12), transparent 22rem),
+    linear-gradient(90deg, transparent 49.9%, rgba(45,212,191,.16) 50%, transparent 50.1%);
+}
+
+/* base semantic system */
+.stage-system {
+  position: relative;
+  width: min(82%, 46rem);
+  height: min(74vh, 42rem);
+  transform-style: preserve-3d;
+  color: #dce6ee;
+}
+.stage-system strong {
+  font-weight: 650;
+}
+.stage-system span,
+.stage-system small {
+  display: block;
+}
+.stage-system [class*="module"],
+.stage-system [class*="step"],
+.stage-system [class*="station"],
+.stage-system [class*="stop"],
+.stage-system [class*="node"],
+.stage-system [class*="path"],
+.stage-system [class*="source"],
+.stage-system [class*="destination"],
+.stage-plate,
+.stage-core,
+.stage-capability-core,
+.stage-project-output,
+.stage-journey-degree,
+.stage-future-origin {
+  backface-visibility: hidden;
+}
+
+/* identity — engineering system coming online */
+.stage-system--identity {
+  display: grid;
+  place-items: center;
+}
+.stage-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11rem;
+  height: 11rem;
+  transform: translate(-50%,-50%) translateZ(86px);
+  border: 1px solid rgba(45,212,191,.35);
+  border-radius: 50%;
+  background: rgba(7,17,31,.82);
+  box-shadow: 0 0 70px rgba(45,212,191,.08);
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.stage-core span {
+  color: var(--accent);
+  font-size: .62rem;
+  letter-spacing: .14em;
+}
+.stage-core strong {
+  margin-top: .4rem;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.15;
+}
+.stage-plate {
+  --angle: calc(var(--i) * 120deg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10.5rem;
+  min-height: 5rem;
+  padding: 1rem;
+  transform:
+    translate(-50%,-50%)
+    rotateY(var(--angle))
+    translateZ(13rem)
+    rotateY(calc(var(--angle) * -1));
+  border: 1px solid rgba(255,255,255,.11);
+  background: rgba(9,22,36,.78);
+}
+.stage-plate span {
+  color: var(--accent);
+  font-size: .58rem;
+}
+.stage-plate strong {
+  display: block;
+  margin-top: .35rem;
+  color: #f8fafc;
+  font-size: .8rem;
+}
+.stage-axis {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(45,212,191,.16);
+  transform-origin: center;
+}
+.stage-axis--x {
+  width: 28rem;
+  height: 1px;
+  transform: translate(-50%,-50%) translateZ(-32px);
+}
+.stage-axis--y {
+  width: 1px;
+  height: 28rem;
+  transform: translate(-50%,-50%) translateZ(-32px);
+}
+
+/* professional story — observe, analyze, improve */
+.stage-system--story {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+}
+.stage-story-module {
+  --offset: calc((var(--i) - 1) * 5rem);
+  width: 10.5rem;
+  min-height: 10rem;
+  padding: 1.2rem;
+  transform: translateY(var(--offset)) translateZ(calc(var(--i) * 42px));
+  border-top: 1px solid rgba(45,212,191,.34);
+  background: linear-gradient(180deg, rgba(13,27,45,.7), rgba(7,17,31,.36));
+}
+.stage-story-module span {
+  color: var(--accent);
+  font-size: .58rem;
+}
+.stage-story-module strong {
+  margin-top: .8rem;
+  color: #fff;
+  font-size: 1rem;
+}
+.stage-story-module small {
+  margin-top: .55rem;
+  color: #8296aa;
+  font-size: .66rem;
+  line-height: 1.5;
+}
+.stage-story-path {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 50%;
+  height: 1px;
+  transform: translateZ(-18px);
+  background: linear-gradient(90deg, transparent, rgba(45,212,191,.28), transparent);
+}
+
+/* capabilities — hub and modules */
+.stage-system--capabilities {
+  display: grid;
+  place-items: center;
+}
+.stage-capability-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10rem;
+  height: 10rem;
+  transform: translate(-50%,-50%) translateZ(86px);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border: 1px solid rgba(45,212,191,.32);
+  border-radius: 1.5rem;
+  background: rgba(7,17,31,.86);
+}
+.stage-capability-core span {
+  color: var(--accent);
+  font-size: .56rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.stage-capability-core strong {
+  margin-top: .4rem;
+  color: #fff;
+  line-height: 1.15;
+}
+.stage-capability-module {
+  --angle: calc(var(--i) * 90deg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11rem;
+  min-height: 5rem;
+  padding: 1rem;
+  transform:
+    translate(-50%,-50%)
+    rotateZ(var(--angle))
+    translateX(14rem)
+    rotateZ(calc(var(--angle) * -1))
+    translateZ(calc(24px + var(--i) * 14px));
+  border-left: 1px solid var(--accent);
+  background: rgba(8,20,33,.74);
+}
+.stage-capability-module span {
+  color: #5f7589;
+  font-size: .56rem;
+}
+.stage-capability-module strong {
+  display: block;
+  margin-top: .35rem;
+  color: #dce6ee;
+  font-size: .73rem;
+  line-height: 1.3;
+}
+.stage-system--capabilities::before,
+.stage-system--capabilities::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28rem;
+  height: 1px;
+  background: rgba(45,212,191,.13);
+  transform: translate(-50%,-50%) translateZ(-30px);
+}
+.stage-system--capabilities::after {
+  transform: translate(-50%,-50%) rotate(90deg) translateZ(-30px);
+}
+
+/* process — real 7-step method */
+.stage-system--process {
+  display: grid;
+  place-items: center;
+}
+.stage-process-track {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(45,212,191,.05), rgba(45,212,191,.4), rgba(45,212,191,.08));
+}
+.stage-process-step {
+  position: absolute;
+  left: calc(8% + var(--i) * 14%);
+  top: 50%;
+  width: 6.8rem;
+  min-height: 5rem;
+  padding: .85rem;
+  transform:
+    translate(-50%,-50%)
+    translateY(calc((var(--i) % 2) * 5.2rem - 2.6rem))
+    translateZ(calc(var(--i) * 16px));
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(7,17,31,.84);
+}
+.stage-process-step::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 2.8rem;
+  background: rgba(45,212,191,.3);
+}
+.stage-process-step:nth-child(even)::before {
+  bottom: 100%;
+}
+.stage-process-step:nth-child(odd)::before {
+  top: 100%;
+}
+.stage-process-step span {
+  color: var(--accent);
+  font-size: .55rem;
+}
+.stage-process-step strong {
+  display: block;
+  margin-top: .4rem;
+  color: #fff;
+  font-size: .7rem;
+}
+
+/* projects — solar workflow as stations */
+.stage-system--project {
+  transform: rotateX(58deg) rotateZ(-12deg);
+}
+.stage-project-spine {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(45,212,191,.05), rgba(45,212,191,.42), rgba(45,212,191,.12));
+}
+.stage-project-station {
+  position: absolute;
+  left: calc(10% + var(--i) * 10.4%);
+  top: 50%;
+  width: 7.2rem;
+  min-height: 4.5rem;
+  padding: .8rem;
+  transform:
+    translate(-50%,-50%)
+    translateY(calc((var(--i) % 2) * 5.6rem - 2.8rem))
+    translateZ(calc(var(--i) * 26px));
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(8,20,33,.9);
+}
+.stage-project-station span {
+  color: var(--accent);
+  font-size: .53rem;
+}
+.stage-project-station strong {
+  display: block;
+  margin-top: .3rem;
+  color: #d8e3eb;
+  font-size: .63rem;
+  line-height: 1.3;
+}
+.stage-project-output {
+  position: absolute;
+  right: -2%;
+  bottom: 2%;
+  width: 12rem;
+  padding: 1rem;
+  transform: translateZ(160px) rotateX(-58deg) rotateZ(12deg);
+  border-top: 1px solid var(--accent);
+  background: rgba(7,17,31,.86);
+}
+.stage-project-output span {
+  color: var(--accent);
+  font-size: .56rem;
+}
+.stage-project-output strong {
+  display: block;
+  margin-top: .35rem;
+  color: #fff;
+  font-size: .76rem;
+}
+
+/* journey — career progression in depth */
+.stage-system--journey {
+  transform: rotateY(-12deg);
+}
+.stage-journey-path {
+  position: absolute;
+  left: 16%;
+  top: 10%;
+  width: 1px;
+  height: 80%;
+  background: linear-gradient(rgba(45,212,191,.08), rgba(45,212,191,.45), rgba(45,212,191,.08));
+}
+.stage-journey-stop {
+  position: absolute;
+  left: calc(16% + var(--i) * 8%);
+  top: calc(12% + var(--i) * 15%);
+  width: 13rem;
+  min-height: 4.7rem;
+  padding: .8rem 1rem;
+  transform: translateZ(calc(var(--i) * 52px));
+  border-left: 1px solid var(--accent);
+  background: rgba(7,17,31,.78);
+}
+.stage-journey-stop span {
+  color: #65798e;
+  font-size: .56rem;
+}
+.stage-journey-stop strong {
+  display: block;
+  margin-top: .35rem;
+  color: #fff;
+  font-size: .7rem;
+}
+.stage-journey-degree {
+  position: absolute;
+  right: 4%;
+  bottom: 7%;
+  width: 12rem;
+  padding: 1rem;
+  transform: translateZ(150px);
+  border-top: 1px solid rgba(45,212,191,.45);
+  background: rgba(8,20,33,.88);
+}
+.stage-journey-degree span {
+  color: var(--accent);
+  font-size: .56rem;
+}
+.stage-journey-degree strong {
+  display: block;
+  margin-top: .35rem;
+  color: #fff;
+  font-size: .72rem;
+}
+
+/* lab — real integration architecture */
+.stage-system--lab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+.stage-lab-node {
+  position: relative;
+  width: 6.5rem;
+  min-height: 6rem;
+  padding: .9rem .65rem;
+  transform: translateZ(calc(var(--i) * 34px)) translateY(calc((var(--i) % 2) * 2rem - 1rem));
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(7,17,31,.86);
+}
+.stage-lab-node::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: .55rem;
+  height: 1px;
+  background: rgba(45,212,191,.36);
+}
+.stage-lab-node:last-of-type::after {
+  display: none;
+}
+.stage-lab-node span {
+  color: var(--accent);
+  font-size: .54rem;
+}
+.stage-lab-node strong {
+  display: block;
+  margin-top: .4rem;
+  color: #dbe5ed;
+  font-size: .62rem;
+  line-height: 1.35;
+}
+.stage-lab-pulse {
+  position: absolute;
+  left: 11%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(45,212,191,.5);
+}
+
+/* future — three deliberate directions */
+.stage-system--future {
+  display: grid;
+  place-items: center;
+}
+.stage-future-origin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6rem;
+  height: 6rem;
+  transform: translate(-50%,-50%) translateZ(90px);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(45,212,191,.34);
+  border-radius: 50%;
+  background: rgba(7,17,31,.84);
+}
+.stage-future-origin span {
+  color: var(--accent);
+  font-size: .65rem;
+  font-weight: 800;
+}
+.stage-future-path {
+  --angle: calc((var(--i) - 1) * 42deg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12rem;
+  padding: 1rem;
+  transform-origin: 0 50%;
+  transform: rotate(var(--angle)) translateX(9rem) translateZ(calc(var(--i) * 42px)) rotate(calc(var(--angle) * -1));
+  border-top: 1px solid rgba(45,212,191,.3);
+  background: rgba(7,17,31,.7);
+}
+.stage-future-path span {
+  color: var(--accent);
+  font-size: .56rem;
+}
+.stage-future-path strong {
+  display: block;
+  margin-top: .35rem;
+  color: #fff;
+  font-size: .72rem;
+}
+
+/* contact — all paths resolve into one destination */
+.stage-system--contact {
+  display: grid;
+  place-items: center;
+}
+.stage-contact-source {
+  position: absolute;
+  left: 8%;
+  width: 7rem;
+  padding: .8rem;
+  color: #8094a8;
+  font-size: .66rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(7,17,31,.68);
+}
+.stage-contact-source::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 14rem;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(45,212,191,.38), rgba(45,212,191,.04));
+}
+.stage-contact-source--a { top: 24%; transform: translateZ(20px); }
+.stage-contact-source--b { top: 47%; transform: translateZ(50px); }
+.stage-contact-source--c { top: 70%; transform: translateZ(80px); }
+.stage-contact-source--a::after { transform: rotate(10deg); }
+.stage-contact-source--c::after { transform: rotate(-10deg); }
+.stage-contact-destination {
+  position: absolute;
+  right: 11%;
+  top: 50%;
+  width: 13rem;
+  padding: 1.3rem;
+  transform: translateY(-50%) translateZ(130px);
+  border: 1px solid rgba(45,212,191,.35);
+  background: rgba(7,17,31,.9);
+}
+.stage-contact-destination span {
+  color: var(--accent);
+  font-size: .56rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.stage-contact-destination strong {
+  display: block;
+  margin-top: .45rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* rail and orientation */
+.film-top-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 70;
+  height: 2px;
+  pointer-events: none;
+  background: rgba(255,255,255,.025);
+}
+.film-top-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: var(--accent);
+}
+.film-rail {
+  position: fixed;
+  right: 1.15rem;
+  top: 50%;
+  z-index: 55;
+  transform: translateY(-50%);
+  display: flex;
+  gap: .8rem;
+  align-items: stretch;
+}
+.film-rail-line {
+  width: 1px;
+  background: rgba(255,255,255,.08);
+}
+.film-rail-line span {
+  display: block;
+  width: 1px;
+  height: 100%;
+  transform-origin: top center;
+  background: var(--accent);
+}
+.film-rail ol {
+  display: grid;
+  gap: .25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.film-rail a {
+  min-height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .55rem;
+  color: #62768b;
+  text-decoration: none;
+}
+.film-rail-number {
+  font-size: .55rem;
+  font-weight: 800;
+}
+.film-rail-label {
+  display: none;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+.film-rail a i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: width .25s var(--ease);
+}
+.film-rail a[aria-current="step"] {
+  color: var(--accent);
+}
+.film-rail a[aria-current="step"] i {
+  width: 18px;
+}
+.film-rail a:hover .film-rail-label,
+.film-rail a[aria-current="step"] .film-rail-label {
+  display: block;
+}
+
+/* merge sections into a continuous visual environment */
+.film-scene .pro-section,
+.film-scene .pro-highlights,
+.film-scene .pro-hero {
+  position: relative;
+  z-index: 3;
+  background: transparent !important;
+}
+.film-scene .pro-section {
+  border-top-color: rgba(255,255,255,.025);
+}
+.film-scene .pro-section-shell,
+.film-scene .pro-highlights-shell,
+.film-scene .pro-hero-shell {
+  position: relative;
+}
+.film-scene .pro-section-shell::before,
+.film-scene .pro-highlights-shell::before {
+  content: "";
+  position: absolute;
+  inset: -7% -5%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 38% 50%, rgba(7,17,31,.9), rgba(7,17,31,.58) 52%, transparent 78%);
+}
+
+/* chapter composition: readable content left, 3D world right */
+@media (min-width: 1101px) {
+  .film-scene--1 .pro-about-grid,
+  .film-scene--2 .pro-services-layout,
+  .film-scene--2 .pro-skill-browser,
+  .film-scene--3 .pro-section-shell,
+  .film-scene--4 .pro-section-shell,
+  .film-scene--5 .pro-section-shell,
+  .film-scene--6 .pro-section-shell,
+  .film-scene--7 .pro-section-shell,
+  .film-scene--8 .pro-contact-layout {
+    padding-right: min(25vw, 22rem);
+  }
+
+  .film-scene--0 .pro-hero-shell {
+    grid-template-columns: minmax(0,1.05fr) minmax(22rem,.8fr);
+  }
+
+  .film-scene--4 .pro-featured-project {
+    grid-template-columns: .75fr 1.25fr;
+  }
+
+  .film-scene--5 .pro-experience-list article {
+    grid-template-columns: .28fr 1fr;
+  }
+}
+
+/* meaningful micro interaction, not constant motion */
+@media (hover:hover) and (pointer:fine) {
+  .film-scene .pro-service-list button,
+  .film-scene .pro-project-list article,
+  .film-scene .pro-experience-list article,
+  .film-scene .pro-achievement-grid article,
+  .film-scene .pro-training-list article,
+  .film-scene .pro-skill-tabs button {
+    transition: transform .32s var(--ease), border-color .32s ease, background-color .32s ease;
+  }
+  .film-scene .pro-service-list button:hover {
+    transform: translate3d(8px,-2px,20px);
+  }
+  .film-scene .pro-project-list article:hover,
+  .film-scene .pro-experience-list article:hover {
+    transform: translate3d(0,-4px,22px);
+  }
+  .film-scene .pro-achievement-grid article:hover {
+    transform: translate3d(0,-5px,26px);
+    background: rgba(255,255,255,.012);
+  }
+  .film-scene .pro-training-list article:hover,
+  .film-scene .pro-skill-tabs button:hover {
+    transform: translate3d(5px,0,16px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .purpose-stage {
+    width: 46vw;
+    opacity: .48;
+  }
+  .film-rail {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .purpose-stage {
+    width: 100%;
+    opacity: .2;
+  }
+  .purpose-stage-camera {
+    inset: 15% 0 10%;
+  }
+  .stage-system {
+    width: min(92%, 34rem);
+    height: 32rem;
+    transform: scale(.78);
+  }
+  .film-scene {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .film-scene .pro-section-shell::before,
+  .film-scene .pro-highlights-shell::before {
+    background: linear-gradient(180deg, rgba(7,17,31,.92), rgba(7,17,31,.82));
+  }
+}
+
+@media (max-width: 640px) {
+  .purpose-stage {
+    display: none;
+  }
+  .purpose-stage-fallback {
+    display: block;
+    width: 100%;
+    opacity: .1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .purpose-stage {
+    opacity: .18;
+  }
+  .purpose-stage-camera,
+  .film-scene {
+    transform: none !important;
+  }
+  .film-top-progress span,
+  .film-rail-line span {
+    transition: none;
+  }
+}
