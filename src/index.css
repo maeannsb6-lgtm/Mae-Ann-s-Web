@@ -416,3 +416,132 @@ button,summary,select { cursor: pointer; }
   html { scroll-behavior:auto; }
   *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
 }
+
+
+/* genuine 3D hero scene */
+.pro-portrait-wrap--3d { perspective: 1200px; }
+.pro-portrait-stage {
+  position: relative;
+  min-height: 43rem;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+.hero-3d-canvas,
+.hero-3d-fallback {
+  position: absolute;
+  inset: -12% -20% -14% -20%;
+  z-index: 0;
+  width: 140%;
+  height: 126%;
+  pointer-events: auto;
+}
+.hero-3d-canvas {
+  opacity: .95;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 22px rgba(45,212,191,.1));
+}
+.hero-3d-fallback {
+  pointer-events: none;
+  opacity: .42;
+  background:
+    radial-gradient(circle at center, transparent 35%, rgba(45,212,191,.08) 35.2% 35.5%, transparent 35.8%),
+    radial-gradient(circle at center, transparent 48%, rgba(45,212,191,.06) 48.2% 48.5%, transparent 48.8%),
+    linear-gradient(90deg, transparent 49.9%, rgba(45,212,191,.15) 50%, transparent 50.1%);
+}
+.pro-portrait-stage .pro-portrait-frame {
+  position: relative;
+  z-index: 4;
+  width: min(78%, 27rem);
+  transform: translateZ(74px) rotateY(-2deg) rotateX(.6deg);
+  box-shadow:
+    0 38px 90px rgba(0,0,0,.38),
+    0 0 0 1px rgba(255,255,255,.025),
+    0 0 54px rgba(45,212,191,.055);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.pro-portrait-wrap--3d:hover .pro-portrait-stage .pro-portrait-frame {
+  transform: translateZ(92px) rotateY(-1deg) rotateX(0deg) translateY(-4px);
+  box-shadow:
+    0 44px 110px rgba(0,0,0,.42),
+    0 0 0 1px rgba(255,255,255,.035),
+    0 0 70px rgba(45,212,191,.08);
+}
+.pro-portrait-stage .pro-portrait-depth {
+  z-index: 2;
+  inset: 9% 5% 3% 12%;
+  border-radius: 18rem 18rem 1.7rem 1.7rem;
+  transform: translateZ(20px) rotateY(3deg);
+  background: linear-gradient(145deg, rgba(45,212,191,.018), transparent 45%);
+}
+.pro-portrait-stage::before,
+.pro-portrait-stage::after {
+  content:"";
+  position:absolute;
+  z-index:1;
+  pointer-events:none;
+  border:1px solid rgba(45,212,191,.13);
+  transform-style:preserve-3d;
+}
+.pro-portrait-stage::before {
+  inset: 13% -2% 8% 6%;
+  transform: translateZ(-38px) rotateY(8deg) rotateX(-4deg);
+}
+.pro-portrait-stage::after {
+  inset: 22% 11% -1% -7%;
+  border-color: rgba(255,255,255,.07);
+  transform: translateZ(-72px) rotateY(-9deg) rotateX(5deg);
+}
+.pro-portrait-stage .pro-portrait-index {
+  z-index: 1;
+  right: -3%;
+  top: 4%;
+  transform: translateZ(-80px);
+  color: rgba(255,255,255,.028);
+}
+.pro-3d-orbit-label {
+  position: absolute;
+  z-index: 5;
+  color: rgba(178,231,224,.7);
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  text-shadow: 0 0 14px rgba(45,212,191,.2);
+}
+.pro-3d-orbit-label::before {
+  content:"";
+  display:inline-block;
+  width: 1.8rem;
+  height: 1px;
+  margin-right: .55rem;
+  vertical-align: middle;
+  background: rgba(45,212,191,.45);
+}
+.pro-3d-orbit-label--a { left:-4%; top:21%; transform:translateZ(105px); }
+.pro-3d-orbit-label--b { right:-8%; top:43%; transform:translateZ(58px); }
+.pro-3d-orbit-label--c { left:2%; bottom:17%; transform:translateZ(82px); }
+
+@media (max-width: 900px) {
+  .pro-portrait-stage { min-height: 39rem; }
+  .hero-3d-canvas,.hero-3d-fallback { inset:-8% -16% -10%; width:132%; height:118%; }
+  .pro-portrait-stage .pro-portrait-frame { width:min(82%,25rem); transform:translateZ(58px); }
+  .pro-3d-orbit-label--a { left:0; }
+  .pro-3d-orbit-label--b { right:-1%; }
+}
+
+@media (max-width: 640px) {
+  .pro-portrait-stage { min-height: 34rem; }
+  .hero-3d-canvas { opacity:.62; pointer-events:none; }
+  .pro-portrait-stage .pro-portrait-frame { width:min(84%,22rem); transform:none; }
+  .pro-portrait-stage::before,.pro-portrait-stage::after,.pro-3d-orbit-label { display:none; }
+  .pro-portrait-stage .pro-portrait-depth { transform:none; inset:7% 4% 2% 9%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-3d-canvas { opacity:.45; pointer-events:none; }
+  .pro-portrait-stage .pro-portrait-frame,
+  .pro-portrait-wrap--3d:hover .pro-portrait-stage .pro-portrait-frame { transform:none; }
+}
