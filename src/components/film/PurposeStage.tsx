@@ -48,7 +48,7 @@ export default function PurposeStage() {
   const travelY = reducedMotion || compact ? 0 : (local - .5) * -18;
 
   return (
-    <div ref={stageRef} className="purpose-stage" aria-hidden="true">
+    <div ref={stageRef} className={`purpose-stage purpose-stage--${active}`} aria-hidden="true">
       <div className="purpose-stage-camera" style={{ transform: `translate3d(0,${travelY}px,${travelZ}px) rotateX(var(--film-rx)) rotateY(var(--film-ry))` }}>
         <AnimatePresence mode="sync" initial={false}>
           <motion.div
