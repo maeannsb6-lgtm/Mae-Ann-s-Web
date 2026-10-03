@@ -195,6 +195,12 @@ button,summary,select { cursor: pointer; }
 .pro-sop h4 { color:#fff; font-size:.8rem; }
 .pro-sop p { color:#74879b; font-size:.72rem; line-height:1.6; }
 
+.pro-before-after { margin-top:2.5rem; display:grid; grid-template-columns:1fr 1fr; border-block:1px solid var(--line); }
+.pro-before-after article { padding:1.5rem; }
+.pro-before-after article + article { border-left:1px solid var(--line); }
+.pro-before-after ul { padding-left:1rem; color:#8295a9; font-size:.76rem; line-height:1.75; }
+.pro-before-after article>p:last-child { color:#61758a; font-size:.7rem; line-height:1.7; }
+
 /* approach */
 .pro-approach { background:rgba(10,22,38,.35); }
 .pro-process-line { margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(7,1fr); border-top:1px solid rgba(45,212,191,.28); }
@@ -373,6 +379,8 @@ button,summary,select { cursor: pointer; }
   .pro-service-preview ul { grid-template-columns:1fr; }
   .pro-skill-detail { grid-template-columns:1fr; }
   .pro-project-columns { grid-template-columns:1fr; }
+  .pro-before-after { grid-template-columns:1fr; }
+  .pro-before-after article + article { border-left:0; border-top:1px solid var(--line); }
   .pro-project-columns>div { border-right:0; border-bottom:1px solid var(--line); }
   .pro-project-impact { grid-template-columns:1fr 1fr; }
   .pro-project-list article { grid-template-columns:1fr; }
