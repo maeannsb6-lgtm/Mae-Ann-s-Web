@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, ChevronDown, PlayCircle } from 'lucide-react';
 import { processImpact, projectLinks } from '../../data/content';
 import { secondaryProjects, solarCaseStudy } from '../../data/story';
@@ -17,7 +18,7 @@ export function FeaturedWorks() {
             <div className="pro-project-screen">
               <div className="pro-project-screen-top"><span /><span /><span /></div>
               <div className="pro-project-wireframe">
-                {solarCaseStudy.flow.map((step, index) => <div key={step} style={{ '--i': index } as React.CSSProperties}><span>{String(index + 1).padStart(2, '0')}</span>{step}</div>)}
+                {solarCaseStudy.flow.map((step, index) => <div key={step} style={{ '--i': index } as CSSProperties}><span>{String(index + 1).padStart(2, '0')}</span>{step}</div>)}
               </div>
             </div>
             <p>AI-enabled solar proposal &amp; client workflow system</p>
@@ -48,6 +49,19 @@ export function FeaturedWorks() {
 
         <div className="pro-project-impact">
           {processImpact.map((item, index) => <div key={item}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></div>)}
+        </div>
+
+        <div className="pro-before-after">
+          <article>
+            <p className="pro-small-label">Before automation</p>
+            <ul>{solarCaseStudy.before.observations.map((item) => <li key={item}>{item}</li>)}</ul>
+            <p>{solarCaseStudy.before.flow.join(' → ')}</p>
+          </article>
+          <article>
+            <p className="pro-small-label">After automation</p>
+            <ul>{solarCaseStudy.after.observations.map((item) => <li key={item}>{item}</li>)}</ul>
+            <p>{solarCaseStudy.after.flow.join(' → ')}</p>
+          </article>
         </div>
 
         <div className="pro-project-list">
