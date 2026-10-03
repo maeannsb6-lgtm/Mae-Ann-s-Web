@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
-import { CheckCircle2, Loader2, Mail, MapPin, Send, XCircle } from 'lucide-react';
+import { CheckCircle2, Loader2, Mail, MapPin, Phone, Send, XCircle } from 'lucide-react';
 import { contactInfo } from '../../data/content';
 import { GithubMark, LinkedinMark } from '../ui/BrandIcons';
 
@@ -65,6 +65,7 @@ export function Contact() {
 
           <div className="pro-contact-links">
             <a href={`mailto:${contactInfo.email}`}><Mail className="h-4 w-4" />{contactInfo.email}</a>
+            <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}><Phone className="h-4 w-4" />{contactInfo.phone}</a>
             <a href={contactInfo.socials.linkedin} target="_blank" rel="noopener noreferrer"><LinkedinMark className="h-4 w-4" />LinkedIn</a>
             <a href={contactInfo.socials.github} target="_blank" rel="noopener noreferrer"><GithubMark className="h-4 w-4" />GitHub</a>
             <span><MapPin className="h-4 w-4" />{contactInfo.location}</span>
