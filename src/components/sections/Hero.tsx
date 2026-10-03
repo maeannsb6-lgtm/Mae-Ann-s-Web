@@ -1,10 +1,7 @@
-import { lazy, Suspense } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDownRight, ArrowUpRight, Download, Mail } from 'lucide-react';
 import { contactInfo } from '../../data/content';
 import { GithubMark, LinkedinMark } from '../ui/BrandIcons';
-
-const Hero3DScene = lazy(() => import('../three/Hero3DScene'));
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -66,9 +63,6 @@ export function Hero() {
           transition={{ duration: .88, delay: reduceMotion ? 0 : .1, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="pro-portrait-stage">
-            <Suspense fallback={<div className="hero-3d-fallback" aria-hidden="true" />}>
-              <Hero3DScene />
-            </Suspense>
             <div className="pro-portrait-index" aria-hidden="true">01</div>
             <div className="pro-portrait-frame">
             <img
