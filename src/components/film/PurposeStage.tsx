@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { approachSteps, experience, opportunityGroups, whatIDo } from '../../data/content';
 import { solarCaseStudy } from '../../data/story';
 import { useFilm } from './FilmController';
@@ -85,7 +86,7 @@ function IdentitySystem() {
     <div className="stage-system stage-system--identity">
       <div className="stage-core"><span>IE</span><strong>Industrial<br/>Engineering</strong></div>
       {layers.map((item, index) => (
-        <div key={item} className="stage-plate" style={{ '--i': index } as React.CSSProperties}>
+        <div key={item} className="stage-plate" style={{ '--i': index } as CSSProperties}>
           <span>0{index + 1}</span><strong>{item}</strong>
         </div>
       ))}
@@ -99,7 +100,7 @@ function StorySystem() {
   return (
     <div className="stage-system stage-system--story">
       {storySteps.map((item, index) => (
-        <div key={item} className="stage-story-module" style={{ '--i': index } as React.CSSProperties}>
+        <div key={item} className="stage-story-module" style={{ '--i': index } as CSSProperties}>
           <span>0{index + 1}</span>
           <strong>{item}</strong>
           <small>{index === 0 ? 'How does work move?' : index === 1 ? 'Where is the constraint?' : 'What should change?'}</small>
@@ -115,7 +116,7 @@ function CapabilitySystem() {
     <div className="stage-system stage-system--capabilities">
       <div className="stage-capability-core"><span>Foundation</span><strong>Industrial<br/>Engineering</strong></div>
       {whatIDo.map((item, index) => (
-        <div key={item.title} className="stage-capability-module" style={{ '--i': index } as React.CSSProperties}>
+        <div key={item.title} className="stage-capability-module" style={{ '--i': index } as CSSProperties}>
           <span>0{index + 1}</span><strong>{item.title}</strong>
         </div>
       ))}
@@ -128,7 +129,7 @@ function ProcessSystem() {
     <div className="stage-system stage-system--process">
       <div className="stage-process-track" />
       {approachSteps.map((step, index) => (
-        <div key={step.number} className="stage-process-step" style={{ '--i': index } as React.CSSProperties}>
+        <div key={step.number} className="stage-process-step" style={{ '--i': index } as CSSProperties}>
           <span>{step.number}</span><strong>{step.title}</strong>
         </div>
       ))}
@@ -141,7 +142,7 @@ function ProjectSystem() {
     <div className="stage-system stage-system--project">
       <div className="stage-project-spine" />
       {solarCaseStudy.flow.map((step, index) => (
-        <div key={step} className="stage-project-station" style={{ '--i': index } as React.CSSProperties}>
+        <div key={step} className="stage-project-station" style={{ '--i': index } as CSSProperties}>
           <span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong>
         </div>
       ))}
@@ -155,7 +156,7 @@ function JourneySystem() {
     <div className="stage-system stage-system--journey">
       <div className="stage-journey-path" />
       {experience.slice().reverse().map((item, index) => (
-        <div key={item.id} className="stage-journey-stop" style={{ '--i': index } as React.CSSProperties}>
+        <div key={item.id} className="stage-journey-stop" style={{ '--i': index } as CSSProperties}>
           <span>{item.period}</span><strong>{item.company}</strong>
         </div>
       ))}
@@ -168,7 +169,7 @@ function LabSystem() {
   return (
     <div className="stage-system stage-system--lab">
       {labFlow.map((step, index) => (
-        <div key={step} className="stage-lab-node" style={{ '--i': index } as React.CSSProperties}>
+        <div key={step} className="stage-lab-node" style={{ '--i': index } as CSSProperties}>
           <span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong>
         </div>
       ))}
@@ -182,7 +183,7 @@ function FutureSystem() {
     <div className="stage-system stage-system--future">
       <div className="stage-future-origin"><span>Next</span></div>
       {opportunityGroups.map((group, index) => (
-        <div key={group.title} className="stage-future-path" style={{ '--i': index } as React.CSSProperties}>
+        <div key={group.title} className="stage-future-path" style={{ '--i': index } as CSSProperties}>
           <span>0{index + 1}</span><strong>{group.title}</strong>
         </div>
       ))}
