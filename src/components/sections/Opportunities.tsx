@@ -4,7 +4,7 @@ import { hireMeFor, opportunityGroups } from '../../data/content';
 
 export function Opportunities() {
   return (
-    <section className="section-shell bg-brand-bg-primary" aria-labelledby="opportunities-title">
+    <section id="opportunities" className="section-shell bg-brand-bg-primary" aria-labelledby="opportunities-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading id="opportunities-title" label="Opportunities" title="Two audiences. One process-focused profile." description="Relevant to recruiters seeking operational problem-solving and clients seeking practical workflow improvement." className="mb-12" />
         <div className="grid gap-6 lg:grid-cols-2">
