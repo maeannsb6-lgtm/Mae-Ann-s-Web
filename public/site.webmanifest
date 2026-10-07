@@ -3,7 +3,8 @@
   "short_name": "Mae Ann",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#07111f",
+  "background_color": "#f6f5f0",
+  "theme_color": "#f6f5f0",
   "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
 }
+

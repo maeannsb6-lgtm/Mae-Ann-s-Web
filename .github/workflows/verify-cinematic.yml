@@ -1,9 +1,9 @@
-name: Verify cinematic portfolio
+name: Verify engineering portfolio
 
 on:
   push:
     branches:
-      - cinematic-3d-biography
+      - engineering-portfolio-*
   pull_request:
     branches:
       - main

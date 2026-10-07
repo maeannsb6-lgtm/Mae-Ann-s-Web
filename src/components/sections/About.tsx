@@ -5,14 +5,18 @@ const collaboration = ['Asynchronous communication', 'Clear technical documentat
 
 export function About() {
   return (
-    <section id="about" className="pro-section pro-about">
+    <section id="about" className="pro-section pro-about" data-story-stage="1">
       <div className="pro-section-shell pro-about-grid">
         <div className="pro-about-title">
-          <p className="pro-kicker">About</p>
+          <p className="pro-kicker">02 / Process</p>
           <h2>Process thinking first. Technology where it helps.</h2>
         </div>
 
         <div className="pro-about-copy">
+          <div className="about-portrait">
+            <img src="https://res.cloudinary.com/dape9qptt/image/upload/v1785206634/photo_2026-03-06_13-46-52_idmazn.jpg" alt="Mae Ann S. Bodiongan" width="65" height="80" loading="lazy" />
+            <p><strong>Mae Ann S. Bodiongan</strong>Industrial Engineer · Philippines</p>
+          </div>
           <p>I understand processes as an Industrial Engineer, identify inefficiencies, redesign workflows, and use AI, automation, databases, and digital systems where appropriate.</p>
           <p>My experience spans energy project coordination, technical compliance, process analysis, feasibility studies, operations research, SOP development, n8n automation, Google Workspace workflows, and database-backed web applications.</p>
           <blockquote>I’m particularly interested in designing automated client journeys—from inquiry and onboarding to proposal generation, follow-up, and operational tracking.</blockquote>
