@@ -6,7 +6,7 @@ export function Experience() {
     <section id="experience" className="pro-section pro-experience">
       <div className="pro-section-shell">
         <div className="pro-section-intro">
-          <div><p className="pro-kicker">Experience</p><h2>Work history, designed to scan quickly.</h2></div>
+          <div><p className="pro-kicker">06 / Impact — Experience</p><h2>Engineering in practice.</h2></div>
           <p>Roles across project coordination, operations, business development, process improvement, and technical compliance.</p>
         </div>
 

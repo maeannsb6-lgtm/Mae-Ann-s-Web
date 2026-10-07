@@ -5,10 +5,10 @@ import {
 
 export const navLinks = [
   { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#capabilities' },
+  { name: 'Engineering', href: '#approach' },
+  { name: 'AI & Automation', href: '#intelligence' },
   { name: 'Projects', href: '#projects' },
   { name: 'Experience', href: '#experience' },
-  { name: 'Achievements', href: '#awards' },
   { name: 'Contact', href: '#contact' },
 ];
 

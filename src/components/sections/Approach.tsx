@@ -2,10 +2,10 @@ import { approachSteps } from '../../data/content';
 
 export function Approach() {
   return (
-    <section id="approach" className="pro-section pro-approach">
+    <section id="approach" className="pro-section pro-approach" data-story-stage="2">
       <div className="pro-section-shell">
         <div className="pro-section-intro">
-          <div><p className="pro-kicker">Approach</p><h2>Understand first. Automate second.</h2></div>
+          <div><p className="pro-kicker">03 / Optimization</p><h2>Understand first. Automate second.</h2></div>
           <p>A practical sequence for turning unclear work into an improved, documented system.</p>
         </div>
 
