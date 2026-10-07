@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import type { ReactNode } from "react";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { Hero } from "./components/sections/Hero";
@@ -48,24 +49,103 @@ export default function App() {
                 <EngineeringScene />
               </Suspense>
               <div className="scene-caption">
-                <span>AN ENGINEERING MINDSET</span>
-                <span>From structure to connection ↗</span>
+                <span>One system. Four states.</span>
+                <span>Scroll to assemble &amp; connect ↓</span>
               </div>
             </div>
           </div>
         </div>
         <Highlights />
-        <FeaturedWorks />
-        <Experience />
-        <EducationTraining />
-        <Achievements />
-        <Services />
-        <Skills />
-        <AutomationLab />
-        <Opportunities />
-        <Contact />
+        <PortfolioChapter
+          number="05"
+          title="Work & execution"
+          tone="paper"
+          links={[["Projects", "projects"]]}
+        >
+          <FeaturedWorks />
+        </PortfolioChapter>
+        <PortfolioChapter
+          number="06"
+          title="Experience & foundation"
+          tone="stone"
+          links={[
+            ["Experience", "experience"],
+            ["Education", "certifications"],
+            ["Achievements", "awards"],
+          ]}
+        >
+          <Experience />
+          <EducationTraining />
+          <Achievements />
+        </PortfolioChapter>
+        <PortfolioChapter
+          number="07"
+          title="Capabilities & services"
+          tone="paper"
+          links={[
+            ["Services", "services"],
+            ["Skills", "capabilities"],
+          ]}
+        >
+          <Services />
+          <Skills />
+        </PortfolioChapter>
+        <PortfolioChapter
+          number="08"
+          title="Automation in practice"
+          tone="blue"
+          links={[["Try the demo", "automation-lab"]]}
+        >
+          <AutomationLab />
+        </PortfolioChapter>
+        <PortfolioChapter
+          number="09"
+          title="Opportunities & connection"
+          tone="stone"
+          links={[
+            ["Opportunities", "opportunities"],
+            ["Contact", "contact"],
+          ]}
+        >
+          <Opportunities />
+          <Contact />
+        </PortfolioChapter>
       </main>
       <Footer />
+    </div>
+  );
+}
+
+function PortfolioChapter({
+  number,
+  title,
+  tone,
+  links,
+  children,
+}: {
+  number: string;
+  title: string;
+  tone: string;
+  links: string[][];
+  children: ReactNode;
+}) {
+  return (
+    <div className={`portfolio-chapter chapter--${tone}`}>
+      <div className="chapter-header">
+        <div className="chapter-heading">
+          <span>{number}</span>
+          <p>{title}</p>
+        </div>
+        <nav aria-label={`${title} sections`}>
+          {links.map(([label, id]) => (
+            <a key={id} href={`#${id}`}>
+              {label}
+              <span aria-hidden="true">↘</span>
+            </a>
+          ))}
+        </nav>
+      </div>
+      {children}
     </div>
   );
 }

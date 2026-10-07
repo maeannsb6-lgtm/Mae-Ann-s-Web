@@ -20,11 +20,12 @@ Local Vite preview serves the frontend only. Contact delivery requires Vercel's 
 
 ## Design and implementation
 
-- One continuous opening: system, process, optimization, intelligence. A sticky geometric process model stays alongside readable HTML. Projects and professional evidence complete the story.
+- One continuous opening: separated components assemble into a process, a flow path reveals optimization, and connections reveal intelligence. Scroll controls these changes in both directions with a fixed camera. The scene stops rendering when the scroll transition settles.
+- The lower page has five clearly separated chapters, with numbered headers, local section links, contrasting neutral backgrounds, and section dividers. Mobile keeps the opening model in a compact 185px strip.
 - All five employment records, degree, five training records, seven awards, service and skill groups, original project links, portrait, résumé, social/contact links, inquiry demo, and contact fields remain.
 - Engineering case studies summarize existing JCV and ELPS responsibilities. No invented performance metrics, clients, years of experience, or certifications.
 - `src/data/content.ts` and `src/data/story.ts` hold professional content. Keep QUALIFICATIONS-SOURCE.md accuracy rules when editing.
-- `src/components/three/EngineeringScene.tsx` owns a single canvas, bounded device pixel ratio, geometric assets, visibility-aware rendering, resource disposal, and a WebGL fallback. Desktop animation is capped at 30 fps. Mobile and reduced-motion users receive a static state.
+- `src/components/three/EngineeringScene.tsx` owns a single canvas, bounded device pixel ratio, geometric assets, visibility-aware rendering, resource disposal, and a WebGL fallback. There is no time-driven looping animation. Reduced-motion users receive discrete scene states without interpolated motion.
 - Semantic sections, skip link, focus indicators, keyboard-operated tabs, mobile menu with Escape dismissal, and browser-native form validation.
 - Previous unused cinematic, film, and biography scene implementations were removed to eliminate competing rendering systems.
 

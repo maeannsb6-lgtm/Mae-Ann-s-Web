@@ -3,7 +3,7 @@ name: Verify engineering portfolio
 on:
   push:
     branches:
-      - engineering-portfolio-redesign-20261008
+      - engineering-portfolio-*
   pull_request:
     branches:
       - main
