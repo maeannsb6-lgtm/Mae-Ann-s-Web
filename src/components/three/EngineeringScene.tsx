@@ -1,8 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
-/** One geometric digital twin, shared by the opening narrative. No textures or external models. */
-export default function EngineeringScene() {
+type Keyframe = {
+  /** Camera orbit around the model (radians) and camera rise. */
+  orbit: number;
+  rise: number;
+  /** Frustum scale: above 1 shows the model smaller. */
+  zoom: number;
+  /** Screen anchor (0-1) for the model; omitted = the opening's scene slot. */
+  x?: number;
+  y?: number;
+};
+
+/**
+ * The single camera timeline: one entry per `data-story-stage` index.
+ * Stages 4-8 are framed for the chapter bands (right side, mid-screen); each
+ * band reveals the system from its own angle as the chapter scrolls in.
+ */
+const KEYFRAMES: Keyframe[] = [
+  { orbit: 0, rise: 0, zoom: 1 }, // 0 Hero: who I am
+  { orbit: 0.06, rise: 0.4, zoom: 1 }, // 1 About: how I think
+  { orbit: 0.12, rise: 0.8, zoom: 0.96 }, // 2 Approach: process
+  { orbit: 0.18, rise: 1.2, zoom: 1 }, // 3 Intelligence: automation
+  { orbit: 0.55, rise: 1.6, zoom: 1.15, x: 0.7, y: 0.5 }, // 4 Projects
+  { orbit: 1.0, rise: 2.6, zoom: 1.2, x: 0.7, y: 0.5 }, // 5 Experience
+  { orbit: 1.45, rise: 1.2, zoom: 1.15, x: 0.7, y: 0.5 }, // 6 Capabilities
+  { orbit: 1.9, rise: 3.2, zoom: 1.1, x: 0.7, y: 0.5 }, // 7 Automation lab
+  { orbit: 2.35, rise: 2.0, zoom: 1.2, x: 0.7, y: 0.5 }, // 8 Contact
+];
+
+/**
+ * One geometric digital twin. "backdrop" fills the fixed page layer behind every
+ * chapter; "inline" renders inside the opening's scene slot (mobile).
+ */
+export default function EngineeringScene({
+  mode = "inline",
+}: {
+  mode?: "backdrop" | "inline";
+}) {
   const host = useRef<HTMLDivElement>(null);
   const [fallback, setFallback] = useState(false);
   useEffect(() => {
@@ -22,40 +58,72 @@ export default function EngineeringScene() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.NeutralToneMapping;
+    // Soft shadows only where the GPU budget allows; renders are on-demand anyway.
+    const highQuality =
+      window.innerWidth >= 768 && (navigator.hardwareConcurrency || 4) > 4;
+    renderer.shadowMap.enabled = highQuality;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     element.appendChild(renderer.domElement);
     const scene = new THREE.Scene();
+    // Studio reflections from a procedural room: no texture downloads.
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const roomEnvironment = new RoomEnvironment();
+    const environment = pmrem.fromScene(roomEnvironment, 0.04).texture;
+    roomEnvironment.dispose();
+    pmrem.dispose();
+    scene.environment = environment;
+    scene.environmentIntensity = 0.55;
     const camera = new THREE.OrthographicCamera(-6, 6, 6, -6, 0.1, 100);
     camera.position.set(11, 12, 14);
     camera.lookAt(0, 0.3, 0);
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x879393, 3));
-    const light = new THREE.DirectionalLight(0xffffff, 4);
-    light.position.set(-4, 8, 6);
+    // Warm key, cool fill, soft sky bounce.
+    scene.add(new THREE.HemisphereLight(0xfff8ee, 0xb9b2a6, 1.2));
+    const light = new THREE.DirectionalLight(0xfff1dc, 2.6);
+    light.position.set(-5, 9, 6);
+    light.castShadow = highQuality;
+    light.shadow.mapSize.set(1024, 1024);
+    Object.assign(light.shadow.camera, {
+      left: -6,
+      right: 6,
+      top: 6,
+      bottom: -6,
+      near: 1,
+      far: 30,
+    });
+    light.shadow.normalBias = 0.03;
+    light.shadow.radius = 4;
     scene.add(light);
+    const fill = new THREE.DirectionalLight(0xdde7ee, 0.7);
+    fill.position.set(7, 4, -4);
+    scene.add(fill);
     const group = new THREE.Group();
     scene.add(group);
+    // Ivory, brushed silver, graphite, muted steel-blue, champagne.
     const chalk = new THREE.MeshStandardMaterial({
-      color: 0xe9e9e2,
-      roughness: 0.7,
-      metalness: 0.08,
+      color: 0xf1ece2,
+      roughness: 0.62,
+      metalness: 0.02,
     });
     const steel = new THREE.MeshStandardMaterial({
-      color: 0x97a8ac,
-      roughness: 0.48,
-      metalness: 0.28,
+      color: 0xb7bbba,
+      roughness: 0.32,
+      metalness: 0.7,
     });
     const dark = new THREE.MeshStandardMaterial({
-      color: 0x3c535e,
-      roughness: 0.5,
-      metalness: 0.24,
+      color: 0x474c50,
+      roughness: 0.42,
+      metalness: 0.45,
     });
     const blue = new THREE.MeshStandardMaterial({
-      color: 0x537d92,
-      roughness: 0.4,
-      metalness: 0.28,
+      color: 0x5d7f90,
+      roughness: 0.36,
+      metalness: 0.35,
     });
     const accent = new THREE.MeshStandardMaterial({
-      color: 0xc3a57b,
-      roughness: 0.5,
+      color: 0xcaa978,
+      roughness: 0.34,
+      metalness: 0.6,
     });
     const geometries = new Set<THREE.BufferGeometry>();
     const materials: THREE.Material[] = [chalk, steel, dark, blue, accent];
@@ -75,6 +143,7 @@ export default function EngineeringScene() {
       geometries.add(geometry);
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(x, y, z);
+      mesh.castShadow = mesh.receiveShadow = highQuality;
       group.add(mesh);
       if (station >= 0)
         assemblies.push({ mesh, rest: mesh.position.clone(), station });
@@ -160,6 +229,18 @@ export default function EngineeringScene() {
       geometries.add(geometry);
       group.add(new THREE.Line(geometry, lineMaterial));
     }
+    // Direction markers share one geometry; they reveal with the optimized flow.
+    const arrowGeometry = new THREE.ConeGeometry(0.1, 0.24, 4);
+    const flowArrows = Array.from({ length: 8 }, (_, i) => {
+      const t = (i + 0.5) / 8;
+      const tangent = curve.getTangentAt(t).setY(0).normalize();
+      const arrow = add(arrowGeometry, dark, 0, 0, 0);
+      const p = curve.getPointAt(t);
+      arrow.position.set(p.x, 0.3, p.z);
+      arrow.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tangent);
+      arrow.visible = false;
+      return arrow;
+    });
     const units = Array.from({ length: 5 }, (_, i) =>
       box(0.34, 0.28, 0.34, i === 0 ? accent : blue, 0, 0.42, 0),
     );
@@ -196,6 +277,8 @@ export default function EngineeringScene() {
       ),
     );
     group.rotation.y = -0.18;
+    const CAMERA_RADIUS = Math.hypot(11, 14);
+    const CAMERA_ANGLE = Math.atan2(11, 14);
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reduced = motionQuery.matches;
     let visible = true,
@@ -206,6 +289,17 @@ export default function EngineeringScene() {
     const smooth = (value: number) => {
       const v = clamp(value);
       return v * v * (3 - 2 * v);
+    };
+    let aspect = 1;
+    const anchor = { x: 0.73, y: 0.55, half: 8.5 };
+    // Off-centre orthographic framing: the model's origin lands at screen (x, y).
+    const frame = (x: number, y: number, half: number) => {
+      const width = 2 * half * aspect;
+      camera.left = -x * width;
+      camera.right = (1 - x) * width;
+      camera.top = y * 2 * half;
+      camera.bottom = -(1 - y) * 2 * half;
+      camera.updateProjectionMatrix();
     };
     const updateTarget = () => {
       const chapters =
@@ -233,7 +327,29 @@ export default function EngineeringScene() {
       const assembled = smooth(current);
       const optimized = smooth(current - 1);
       const intelligence = smooth(current - 2);
-      // Camera stays fixed. Only the system changes, in direct response to scroll.
+      // Camera follows the keyframe table on the same damped progress.
+      const i = Math.max(
+        0,
+        Math.min(KEYFRAMES.length - 2, Math.floor(current)),
+      );
+      const t = smooth(current - i);
+      const a = KEYFRAMES[i],
+        b = KEYFRAMES[i + 1];
+      const mix = (from: number, to: number) => from + (to - from) * t;
+      const orbit =
+        mix(a.orbit, b.orbit) * (window.innerWidth < 768 ? 0.55 : 1);
+      camera.position.set(
+        CAMERA_RADIUS * Math.sin(CAMERA_ANGLE + orbit),
+        12 + mix(a.rise, b.rise),
+        CAMERA_RADIUS * Math.cos(CAMERA_ANGLE + orbit),
+      );
+      camera.lookAt(0, 0.3, 0);
+      if (mode === "backdrop")
+        frame(
+          mix(a.x ?? anchor.x, b.x ?? anchor.x),
+          mix(a.y ?? anchor.y, b.y ?? anchor.y),
+          anchor.half * mix(a.zoom, b.zoom),
+        );
       const offsets = [
         new THREE.Vector3(-0.5, 0.6, 0.3),
         new THREE.Vector3(0, 0.65, -0.25),
@@ -253,6 +369,9 @@ export default function EngineeringScene() {
           ((automatedPath.geometry.index?.count || 0) * optimized) / 6,
         ) * 6,
       );
+      flowArrows.forEach((arrow, i) => {
+        arrow.visible = optimized > (i + 1) / 9;
+      });
       networkMaterial.opacity = intelligence;
       [...links, ...nodes].forEach((mesh) => {
         mesh.visible = intelligence > 0.01;
@@ -314,12 +433,21 @@ export default function EngineeringScene() {
         h = element.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h);
-      const aspect = w / h;
-      camera.left = -5.5 * aspect;
-      camera.right = 5.5 * aspect;
-      camera.top = 5.5;
-      camera.bottom = -5.5;
-      camera.updateProjectionMatrix();
+      aspect = w / h;
+      if (mode === "backdrop") {
+        // Match the opening's sticky slot so the model sits where it always has.
+        const slot = document.querySelector<HTMLElement>(".scene-slot");
+        const sticky = slot?.parentElement;
+        if (slot && sticky && slot.offsetHeight) {
+          const s = slot.getBoundingClientRect();
+          const stuckTop =
+            parseFloat(getComputedStyle(sticky).top) || 0;
+          const top = stuckTop + s.top - sticky.getBoundingClientRect().top;
+          anchor.x = (s.left + s.width / 2) / w;
+          anchor.y = (top + s.height / 2) / h;
+          anchor.half = (5.5 * h) / s.height;
+        }
+      } else frame(0.5, 0.5, 5.5);
       start();
     });
     resize.observe(element);
@@ -354,10 +482,11 @@ export default function EngineeringScene() {
       renderer.domElement.removeEventListener("webglcontextlost", contextLost);
       geometries.forEach((g) => g.dispose());
       materials.forEach((m) => m.dispose());
+      environment.dispose();
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, []);
+  }, [mode]);
   return (
     <div ref={host} className="engineering-scene">
       {fallback && (

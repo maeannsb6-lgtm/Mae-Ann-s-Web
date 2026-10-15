@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
@@ -20,12 +20,38 @@ const EngineeringScene = lazy(
   () => import("./components/three/EngineeringScene"),
 );
 
+const compactQuery = "(max-width: 760px)";
+const subscribeCompact = (onChange: () => void) => {
+  const query = window.matchMedia(compactQuery);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+const isCompact = () => window.matchMedia(compactQuery).matches;
+
+const sceneFallback = (
+  <div className="scene-fallback">
+    <span />
+    <span />
+    <span />
+  </div>
+);
+
 export default function App() {
+  // One canvas at a time: a fixed backdrop behind every chapter on wider
+  // screens, or the opening's inline band on phones.
+  const compact = useSyncExternalStore(subscribeCompact, isCompact);
   return (
     <div className="professional-site">
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+      {!compact && (
+        <div className="scene-backdrop" aria-hidden="true">
+          <Suspense fallback={null}>
+            <EngineeringScene mode="backdrop" />
+          </Suspense>
+        </div>
+      )}
       <Navbar />
       <main id="main">
         <Hero />
@@ -37,17 +63,13 @@ export default function App() {
           </div>
           <div className="story-visual" aria-hidden="true">
             <div className="story-visual-sticky">
-              <Suspense
-                fallback={
-                  <div className="scene-fallback">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                }
-              >
-                <EngineeringScene />
-              </Suspense>
+              <div className="scene-slot">
+                {compact && (
+                  <Suspense fallback={sceneFallback}>
+                    <EngineeringScene />
+                  </Suspense>
+                )}
+              </div>
               <div className="scene-caption">
                 <span>One system. Four states.</span>
                 <span>Scroll to assemble &amp; connect ↓</span>
@@ -58,6 +80,7 @@ export default function App() {
         <Highlights />
         <PortfolioChapter
           number="05"
+          stage={4}
           title="Work & execution"
           tone="paper"
           links={[["Projects", "projects"]]}
@@ -66,6 +89,7 @@ export default function App() {
         </PortfolioChapter>
         <PortfolioChapter
           number="06"
+          stage={5}
           title="Experience & foundation"
           tone="stone"
           links={[
@@ -80,6 +104,7 @@ export default function App() {
         </PortfolioChapter>
         <PortfolioChapter
           number="07"
+          stage={6}
           title="Capabilities & services"
           tone="paper"
           links={[
@@ -92,6 +117,7 @@ export default function App() {
         </PortfolioChapter>
         <PortfolioChapter
           number="08"
+          stage={7}
           title="Automation in practice"
           tone="blue"
           links={[["Try the demo", "automation-lab"]]}
@@ -100,6 +126,7 @@ export default function App() {
         </PortfolioChapter>
         <PortfolioChapter
           number="09"
+          stage={8}
           title="Opportunities & connection"
           tone="stone"
           links={[
@@ -118,19 +145,24 @@ export default function App() {
 
 function PortfolioChapter({
   number,
+  stage,
   title,
   tone,
   links,
   children,
 }: {
   number: string;
+  stage: number;
   title: string;
   tone: string;
   links: string[][];
   children: ReactNode;
 }) {
   return (
-    <div className={`portfolio-chapter chapter--${tone}`}>
+    <div
+      className={`portfolio-chapter chapter--${tone}`}
+      data-story-stage={stage}
+    >
       <div className="chapter-header">
         <div className="chapter-heading">
           <span>{number}</span>
