@@ -13,7 +13,11 @@ export function Navbar() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 80);
-      if (window.scrollY > 80) { setRevealed(window.matchMedia("(hover: hover)").matches && Boolean(headerRef.current?.matches(":hover"))); }
+      if (window.scrollY > 80) {
+        const hovering = window.matchMedia("(hover: hover)").matches &&
+          headerRef.current?.matches(":hover");
+        setRevealed(Boolean(hovering));
+      }
       if (window.scrollY < window.innerHeight * 0.4) setActive("home");
     };
     onScroll();
