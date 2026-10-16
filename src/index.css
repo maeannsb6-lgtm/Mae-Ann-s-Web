@@ -2362,3 +2362,7 @@ html {
 .workflow-label--below b { bottom: auto; top: 36px; }
 .workflow-label--below::before { bottom: auto; top: 6px; }
 .about-process h2 { font-size: clamp(32px, 3vw, 52px); }
+/* The greeting steps aside while it overlaps a control (see MaeAgent). */
+.mae-teaser-body { transition: opacity 0.25s ease; }
+.mae-teaser.is-tucked { pointer-events: none; }
+.mae-teaser.is-tucked .mae-teaser-body { opacity: 0; }

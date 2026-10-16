@@ -45,6 +45,7 @@ const SIZE = 52; // launcher diameter
 const GAP = 12; // minimum viewport margin while dragging
 const HOME = 32; // default inset from the bottom-right corner
 const POS_KEY = "mae-position-v2";
+const INTERACTIVE = 'a, button, input, select, textarea, iframe, summary, [role="tab"], .rd-browser, .rd-phone';
 
 // clientWidth/clientHeight exclude the scrollbar, so Mae never sits underneath it.
 const viewport = () => ({ w: document.documentElement.clientWidth, h: document.documentElement.clientHeight });
@@ -76,10 +77,37 @@ export function MaeAgent() {
   const [dragging, setDragging] = useState(false);
   const drag = useRef<{ start: Point; origin: Point; moved: boolean } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const teaserRef = useRef<HTMLDivElement>(null);
+  const [tucked, setTucked] = useState(false);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "end" });
   }, [messages, open]);
+
+  // The greeting steps aside while it sits over a link, button, form field or website preview.
+  useEffect(() => {
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const el = teaserRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const midY = r.top + r.height / 2;
+      const points = [[r.left + 6, midY], [r.left + r.width / 2, midY], [r.right - 6, midY], [r.left + r.width / 2, r.top + 3], [r.left + r.width / 2, r.bottom - 3]];
+      setTucked(points.some(([x, y]) => document.elementsFromPoint(x, y).some((node) => !node.closest(".mae-agent") && node.matches(INTERACTIVE))));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [pos, open, dragging]);
 
   useEffect(() => {
     // Follow viewport changes (including the scrollbar appearing after load) until the visitor moves Mae.
@@ -228,7 +256,7 @@ export function MaeAgent() {
       )}
       {/* Greeting stays visible whenever the chat is closed, so visitors always know Mae is an AI assistant. */}
       {!open && !dragging && (
-        <div className="mae-teaser" style={teaserStyle}>
+        <div ref={teaserRef} className={`mae-teaser${tucked ? " is-tucked" : ""}`} style={teaserStyle} aria-hidden={tucked || undefined}>
           <button type="button" className="mae-teaser-body" onClick={() => setOpen(true)}>
             <Sparkles size={13} className="mae-teaser-spark" />
             <span>

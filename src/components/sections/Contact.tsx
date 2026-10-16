@@ -56,14 +56,16 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="pro-section pro-contact">
-      <div className="pro-section-shell pro-contact-layout">
-        <div className="pro-contact-copy">
-          <p className="pro-kicker">Contact</p>
-          <h2>Let’s talk about the role, process, or system.</h2>
+    <section id="contact" className="rd-contact">
+      <div className="rd-shell rd-contact-layout">
+        <div className="rd-contact-copy" data-reveal>
+          <p className="rd-kicker rd-kicker--dark">Contact</p>
+          <h2>
+            Let’s talk about the <span>role, process,</span> or system.
+          </h2>
           <p>For remote opportunities, project collaboration, process improvement, and selected automation work.</p>
 
-          <div className="pro-contact-links">
+          <div className="rd-contact-links">
             <a href={`mailto:${contactInfo.email}`}><Mail className="h-4 w-4" />{contactInfo.email}</a>
             <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}><Phone className="h-4 w-4" />{contactInfo.phone}</a>
             <a href={contactInfo.socials.linkedin} target="_blank" rel="noopener noreferrer"><LinkedinMark className="h-4 w-4" />LinkedIn</a>
@@ -72,9 +74,10 @@ export function Contact() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="pro-contact-form">
+        <form onSubmit={handleSubmit} className="rd-contact-form" data-reveal>
+          <p className="rd-contact-form-title">Send an inquiry</p>
           <div className="sr-only" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" /></div>
-          <div className="pro-contact-grid">
+          <div className="rd-contact-grid">
             <Field label="Name" htmlFor="name"><input required minLength={2} maxLength={150} autoComplete="name" id="name" name="name" placeholder="Your name" /></Field>
             <Field label="Email" htmlFor="email"><input required maxLength={254} autoComplete="email" type="email" id="email" name="email" placeholder="you@example.com" /></Field>
             <Field label="Company" htmlFor="company"><input maxLength={200} autoComplete="organization" id="company" name="company" placeholder="Company or organization" /></Field>
@@ -87,10 +90,10 @@ export function Contact() {
           </div>
 
           <Field label="Message" htmlFor="message"><textarea required minLength={10} maxLength={5000} id="message" name="message" placeholder="Describe the role, process, or project you would like to discuss." /></Field>
-          <p className="pro-contact-privacy">Your details are used only to respond to this inquiry. Please do not include sensitive personal or company information.</p>
+          <p className="rd-contact-privacy">Your details are used only to respond to this inquiry. Please do not include sensitive personal or company information.</p>
 
           {status !== 'idle' && (
-            <div role="status" aria-live="polite" className={'pro-contact-status pro-contact-status--' + status}>
+            <div role="status" aria-live="polite" className={'rd-contact-status rd-contact-status--' + status}>
               {status === 'sending' && <Loader2 className="h-4 w-4 animate-spin" />}
               {status === 'success' && <CheckCircle2 className="h-4 w-4" />}
               {status === 'error' && <XCircle className="h-4 w-4" />}
@@ -98,7 +101,7 @@ export function Contact() {
             </div>
           )}
 
-          <button type="submit" disabled={status === 'sending'} data-track="contact-submit" className="pro-contact-submit">
+          <button type="submit" disabled={status === 'sending'} data-track="contact-submit" className="rd-btn rd-btn--amber rd-contact-submit">
             {status === 'sending' ? 'Sending…' : 'Send inquiry'}{status !== 'sending' && <Send className="h-4 w-4" />}
           </button>
         </form>
@@ -108,5 +111,5 @@ export function Contact() {
 }
 
 function Field({ label, htmlFor, children }: { label: string; htmlFor: string; children: ReactNode }) {
-  return <label htmlFor={htmlFor} className="pro-field"><span>{label}</span>{children}</label>;
+  return <label htmlFor={htmlFor} className="rd-field-input"><span>{label}</span>{children}</label>;
 }

@@ -184,7 +184,10 @@ export const contactInfo = {
 };
 
 export const projectLinks = {
-  solarLive: 'https://stec-independent-app.vercel.app',
-  solarGithub: 'https://github.com/maeannsb6-lgtm/STEC-NEW',
+  // Solar Solutions PH is the live home of the solar proposal system (its repository is private).
+  solarLive: 'https://solar-solutions-ph.vercel.app',
+  solarAssessment: 'https://solar-solutions-ph.vercel.app/app.html',
+  stecPortalLive: 'https://stec-independent-app.vercel.app',
+  stecPortalGithub: 'https://github.com/maeannsb6-lgtm/STEC-NEW',
   portfolioGithub: 'https://github.com/maeannsb6-lgtm/Mae-Ann-s-Web',
 };

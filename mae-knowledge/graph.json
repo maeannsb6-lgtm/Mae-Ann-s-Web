@@ -240,7 +240,7 @@
         "faq",
         "meta"
       ],
-      "content": "Built with React 19, Vite, TypeScript, Tailwind 4 and three.js (scroll-controlled 3D scene), with a serverless contact backend on Vercel. See [[Portfolio Website]].",
+      "content": "Built with React 19, Vite, TypeScript, Tailwind 4 and three.js (an isometric workflow scene), with live previews of her websites and a serverless contact backend on Vercel. See [[Portfolio Website]].",
       "source_file": "mae-knowledge/faq.md"
     },
     {
@@ -308,7 +308,7 @@
         "project",
         "featured"
       ],
-      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live demo and GitHub available); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (portfolio demo you can try in the Automation Lab section); plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
+      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live website: Solar Solutions PH); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (portfolio demo you can try in the Automation Lab section); plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
       "source_file": "mae-knowledge/portfolio.md"
     },
     {
@@ -459,9 +459,22 @@
         "project",
         "featured",
         "ai",
-        "systems"
+        "systems",
+        "website"
       ],
-      "content": "AI-Enabled Solar Proposal and Client Workflow System (Industrial Engineering x AI Automation x Client Workflow Design). Problem: manual repeated client information gathering, separate engineering calculation steps, slow proposal preparation, fragmented project data. Solution: structured client intake, validated engineering workflow, AI-assisted guidance (Gemini / Google AI Studio), automated proposal process and centralized data in Supabase, deployed on Vercel. Mae Ann's role: industrial engineering, process design, project coordination, automation and AI integration, system development. Live app: https://stec-independent-app.vercel.app. Code: https://github.com/maeannsb6-lgtm/STEC-NEW. Built during [[SUWECO Tablas Energy]]. Uses [[Business Systems]].",
+      "content": "AI-Enabled Solar Proposal and Client Workflow System (Industrial Engineering x AI Automation x Client Workflow Design), live as the website Solar Solutions PH: https://solar-solutions-ph.vercel.app. The site opens with a 15-chapter scroll-driven 3D walkthrough of how a solar energy system works, then a seven-step Solar Assessment and Proposal app (Client Information, Energy Profile, Technical Site Inspection, System Configuration, Financial Analysis, System Recommendation, Generate Proposal) and \"Sol\", an AI solar assistant. Problem: manual repeated client information gathering, separate engineering calculation steps, slow proposal preparation, fragmented project data. Solution: structured client intake, validated engineering workflow, AI-assisted guidance (Gemini / Google AI Studio), automated proposal process and centralized data in Supabase, deployed on Vercel. Mae Ann's role: industrial engineering, process design, project coordination, automation and AI integration, system development. The code repository is private. Built during [[SUWECO Tablas Energy]]. Uses [[Business Systems]].",
+      "source_file": "mae-knowledge/projects.md"
+    },
+    {
+      "id": "projects_md_stec_portal",
+      "label": "STEC Portal",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "project",
+        "website"
+      ],
+      "content": "Website and project-monitoring portal Mae Ann built for SUWECO Tablas Energy Corporation, the hybrid solar-diesel power provider of Tablas Island: public pages for the company story, services, projects and updates, an interactive Tablas Island project map, and the STEC Portal for project monitoring with weekly and site-photo reports. Live: https://stec-independent-app.vercel.app. Code: https://github.com/maeannsb6-lgtm/STEC-NEW. Related to [[SUWECO Tablas Energy]].",
       "source_file": "mae-knowledge/projects.md"
     },
     {
@@ -470,9 +483,10 @@
       "kind": "fact",
       "community": 6,
       "tags": [
-        "project"
+        "project",
+        "website"
       ],
-      "content": "This portfolio: React 19, Vite, TypeScript, Tailwind 4 and three.js with a scroll-controlled 3D scene, a serverless contact backend (Supabase or Google Apps Script, optional n8n webhook) on Vercel, and the Mae assistant powered by Gemini. Code: https://github.com/maeannsb6-lgtm/Mae-Ann-s-Web. Demonstrates [[Client Workflow Automation]].",
+      "content": "This portfolio: React 19, Vite, TypeScript, Tailwind 4 and three.js, with an isometric workflow scene, an interactive optimization studio, live previews of Mae Ann's real websites, a serverless contact backend (Supabase or Google Apps Script, optional n8n webhook) on Vercel, and the Mae assistant powered by Gemini. Code: https://github.com/maeannsb6-lgtm/Mae-Ann-s-Web. Demonstrates [[Client Workflow Automation]].",
       "source_file": "mae-knowledge/projects.md"
     },
     {
@@ -823,6 +837,11 @@
     },
     {
       "source": "file_projects_md",
+      "target": "projects_md_stec_portal",
+      "relation": "contains"
+    },
+    {
+      "source": "file_projects_md",
       "target": "projects_md_portfolio_website",
       "relation": "contains"
     },
@@ -1069,6 +1088,11 @@
     {
       "source": "projects_md_solar_proposal_system",
       "target": "skills_md_business_systems",
+      "relation": "references"
+    },
+    {
+      "source": "projects_md_stec_portal",
+      "target": "experience_md_suweco_tablas_energy",
       "relation": "references"
     },
     {
@@ -1613,6 +1637,11 @@
     },
     {
       "source": "portfolio_md_projects_overview",
+      "target": "projects_md_stec_portal",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
       "target": "projects_md_portfolio_website",
       "relation": "shares_tag"
     },
@@ -1644,6 +1673,11 @@
     {
       "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "projects_md_stec_portal",
       "relation": "shares_tag"
     },
     {
@@ -1694,6 +1728,11 @@
     {
       "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "projects_md_stec_portal",
       "relation": "shares_tag"
     },
     {
@@ -1744,6 +1783,11 @@
     {
       "source": "portfolio_md_automation_lab_demo",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "projects_md_stec_portal",
       "relation": "shares_tag"
     },
     {
@@ -1863,6 +1907,11 @@
     },
     {
       "source": "projects_md_solar_proposal_system",
+      "target": "projects_md_stec_portal",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
       "target": "site_content_md_solar_case_study_workflow",
       "relation": "shares_tag"
     },
@@ -1882,8 +1931,28 @@
       "relation": "shares_tag"
     },
     {
+      "source": "projects_md_stec_portal",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_stec_portal",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_stec_portal",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
       "source": "projects_md_portfolio_website",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "projects_md_stec_portal",
       "relation": "shares_tag"
     },
     {

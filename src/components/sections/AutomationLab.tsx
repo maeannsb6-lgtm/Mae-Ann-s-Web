@@ -75,97 +75,103 @@ export function AutomationLab() {
   };
 
   return (
-    <section id="automation-lab" className="pro-section pro-lab">
-      <div className="pro-section-shell">
-        <div className="pro-section-intro">
-          <div>
-            <p className="pro-kicker">Automation Lab</p>
-            <h2>What I build and explore.</h2>
-          </div>
+    <section id="automation-lab" className="rd-lab">
+      <div className="rd-shell">
+        <header className="rd-lab-head" data-reveal>
+          <p className="rd-kicker">08 / Automation Lab</p>
+          <h2>
+            What I build <span>and explore.</span>
+          </h2>
           <p>
             A working, rule-based inquiry-routing demo. Sample text stays in
             your browser and is not saved.
           </p>
-        </div>
+        </header>
 
-        <div className="pro-lab-layout">
-          <form onSubmit={submit} className="pro-lab-input">
-            <label htmlFor="demo-inquiry">Sample inquiry</label>
-            <textarea
-              id="demo-inquiry"
-              value={inquiry}
-              onChange={(event) => setInquiry(event.target.value)}
-              minLength={8}
-              maxLength={500}
-              required
-              rows={6}
-              placeholder="Example: We need help automating our quotation follow-up process."
-            />
-            <div>
-              <button type="submit">
-                Run workflow <ArrowRight className="h-4 w-4" />
-              </button>
-              <button type="button" onClick={reset}>
-                Reset <RotateCcw className="h-4 w-4" />
-              </button>
-            </div>
-          </form>
+        <div className="rd-app" data-reveal>
+          <div className="rd-app-bar">
+            <span className="rd-app-dots" aria-hidden="true"><i /><i /><i /></span>
+            <strong>Inquiry Router</strong>
+            <span className="rd-app-mode">Runs locally in your browser</span>
+          </div>
 
-          <div className="pro-lab-state" aria-live="polite">
-            <div
-              className="pro-lab-signal"
-              data-active={processed ? "true" : "false"}
-            />
-            <dl>
-              <div>
-                <dt>Classification</dt>
-                <dd>{processed ? category : "Not processed"}</dd>
+          <div className="rd-app-body">
+            <form onSubmit={submit} className="rd-app-input">
+              <label htmlFor="demo-inquiry">Sample inquiry</label>
+              <textarea
+                id="demo-inquiry"
+                value={inquiry}
+                onChange={(event) => setInquiry(event.target.value)}
+                minLength={8}
+                maxLength={500}
+                required
+                rows={6}
+                placeholder="Example: We need help automating our quotation follow-up process."
+              />
+              <div className="rd-app-buttons">
+                <button type="submit" className="rd-btn rd-btn--amber">
+                  Run workflow <ArrowRight className="h-4 w-4" />
+                </button>
+                <button type="button" onClick={reset} className="rd-btn rd-btn--ghost">
+                  Reset <RotateCcw className="h-4 w-4" />
+                </button>
               </div>
-              <div>
-                <dt>Current stage</dt>
-                <dd>{processed ? stage : "—"}</dd>
-              </div>
-              <div>
-                <dt>Suggested next step</dt>
-                <dd>{nextStep}</dd>
-              </div>
-            </dl>
-            {processed && (
-              <div className="pro-lab-stages">
+            </form>
+
+            <div className="rd-app-state" aria-live="polite" data-active={processed ? "true" : "false"}>
+              <dl>
+                <div>
+                  <dt>Classification</dt>
+                  <dd className="rd-app-chip">{processed ? category : "Not processed"}</dd>
+                </div>
+                <div>
+                  <dt>Current stage</dt>
+                  <dd className="rd-app-chip">{processed ? stage : "—"}</dd>
+                </div>
+                <div className="rd-app-next">
+                  <dt>Suggested next step</dt>
+                  <dd>{nextStep}</dd>
+                </div>
+              </dl>
+              <ol className="rd-app-stages" aria-label="Pipeline stage">
                 {stages.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => setStage(item)}
-                    className={stage === item ? "is-active" : ""}
-                  >
-                    {item}
-                  </button>
+                  <li key={item}>
+                    <button
+                      type="button"
+                      disabled={!processed}
+                      onClick={() => setStage(item)}
+                      aria-pressed={processed && stage === item}
+                      className={processed && stage === item ? "is-active" : ""}
+                    >
+                      {item}
+                    </button>
+                  </li>
                 ))}
-              </div>
-            )}
+              </ol>
+            </div>
           </div>
         </div>
 
-        <div
-          className="pro-lab-architecture"
-          aria-label="Production architecture prepared"
-        >
-          {architecture.map((item, index) => (
-            <div key={item}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{item}</strong>
-              {index < architecture.length - 1 && <i aria-hidden="true" />}
-            </div>
-          ))}
+        <div className="rd-lab-arch" data-reveal aria-label="Production architecture prepared">
+          <p className="rd-label">Production architecture prepared</p>
+          <ol>
+            {architecture.map((item, index) => (
+              <li key={item}>
+                <div>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{item}</strong>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <details className="rd-lab-note">
+            <summary>Integration details</summary>
+            <p>
+              The contact workflow supports Supabase storage, an optional n8n
+              webhook, and the existing Google Apps Script email integration.
+            </p>
+          </details>
         </div>
-        <details className="pro-lab-note">
-          <summary>Integration details</summary>
-          <p>
-            The contact workflow supports Supabase storage, an optional n8n
-            webhook, and the existing Google Apps Script email integration.
-          </p>
-        </details>
       </div>
     </section>
   );

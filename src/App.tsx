@@ -1,5 +1,3 @@
-import { lazy, Suspense } from "react";
-import type { ReactNode } from "react";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { Hero } from "./components/sections/Hero";
@@ -17,19 +15,10 @@ import { Opportunities } from "./components/sections/Opportunities";
 import { Contact } from "./components/sections/Contact";
 import { Intelligence } from "./components/sections/Intelligence";
 import { MaeAgent } from "./components/ui/MaeAgent";
-const EngineeringScene = lazy(
-  () => import("./components/three/EngineeringScene"),
-);
-
-const sceneFallback = (
-  <div className="scene-fallback">
-    <span />
-    <span />
-    <span />
-  </div>
-);
+import { useReveal } from "./lib/useReveal";
 
 export default function App() {
+  useReveal();
   return (
     <div className="professional-site">
       <a className="skip-link" href="#main">
@@ -37,130 +26,29 @@ export default function App() {
       </a>
       <Navbar />
       <main id="main">
+        {/* Pages 01 and 02 */}
         <Hero />
         <About />
-        <div className="story-opening" id="story-opening">
-          <div className="story-content">
-            <Approach />
-            <Intelligence />
-          </div>
-          {/* One 3D model, held in this column only: it never travels into other chapters. */}
-          <div className="story-visual">
-            <div className="story-visual-sticky">
-              <div className="scene-slot">
-                <Suspense fallback={sceneFallback}>
-                  <EngineeringScene />
-                </Suspense>
-              </div>
-              <div className="scene-caption" aria-hidden="true">
-                <span>A digital twin of how I improve operations</span>
-                <span>Scroll to see each step ↓</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Highlights />
-        <PortfolioChapter
-          number="05"
-          stage={4}
-          title="Work & execution"
-          tone="paper"
-          links={[["Projects", "projects"]]}
-        >
+        {/* Section 03 onwards: each section carries its own art direction (src/styles/redesign.css). */}
+        <div className="rd">
+          <Approach />
+          <Intelligence />
+          <Highlights />
           <FeaturedWorks />
-        </PortfolioChapter>
-        <PortfolioChapter
-          number="06"
-          stage={5}
-          title="Experience & foundation"
-          tone="stone"
-          links={[
-            ["Experience", "experience"],
-            ["Education", "certifications"],
-            ["Achievements", "awards"],
-          ]}
-        >
           <Experience />
           <EducationTraining />
           <Achievements />
-        </PortfolioChapter>
-        <PortfolioChapter
-          number="07"
-          stage={6}
-          title="Capabilities & services"
-          tone="paper"
-          links={[
-            ["Services", "services"],
-            ["Skills", "capabilities"],
-          ]}
-        >
           <Services />
           <Skills />
-        </PortfolioChapter>
-        <PortfolioChapter
-          number="08"
-          stage={7}
-          title="Automation in practice"
-          tone="blue"
-          links={[["Try the demo", "automation-lab"]]}
-        >
           <AutomationLab />
-        </PortfolioChapter>
-        <PortfolioChapter
-          number="09"
-          stage={8}
-          title="Opportunities & connection"
-          tone="stone"
-          links={[
-            ["Opportunities", "opportunities"],
-            ["Contact", "contact"],
-          ]}
-        >
           <Opportunities />
           <Contact />
-        </PortfolioChapter>
-      </main>
-      <Footer />
-      <MaeAgent />
-    </div>
-  );
-}
-
-function PortfolioChapter({
-  number,
-  stage,
-  title,
-  tone,
-  links,
-  children,
-}: {
-  number: string;
-  stage: number;
-  title: string;
-  tone: string;
-  links: string[][];
-  children: ReactNode;
-}) {
-  return (
-    <div
-      className={`portfolio-chapter chapter--${tone}`}
-      data-story-stage={stage}
-    >
-      <div className="chapter-header">
-        <div className="chapter-heading">
-          <span>{number}</span>
-          <p>{title}</p>
         </div>
-        <nav aria-label={`${title} sections`}>
-          {links.map(([label, id]) => (
-            <a key={id} href={`#${id}`}>
-              {label}
-              <span aria-hidden="true">↘</span>
-            </a>
-          ))}
-        </nav>
+      </main>
+      <div className="rd">
+        <Footer />
       </div>
-      {children}
+      <MaeAgent />
     </div>
   );
 }

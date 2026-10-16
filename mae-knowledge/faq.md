@@ -19,7 +19,7 @@ Lean Six Sigma Yellow and White Belt, Certified AI-Powered Prompting Specialist,
 Champion at the PIIE-NSC Feasibility Study Competition (2024), Third Place at the 5th Asia Pacific IEOM Conference (2024), StartUp QC Gold Awardee (2025), and several Best Presenter awards. See [[Awards]].
 
 ## How is this website built #faq #meta
-Built with React 19, Vite, TypeScript, Tailwind 4 and three.js (scroll-controlled 3D scene), with a serverless contact backend on Vercel. See [[Portfolio Website]].
+Built with React 19, Vite, TypeScript, Tailwind 4 and three.js (an isometric workflow scene), with live previews of her websites and a serverless contact backend on Vercel. See [[Portfolio Website]].
 
 ## Does Mae Ann have a CV #faq #contact
 Yes, the CV link is in [[Contact]].

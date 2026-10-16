@@ -1,245 +1,323 @@
-import type { CSSProperties } from "react";
-import { ArrowUpRight, ChevronDown, PlayCircle } from "lucide-react";
-import { processImpact, projectLinks } from "../../data/content";
-import { secondaryProjects, solarCaseStudy } from "../../data/story";
-import { GithubMark } from "../ui/BrandIcons";
+import { useState } from 'react';
+import type { CSSProperties, PointerEvent } from 'react';
+import { ArrowRight, ArrowUpRight, ChevronDown, FileText, PlayCircle } from 'lucide-react';
+import { processImpact, projectLinks } from '../../data/content';
+import { secondaryProjects, solarCaseStudy } from '../../data/story';
+import { websites } from '../../data/websites';
+import type { WebsiteProject } from '../../data/websites';
+import { GithubMark } from '../ui/BrandIcons';
+import { BrowserFrame, LivePreviewButton, OpenSiteLink, PhoneFrame } from '../projects/WebsitePreview';
+
+const live = websites.filter((site) => site.url);
+const solar = live.find((site) => site.id === 'solar-solutions')!;
+const stec = live.find((site) => site.id === 'stec-portal');
+const portfolio = live.find((site) => site.id === 'portfolio');
+
+const CASE_TABS = ['Problem', 'My role', 'Solution', 'Workflow', 'Architecture', 'Results'] as const;
 
 export function FeaturedWorks() {
   return (
-    <section id="projects" className="pro-section pro-projects">
-      <div className="pro-section-shell">
-        <div className="pro-section-intro">
-          <div>
-            <p className="pro-kicker">05 / Execution — Selected work</p>
-            <h2>
-              From process.
-              <br />
-              To practical systems.
-            </h2>
-          </div>
-          <p>
-            Engineering analysis, connected workflows, and AI-assisted tools.
-            Each starts with a real operational problem.
-          </p>
-        </div>
+    <section id="projects" className="rd-work">
+      <div className="rd-shell">
+        <header className="rd-work-head" data-reveal>
+          <p className="rd-kicker">05 / Execution — Selected work</p>
+          <h2>
+            From process.
+            <br />
+            To <span>practical systems.</span>
+          </h2>
+          <p>Engineering analysis, connected workflows, and AI-assisted tools. Each starts with a real operational problem.</p>
+        </header>
 
-        <article className="pro-featured-project">
-          <div className="pro-project-visual">
-            <div className="pro-project-screen">
-              <div className="pro-project-screen-top">
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="pro-project-wireframe">
-                {solarCaseStudy.flow.map((step, index) => (
-                  <div key={step} style={{ "--i": index } as CSSProperties}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    {step}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <p>AI-enabled solar proposal &amp; client workflow system</p>
-          </div>
+        <SolarFeature />
+        {stec && <StecFeature site={stec} />}
+        {portfolio && <PortfolioRow site={portfolio} />}
 
-          <div className="pro-project-copy">
-            <p className="pro-small-label">Professional project</p>
-            <h3>{solarCaseStudy.title}</h3>
-            <p>{solarCaseStudy.subtitle}</p>
-            <p>
-              <strong>Tools:</strong> React · Gemini / Google AI Studio ·
-              Supabase · Vercel
-            </p>
-            <div className="pro-project-actions">
-              <a
-                href={projectLinks.solarLive}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track="solar-live-demo"
-              >
-                Live demo <ArrowUpRight className="h-4 w-4" />
-              </a>
-              <a
-                href={projectLinks.solarGithub}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track="solar-github"
-              >
-                GitHub <GithubMark className="h-4 w-4" />
-              </a>
-            </div>
-
-            <div className="pro-project-columns">
-              <ProjectList title="Problem" items={solarCaseStudy.problem} />
-              <ProjectList title="My role" items={solarCaseStudy.role} />
-              <ProjectList title="Solution" items={solarCaseStudy.solution} />
-            </div>
-
-            <details className="pro-project-details">
-              <summary>
-                View architecture &amp; workflow{" "}
-                <ChevronDown className="h-4 w-4" />
-              </summary>
-              <p>{solarCaseStudy.architecture.join(" → ")}</p>
-              <p>{solarCaseStudy.architectureNote}</p>
-            </details>
-          </div>
-        </article>
-
-        <div className="pro-project-impact">
-          {processImpact.map((item, index) => (
-            <div key={item}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>{item}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="pro-before-after">
-          <article>
-            <p className="pro-small-label">Before automation</p>
-            <ul>
-              {solarCaseStudy.before.observations.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p>{solarCaseStudy.before.flow.join(" → ")}</p>
-          </article>
-          <article>
-            <p className="pro-small-label">After automation</p>
-            <ul>
-              {solarCaseStudy.after.observations.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p>{solarCaseStudy.after.flow.join(" → ")}</p>
-          </article>
-        </div>
-
-        <div className="pro-project-list">
-          {secondaryProjects.map((project) => (
-            <article key={project.number}>
-              <div>
-                <span>{project.number}</span>
-                <p>{project.label}</p>
-              </div>
-              <div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <small>{project.role}</small>
-              </div>
-              <div className="pro-project-flow">{project.flow.join(" → ")}</div>
-              {project.number === "03" && (
-                <a href="#automation-lab">
-                  Try demo <PlayCircle className="h-4 w-4" />
-                </a>
-              )}
-            </article>
-          ))}
-        </div>
-
-        <details className="pro-sop">
-          <summary>
-            Client Inquiry Automation SOP <ChevronDown className="h-4 w-4" />
-          </summary>
-          <div>
-            {solarCaseStudy.sop.map(([title, text]) => (
-              <article key={title}>
-                <h4>{title}</h4>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </details>
-
-        <div className="engineering-evidence">
-          <p className="pro-kicker">Industrial Engineering / Applied work</p>
-          <h3>Improvement begins on the operations floor.</h3>
-          <div className="evidence-grid">
-            <article>
-              <h3>Workflow &amp; productivity analysis</h3>
-              <p className="pro-small-label">
-                JCV Enterprises · Field analysis · 2023–2024
-              </p>
-              <dl>
-                <dt>Problem</dt>
-                <dd>
-                  Operational bottlenecks, scheduling, and workload
-                  distribution.
-                </dd>
-                <dt>Process &amp; my role</dt>
-                <dd>
-                  Conducted time and motion studies, mapped workflows, and
-                  analyzed operational data as an Industrial Engineering intern.
-                </dd>
-                <dt>Methods &amp; work produced</dt>
-                <dd>
-                  Work measurement, operations research, workload balancing,
-                  scheduling recommendations, dashboards, and ISO-aligned
-                  documentation.
-                </dd>
-                <dt>Learning</dt>
-                <dd>
-                  Connected measured work and resource constraints to structured
-                  improvement recommendations.
-                </dd>
-              </dl>
-            </article>
-            <article>
-              <h3>Lean analysis &amp; process documentation</h3>
-              <p className="pro-small-label">
-                ELPS Industries · Field analysis · 2024–2025
-              </p>
-              <dl>
-                <dt>Problem</dt>
-                <dd>
-                  Workflow inefficiencies and the need for clear productivity
-                  information.
-                </dd>
-                <dt>Process &amp; my role</dt>
-                <dd>
-                  Analyzed workflows, monitored KPIs, and supported continuous
-                  improvement as an Industrial Engineering intern.
-                </dd>
-                <dt>Methods &amp; work produced</dt>
-                <dd>
-                  Lean principles, root cause analysis, process maps, SOP
-                  documentation, and stakeholder recommendations.
-                </dd>
-                <dt>Learning</dt>
-                <dd>
-                  Combined operational evidence and documented processes to
-                  identify improvement opportunities.
-                </dd>
-              </dl>
-            </article>
-          </div>
-        </div>
+        <OperationsWork />
       </div>
     </section>
   );
 }
 
-export function AllProjects() {
-  return null;
+/** Featured case study: the real Solar Solutions PH site on a large stage. */
+function SolarFeature() {
+  const [shot, setShot] = useState(0);
+  const [tab, setTab] = useState<(typeof CASE_TABS)[number]>('Problem');
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const onMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
+    const r = event.currentTarget.getBoundingClientRect();
+    setTilt({ x: (event.clientX - r.left) / r.width - 0.5, y: (event.clientY - r.top) / r.height - 0.5 });
+  };
+
+  return (
+    <article className="rd-solar" aria-labelledby="solar-title">
+      <div className="rd-solar-stage" data-reveal onPointerMove={onMove} onPointerLeave={() => setTilt({ x: 0, y: 0 })}
+        style={{ '--tx': tilt.x, '--ty': tilt.y } as CSSProperties}>
+        <span className="rd-solar-badge">Featured website · {solar.status}</span>
+        <BrowserFrame url={solar.url!} shot={solar.desktop[shot]} className="rd-solar-browser" />
+        {solar.mobile && <PhoneFrame shot={solar.mobile} className="rd-solar-phone" />}
+        <div className="rd-solar-thumbs" role="group" aria-label="Screens from the live site">
+          {solar.desktop.map((s, i) => (
+            <button key={s.src} type="button" aria-pressed={i === shot} onClick={() => setShot(i)}>
+              <img src={s.src} alt="" loading="lazy" />
+              <span>{s.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="rd-solar-info" data-reveal>
+        <p className="rd-label">Professional project · {solar.category}</p>
+        <h3 id="solar-title">{solarCaseStudy.title}</h3>
+        <p className="rd-solar-sub">{solarCaseStudy.subtitle}</p>
+        <p className="rd-solar-live">
+          Live as <strong>{solar.name}</strong>. {solar.summary}
+        </p>
+        <ul className="rd-solar-features">
+          {solar.features.map((f) => <li key={f}>{f}</li>)}
+        </ul>
+        <p className="rd-solar-tools">
+          <strong>Tools:</strong> {solar.tech.join(' · ')}
+        </p>
+        <div className="rd-actions">
+          <LivePreviewButton project={solar} label="Explore website" />
+          <OpenSiteLink url={solar.url!} />
+          <a href={projectLinks.solarAssessment} target="_blank" rel="noopener noreferrer" className="rd-btn rd-btn--text">
+            Start the assessment app <ArrowUpRight size={15} />
+          </a>
+        </div>
+      </div>
+
+      <div className="rd-case" data-reveal>
+        <div className="rd-case-tabs" role="tablist" aria-label="Solar case study">
+          {CASE_TABS.map((t) => (
+            <button key={t} type="button" role="tab" aria-selected={tab === t} aria-controls="solar-case-panel" onClick={() => setTab(t)}>
+              {t}
+            </button>
+          ))}
+        </div>
+        <div className="rd-case-panel" id="solar-case-panel" role="tabpanel" aria-label={tab}>
+          {tab === 'Problem' && <NumberedList items={solarCaseStudy.problem} />}
+          {tab === 'My role' && <NumberedList items={solarCaseStudy.role} />}
+          {tab === 'Solution' && <NumberedList items={solarCaseStudy.solution} />}
+          {tab === 'Workflow' && (
+            <div>
+              <p className="rd-case-caption">AI-enabled solar proposal &amp; client workflow system</p>
+              <ol className="rd-case-flow">
+                {solarCaseStudy.flow.map((step, i) => (
+                  <li key={step}><span>{String(i + 1).padStart(2, '0')}</span>{step}</li>
+                ))}
+              </ol>
+            </div>
+          )}
+          {tab === 'Architecture' && (
+            <div className="rd-case-arch">
+              <ol>
+                {solarCaseStudy.architecture.map((layer) => <li key={layer}><span>{layer}</span></li>)}
+              </ol>
+              <p>{solarCaseStudy.architectureNote}</p>
+            </div>
+          )}
+          {tab === 'Results' && <NumberedList items={processImpact} />}
+        </div>
+      </div>
+
+      <BeforeAfter />
+    </article>
+  );
 }
 
-function ProjectList({
-  title,
-  items,
-}: {
-  title: string;
-  items: readonly string[];
-}) {
+function NumberedList({ items }: { items: readonly string[] }) {
   return (
-    <div>
-      <p className="pro-small-label">{title}</p>
-      <ul>
-        {items.map((item) => (
-          <li key={item}>{item}</li>
+    <ol className="rd-case-list">
+      {items.map((item, i) => <li key={item}><span>{String(i + 1).padStart(2, '0')}</span>{item}</li>)}
+    </ol>
+  );
+}
+
+/** Interactive comparison of the manual and the automated workflow (qualitative, as documented). */
+function BeforeAfter() {
+  const [view, setView] = useState<'before' | 'after'>('after');
+  const data = solarCaseStudy[view];
+  return (
+    <div className={`rd-compare rd-compare--${view}`} data-reveal>
+      <div className="rd-compare-head">
+        <p className="rd-label">Workflow comparison</p>
+        <div className="rd-compare-switch" role="group" aria-label="Choose workflow">
+          <button type="button" aria-pressed={view === 'before'} onClick={() => setView('before')}>Before automation</button>
+          <button type="button" aria-pressed={view === 'after'} onClick={() => setView('after')}>After automation</button>
+        </div>
+      </div>
+      <ol className="rd-compare-flow" aria-label={`${view === 'before' ? 'Before' : 'After'} automation workflow`}>
+        {data.flow.map((step, i) => (
+          <li key={step} style={{ '--d': `${i * 50}ms` } as CSSProperties}><span>{step}</span></li>
         ))}
+      </ol>
+      <ul className="rd-compare-notes">
+        {data.observations.map((item) => <li key={item}>{item}</li>)}
       </ul>
     </div>
+  );
+}
+
+/** A second real website: overlapping desktop and phone previews in its own navy branding. */
+function StecFeature({ site }: { site: WebsiteProject }) {
+  const [shot, setShot] = useState(0);
+  return (
+    <article className="rd-stec" aria-labelledby="stec-title">
+      <div className="rd-stec-copy" data-reveal>
+        <p className="rd-label">{site.category} · {site.status}</p>
+        <h3 id="stec-title">{site.name}</h3>
+        <p>{site.summary}</p>
+        <ul>
+          {site.features.map((f) => <li key={f}>{f}</li>)}
+        </ul>
+        <p className="rd-stec-tech">{site.tech.join(' · ')}</p>
+        <div className="rd-actions">
+          <LivePreviewButton project={site} label="Live preview" />
+          <OpenSiteLink url={site.url!} />
+          {site.github && (
+            <a href={site.github} target="_blank" rel="noopener noreferrer" className="rd-btn rd-btn--text">
+              GitHub <GithubMark className="h-4 w-4" />
+            </a>
+          )}
+        </div>
+      </div>
+      <div className="rd-stec-visual" data-reveal>
+        <BrowserFrame url={site.url!} shot={site.desktop[shot]} />
+        {site.mobile && <PhoneFrame shot={site.mobile} className="rd-stec-phone" />}
+        {site.desktop.length > 1 && (
+          <div className="rd-stec-switch" role="group" aria-label="Screens from the live site">
+            {site.desktop.map((s, i) => (
+              <button key={s.src} type="button" aria-pressed={i === shot} onClick={() => setShot(i)}>{s.label}</button>
+            ))}
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
+/** The portfolio itself, as a compact editorial entry. */
+function PortfolioRow({ site }: { site: WebsiteProject }) {
+  return (
+    <article className="rd-folio" data-reveal aria-labelledby="folio-title">
+      <BrowserFrame url={site.url!} shot={site.desktop[0]} className="rd-folio-browser" />
+      <div>
+        <p className="rd-label">{site.category} · {site.status}</p>
+        <h3 id="folio-title">{site.name}</h3>
+        <p>{site.summary}</p>
+        <p className="rd-folio-tech">{site.tech.join(' · ')}</p>
+        {site.github && (
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className="rd-btn rd-btn--text">
+            View the code on GitHub <GithubMark className="h-4 w-4" />
+          </a>
+        )}
+      </div>
+    </article>
+  );
+}
+
+/** Non-website work: automation demos, the SOP and Industrial Engineering field analysis. */
+function OperationsWork() {
+  return (
+    <div className="rd-ops">
+      <div className="rd-ops-head" data-reveal>
+        <p className="rd-label">Automation &amp; engineering work</p>
+        <h3>Systems behind the screens.</h3>
+      </div>
+
+      <div className="rd-ops-flows">
+        {secondaryProjects.map((project) => (
+          <article key={project.number} className="rd-ops-flow" data-reveal>
+            <div className="rd-ops-flow-top">
+              <span>{project.number}</span>
+              <p>{project.label}</p>
+            </div>
+            <h4>{project.title}</h4>
+            <p>{project.description}</p>
+            <ol className="rd-ops-pipeline" aria-label={`${project.title} workflow`}>
+              {project.flow.map((step) => <li key={step}><span>{step}</span></li>)}
+            </ol>
+            <small>{project.role}</small>
+            {project.number === '03' && (
+              <a href="#automation-lab" className="rd-btn rd-btn--text">
+                Try demo <PlayCircle size={16} />
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <details className="rd-sop" data-reveal>
+        <summary>
+          <FileText size={18} /> Client Inquiry Automation SOP <ChevronDown size={16} className="rd-sop-chev" />
+        </summary>
+        <div className="rd-sop-doc">
+          {solarCaseStudy.sop.map(([title, text], i) => (
+            <article key={title}>
+              <span>{i + 1}.</span>
+              <div>
+                <h5>{title}</h5>
+                <p>{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </details>
+
+      <div className="rd-field" data-reveal>
+        <div className="rd-field-head">
+          <p className="rd-label">Industrial Engineering / Applied work</p>
+          <h3>Improvement begins on the operations floor.</h3>
+        </div>
+        <div className="rd-field-grid">
+          <FieldCase
+            title="Workflow & productivity analysis"
+            meta="JCV Enterprises · Field analysis · 2023–2024"
+            problem="Operational bottlenecks, scheduling, and workload distribution."
+            role="Conducted time and motion studies, mapped workflows, and analyzed operational data as an Industrial Engineering intern."
+            methods="Work measurement, operations research, workload balancing, scheduling recommendations, dashboards, and ISO-aligned documentation."
+            learning="Connected measured work and resource constraints to structured improvement recommendations."
+          />
+          <FieldCase
+            title="Lean analysis & process documentation"
+            meta="ELPS Industries · Field analysis · 2024–2025"
+            problem="Workflow inefficiencies and the need for clear productivity information."
+            role="Analyzed workflows, monitored KPIs, and supported continuous improvement as an Industrial Engineering intern."
+            methods="Lean principles, root cause analysis, process maps, SOP documentation, and stakeholder recommendations."
+            learning="Combined operational evidence and documented processes to identify improvement opportunities."
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FieldCase(props: { title: string; meta: string; problem: string; role: string; methods: string; learning: string }) {
+  return (
+    <article className="rd-field-case">
+      <p className="rd-field-meta">{props.meta}</p>
+      <h4>{props.title}</h4>
+      <dl>
+        <dt>Problem</dt>
+        <dd>{props.problem}</dd>
+        <dt>Process &amp; my role</dt>
+        <dd>{props.role}</dd>
+      </dl>
+      <details>
+        <summary>
+          Methods, output &amp; learning <ArrowRight size={14} />
+        </summary>
+        <dl>
+          <dt>Methods &amp; work produced</dt>
+          <dd>{props.methods}</dd>
+          <dt>Learning</dt>
+          <dd>{props.learning}</dd>
+        </dl>
+      </details>
+    </article>
   );
 }
