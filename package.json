@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000",
-    "build": "vite build",
+    "build": "node scripts/build-mae-brain.mjs && vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
+    "mae:brain": "node scripts/build-mae-brain.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {

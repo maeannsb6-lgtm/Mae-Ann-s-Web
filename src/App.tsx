@@ -16,6 +16,7 @@ import { AutomationLab } from "./components/sections/AutomationLab";
 import { Opportunities } from "./components/sections/Opportunities";
 import { Contact } from "./components/sections/Contact";
 import { Intelligence } from "./components/sections/Intelligence";
+import { MaeAgent } from "./components/ui/MaeAgent";
 const EngineeringScene = lazy(
   () => import("./components/three/EngineeringScene"),
 );
@@ -139,6 +140,7 @@ export default function App() {
         </PortfolioChapter>
       </main>
       <Footer />
+      <MaeAgent />
     </div>
   );
 }

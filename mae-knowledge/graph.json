@@ -1,0 +1,738 @@
+{
+  "directed": false,
+  "graph": {
+    "name": "mae"
+  },
+  "nodes": [
+    {
+      "id": "file_contact_md",
+      "label": "contact.md",
+      "kind": "file",
+      "community": 0,
+      "source_file": "mae-knowledge/contact.md"
+    },
+    {
+      "id": "file_credentials_md",
+      "label": "credentials.md",
+      "kind": "file",
+      "community": 1,
+      "source_file": "mae-knowledge/credentials.md"
+    },
+    {
+      "id": "file_experience_md",
+      "label": "experience.md",
+      "kind": "file",
+      "community": 2,
+      "source_file": "mae-knowledge/experience.md"
+    },
+    {
+      "id": "file_profile_md",
+      "label": "profile.md",
+      "kind": "file",
+      "community": 3,
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "file_projects_md",
+      "label": "projects.md",
+      "kind": "file",
+      "community": 4,
+      "source_file": "mae-knowledge/projects.md"
+    },
+    {
+      "id": "file_skills_md",
+      "label": "skills.md",
+      "kind": "file",
+      "community": 5,
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "contact_md_contact",
+      "label": "Contact",
+      "kind": "fact",
+      "community": 0,
+      "tags": [
+        "contact"
+      ],
+      "content": "Email: maeannbodiongan.ie@gmail.com. Phone: +63 915 064 3939. Location: Philippines. LinkedIn: https://www.linkedin.com/in/bsie-maeannbodiongan. GitHub: https://github.com/maeannsb6-lgtm. CV: https://canva.link/90yrx3qw2e660jf. Visitors can also use the contact form at the bottom of the site. See [[Availability]].",
+      "source_file": "mae-knowledge/contact.md"
+    },
+    {
+      "id": "credentials_md_certifications_and_training",
+      "label": "Certifications and training",
+      "kind": "fact",
+      "community": 1,
+      "tags": [
+        "education"
+      ],
+      "content": "Certified AI-Powered Prompting Specialist (AIGPE, March 6 2026). Certified Lean Six Sigma Yellow Belt (MF Treinamentos, CSSC accredited, June 30 2025). AI Journey with Alibaba Cloud (Technological Institute of the Philippines QC, April 24 2025). Continuous Improvement Fundamentals Certified (AskLex PH Academy, Jan 8 2025). Certified Lean Six Sigma White Belt (SixSigma PH, Jan 11 2023). Relates to [[Process Improvement]].",
+      "source_file": "mae-knowledge/credentials.md"
+    },
+    {
+      "id": "credentials_md_awards",
+      "label": "Awards",
+      "kind": "fact",
+      "community": 1,
+      "tags": [
+        "awards"
+      ],
+      "content": "PIIE-NSC Feasibility Study Competition: Champion (May 2024). IE Fest: Best Presenter and Feasibility Study recognitions (April 2024). 5th Asia Pacific IEOM Conference: Third Place (Sept 2024). 9th North American IEOM Conference: Participant (June 2024). Spotlight Design Project: Best Spotlight Presenter (May 2025). StartUp QC Student Competition: Gold Awardee (May 2025). Industrial Engineering Research: Best Presenter (May 2025).",
+      "source_file": "mae-knowledge/credentials.md"
+    },
+    {
+      "id": "experience_md_suweco_tablas_energy",
+      "label": "SUWECO Tablas Energy",
+      "kind": "fact",
+      "community": 2,
+      "tags": [
+        "experience",
+        "current",
+        "automation"
+      ],
+      "content": "Industrial Engineer and Project Coordinator for Technical Compliance at SUWECO Tablas Energy Corp., Ortigas, Pasig City, Aug 2025 to present. Coordinates technical documentation, compliance and digital workflow support for solar and diesel power plant projects across engineering, finance and management teams. Built the [[Solar Proposal System]] and designed n8n automations for Google Workspace tasks, project tracking and reporting. See [[AI & Workflow Automation]].",
+      "source_file": "mae-knowledge/experience.md"
+    },
+    {
+      "id": "experience_md_expressions_stationery",
+      "label": "Expressions Stationery",
+      "kind": "fact",
+      "community": 2,
+      "tags": [
+        "experience"
+      ],
+      "content": "Corporate Business Development Intern at Expressions Stationery Shop Inc., Makati City, Feb to May 2025. Market research and feasibility analysis, benchmarked internal practices against industry approaches, presented findings and recommendations to management.",
+      "source_file": "mae-knowledge/experience.md"
+    },
+    {
+      "id": "experience_md_elps_industries",
+      "label": "ELPS Industries",
+      "kind": "fact",
+      "community": 2,
+      "tags": [
+        "experience",
+        "industrial-engineering"
+      ],
+      "content": "Industrial Engineering Intern and Field Analyst at ELPS Industries Corporation Inc., Marikina City, Sep 2024 to May 2025. Analyzed workflows with Lean principles, tracked operational KPIs, documented SOPs, root cause analysis and process maps. See [[Process Improvement]].",
+      "source_file": "mae-knowledge/experience.md"
+    },
+    {
+      "id": "experience_md_jcv_enterprises",
+      "label": "JCV Enterprises",
+      "kind": "fact",
+      "community": 2,
+      "tags": [
+        "experience",
+        "industrial-engineering"
+      ],
+      "content": "Industrial Engineering Intern and Field Analyst at JCV Enterprises, Marikina City, Mar 2023 to May 2024. Time and motion studies, process mapping, bottleneck analysis, workload balancing, operations-research scheduling recommendations, dashboards and ISO-aligned documentation. See [[Process Improvement]].",
+      "source_file": "mae-knowledge/experience.md"
+    },
+    {
+      "id": "experience_md_rex_book_store",
+      "label": "Rex Book Store",
+      "kind": "fact",
+      "community": 2,
+      "tags": [
+        "experience"
+      ],
+      "content": "Industrial Engineering Student Assistant (work immersion) at Rex Book Store, Quezon City, Aug to Sep 2019. Logistics, inventory movement, shipment checking and Excel records.",
+      "source_file": "mae-knowledge/experience.md"
+    },
+    {
+      "id": "profile_md_who_mae_ann_is",
+      "label": "Who Mae Ann is",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "identity",
+        "industrial-engineering"
+      ],
+      "content": "Mae Ann Bodiongan is an Industrial Engineer based in the Philippines who combines process improvement with AI and workflow automation. She understands processes, finds inefficiencies, redesigns workflows, and uses AI, automation, databases and digital systems where they add value. See [[Process Improvement]], [[AI & Workflow Automation]] and [[Solar Proposal System]].",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "profile_md_focus_areas",
+      "label": "Focus areas",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "identity",
+        "focus"
+      ],
+      "content": "Industrial Engineering (process improvement, operations, Lean), Automation (n8n, AI workflows, business automation), Systems (Supabase, web apps, databases), and operations and client workflow automation. She is especially interested in automated client journeys from inquiry and onboarding to proposal generation, follow-up and operational tracking.",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "profile_md_working_style",
+      "label": "Working style",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "collaboration"
+      ],
+      "content": "Asynchronous communication, clear technical documentation, GitHub collaboration and cross-functional coordination. See [[Approach]].",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "profile_md_approach",
+      "label": "Approach",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "method"
+      ],
+      "content": "Seven steps: 01 Understand the business or operational process. 02 Map inputs, activities, decisions, bottlenecks and outputs. 03 Improve by removing unnecessary steps and redesigning. 04 Design the improved workflow and information flow. 05 Automate with AI, n8n, APIs and databases where they add value. 06 Validate logic and outputs. 07 Document the workflow, controls and system.",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "profile_md_availability",
+      "label": "Availability",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "contact",
+        "hiring"
+      ],
+      "content": "Open to remote opportunities and selected automation projects. See [[Contact]]. She can be hired for: process and workflow analysis, n8n / workflow automation, AI-enabled business systems, client workflow automation, operational reporting automation, process documentation. Target roles: Industrial Engineer, Process Improvement, Continuous Improvement, Operations Analysis, AI / n8n / Workflow / Business Automation, Operations Automation, AI-enabled Operations, Technical Project Coordination.",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "profile_md_currently_exploring",
+      "label": "Currently exploring",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "learning"
+      ],
+      "content": "CRM automation, advanced API integration, client lifecycle automation, AI agent workflows, OAuth fundamentals, advanced error handling.",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "profile_md_about_mae_the_assistant",
+      "label": "About Mae the assistant",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "meta"
+      ],
+      "content": "Mae is the small AI assistant on this site. Her reasoning runs on Google Gemini, and everything she knows is stored in a graphify-style knowledge graph built from the markdown files in the mae-knowledge folder. She answers only from that graph.",
+      "source_file": "mae-knowledge/profile.md"
+    },
+    {
+      "id": "projects_md_solar_proposal_system",
+      "label": "Solar Proposal System",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "project",
+        "featured",
+        "ai",
+        "systems"
+      ],
+      "content": "AI-Enabled Solar Proposal and Client Workflow System (Industrial Engineering x AI Automation x Client Workflow Design). Problem: manual repeated client information gathering, separate engineering calculation steps, slow proposal preparation, fragmented project data. Solution: structured client intake, validated engineering workflow, AI-assisted guidance (Gemini / Google AI Studio), automated proposal process and centralized data in Supabase, deployed on Vercel. Mae Ann's role: industrial engineering, process design, project coordination, automation and AI integration, system development. Live app: https://stec-independent-app.vercel.app. Code: https://github.com/maeannsb6-lgtm/STEC-NEW. Built during [[SUWECO Tablas Energy]]. Uses [[Business Systems]].",
+      "source_file": "mae-knowledge/projects.md"
+    },
+    {
+      "id": "projects_md_portfolio_website",
+      "label": "Portfolio Website",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "project"
+      ],
+      "content": "This portfolio: React 19, Vite, TypeScript, Tailwind 4 and three.js with a scroll-controlled 3D scene, a serverless contact backend (Supabase or Google Apps Script, optional n8n webhook) on Vercel, and the Mae assistant powered by Gemini. Code: https://github.com/maeannsb6-lgtm/Mae-Ann-s-Web. Demonstrates [[Client Workflow Automation]].",
+      "source_file": "mae-knowledge/projects.md"
+    },
+    {
+      "id": "skills_md_process_improvement",
+      "label": "Process Improvement",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills",
+        "industrial-engineering"
+      ],
+      "content": "Process analysis, process mapping, Lean and continuous improvement, root cause analysis, time and motion study, work measurement, workload balancing, workflow optimization, KPI monitoring, Lean Manufacturing, Lean Six Sigma, operations research, feasibility studies, SOP development, data analysis. Applied at [[JCV Enterprises]] and [[ELPS Industries]].",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_ai_workflow_automation",
+      "label": "AI & Workflow Automation",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills",
+        "automation"
+      ],
+      "content": "n8n, AI workflow automation, AI agents, Google Workspace automation, AI-assisted workflows, automated reporting, scheduled workflows, webhooks and trigger-based workflows. Applied at [[SUWECO Tablas Energy]].",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_business_systems",
+      "label": "Business Systems",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills",
+        "systems"
+      ],
+      "content": "Supabase, database-backed workflows, business web applications, digital forms, automated proposal systems, operational dashboards. Demonstrated by the [[Solar Proposal System]].",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_client_workflow_automation",
+      "label": "Client Workflow Automation",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills",
+        "automation"
+      ],
+      "content": "Lead and inquiry collection, client onboarding, information collection, automated follow-ups, proposal workflows and AI-assisted interaction. This portfolio's contact flow is a live example: see [[Portfolio Website]].",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_tools",
+      "label": "Tools",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills",
+        "tools"
+      ],
+      "content": "n8n, Supabase, Gemini / Google AI Studio, Vercel, GitHub, Microsoft Excel, Microsoft Office, Google Workspace, Notion.",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_integration_skills",
+      "label": "Integration skills",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills",
+        "tools"
+      ],
+      "content": "REST-style serverless endpoints, webhooks, JSON data handling, server-side API key handling, data transformation, database operations, scheduled workflows, validation and error states.",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_project_and_business_skills",
+      "label": "Project and business skills",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "skills"
+      ],
+      "content": "Project coordination, feasibility analysis, technical documentation, quality and compliance documentation, stakeholder communication.",
+      "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "skills_md_process_impact",
+      "label": "Process impact",
+      "kind": "fact",
+      "community": 5,
+      "tags": [
+        "results"
+      ],
+      "content": "Reduced manual handoffs, centralized project information, standardized workflow, reduced repetitive data entry, improved process visibility, streamlined proposal preparation.",
+      "source_file": "mae-knowledge/skills.md"
+    }
+  ],
+  "links": [
+    {
+      "source": "file_contact_md",
+      "target": "contact_md_contact",
+      "relation": "contains"
+    },
+    {
+      "source": "file_credentials_md",
+      "target": "credentials_md_certifications_and_training",
+      "relation": "contains"
+    },
+    {
+      "source": "file_credentials_md",
+      "target": "credentials_md_awards",
+      "relation": "contains"
+    },
+    {
+      "source": "file_experience_md",
+      "target": "experience_md_suweco_tablas_energy",
+      "relation": "contains"
+    },
+    {
+      "source": "file_experience_md",
+      "target": "experience_md_expressions_stationery",
+      "relation": "contains"
+    },
+    {
+      "source": "file_experience_md",
+      "target": "experience_md_elps_industries",
+      "relation": "contains"
+    },
+    {
+      "source": "file_experience_md",
+      "target": "experience_md_jcv_enterprises",
+      "relation": "contains"
+    },
+    {
+      "source": "file_experience_md",
+      "target": "experience_md_rex_book_store",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_focus_areas",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_working_style",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_approach",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_availability",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_currently_exploring",
+      "relation": "contains"
+    },
+    {
+      "source": "file_profile_md",
+      "target": "profile_md_about_mae_the_assistant",
+      "relation": "contains"
+    },
+    {
+      "source": "file_projects_md",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "contains"
+    },
+    {
+      "source": "file_projects_md",
+      "target": "projects_md_portfolio_website",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_process_improvement",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_business_systems",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_tools",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_integration_skills",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "contains"
+    },
+    {
+      "source": "file_skills_md",
+      "target": "skills_md_process_impact",
+      "relation": "contains"
+    },
+    {
+      "source": "contact_md_contact",
+      "target": "profile_md_availability",
+      "relation": "references"
+    },
+    {
+      "source": "credentials_md_certifications_and_training",
+      "target": "skills_md_process_improvement",
+      "relation": "references"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "references"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "references"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "skills_md_process_improvement",
+      "relation": "references"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "skills_md_process_improvement",
+      "relation": "references"
+    },
+    {
+      "source": "profile_md_who_mae_ann_is",
+      "target": "skills_md_process_improvement",
+      "relation": "references"
+    },
+    {
+      "source": "profile_md_who_mae_ann_is",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "references"
+    },
+    {
+      "source": "profile_md_who_mae_ann_is",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "references"
+    },
+    {
+      "source": "profile_md_working_style",
+      "target": "profile_md_approach",
+      "relation": "references"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
+      "target": "skills_md_business_systems",
+      "relation": "references"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "references"
+    },
+    {
+      "source": "contact_md_contact",
+      "target": "profile_md_availability",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_expressions_stationery",
+      "target": "experience_md_suweco_tablas_energy",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_expressions_stationery",
+      "target": "experience_md_jcv_enterprises",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_expressions_stationery",
+      "target": "experience_md_rex_book_store",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "experience_md_suweco_tablas_energy",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "experience_md_expressions_stationery",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "experience_md_jcv_enterprises",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "experience_md_rex_book_store",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "experience_md_suweco_tablas_energy",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "experience_md_rex_book_store",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_rex_book_store",
+      "target": "experience_md_suweco_tablas_energy",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "profile_md_who_mae_ann_is",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "profile_md_focus_areas",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
+      "target": "skills_md_business_systems",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_process_improvement",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_process_improvement",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_ai_workflow_automation",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_ai_workflow_automation",
+      "target": "skills_md_business_systems",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_ai_workflow_automation",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_ai_workflow_automation",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_ai_workflow_automation",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_ai_workflow_automation",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_business_systems",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_business_systems",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_business_systems",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_business_systems",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_business_systems",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_client_workflow_automation",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_client_workflow_automation",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_client_workflow_automation",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_client_workflow_automation",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_integration_skills",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_integration_skills",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_integration_skills",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "skills_md_project_and_business_skills",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    }
+  ]
+}
