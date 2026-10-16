@@ -43,7 +43,7 @@ export default async function handler(request, response) {
   const payload = {
     systemInstruction: { parts: [{ text: SYSTEM }] },
     contents: [...history, { role: 'user', parts: [{ text: `Knowledge excerpts:\n${knowledge}\n\nVisitor question: ${question}` }] }],
-    generationConfig: { temperature: 0.4, maxOutputTokens: 600 },
+    generationConfig: { temperature: 0.4, maxOutputTokens: 2048 },
   };
   const failures = [];
   const reply = await generate(apiKey, payload, failures);
