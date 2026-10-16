@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { navLinks } from "../../data/content";
 import { cn } from "../../lib/utils";
@@ -7,10 +7,13 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const [revealed, setRevealed] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 18);
+      setScrolled(window.scrollY > 80);
+      if (window.scrollY > 80) setRevealed(false);
       if (window.scrollY < window.innerHeight * 0.4) setActive("home");
     };
     onScroll();
@@ -39,20 +42,61 @@ export function Navbar() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setRevealed(false);
+      }
+    };
+    const onOutsidePointer = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) {
+        setMenuOpen(false);
+        setRevealed(false);
+      }
     };
     document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onOutsidePointer);
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
       document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onOutsidePointer);
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
   return (
     <header
-      className={cn("pro-nav", scrolled || menuOpen ? "is-scrolled" : "")}
+      ref={headerRef}
+      className={cn(
+        "pro-nav",
+        scrolled || menuOpen ? "is-scrolled" : "",
+        scrolled && !revealed && !menuOpen ? "is-auto-hidden" : "",
+      )}
+      onPointerEnter={(event) => {
+        if (event.pointerType !== "touch") setRevealed(true);
+      }}
+      onPointerLeave={() => setRevealed(false)}
+      onClick={(event) => {
+        const link = event.target instanceof Element ? event.target.closest("a") : null;
+        if (link) {
+          setMenuOpen(false);
+          setRevealed(false);
+          if (event.detail > 0 && link instanceof HTMLElement) link.blur();
+        }
+      }}
     >
+      <div className="pro-nav-reveal-zone" aria-hidden="true" />
+      {scrolled && !menuOpen && (
+        <button
+          type="button"
+          className="pro-nav-peek"
+          aria-label="Open navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen(true)}
+        >
+          <Menu size={20} />
+        </button>
+      )}
       <div className="pro-nav-shell">
         <a
           href="#home"
