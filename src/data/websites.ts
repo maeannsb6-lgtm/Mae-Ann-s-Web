@@ -83,16 +83,26 @@ export const websites: WebsiteProject[] = [
     desktop: [{ src: '/projects/portfolio-home.jpg', alt: 'Portfolio homepage with Mae Ann’s portrait and black navigation bar', label: 'Homepage' }],
   },
   {
-    // Awaiting the real link and permission to show it; not rendered until `url` is set.
     id: 'wedding',
-    name: 'Ate Cha’s Wedding Website',
-    category: 'Event website',
-    status: 'Link pending',
-    url: null,
-    embeddable: false,
-    summary: '',
-    features: [],
-    tech: [],
-    desktop: [],
+    name: 'Sam & Charis Wedding Website',
+    category: 'Event website + RSVP automation',
+    status: 'Used at the wedding',
+    url: 'https://sam-and-charis-wedding-web-app.vercel.app',
+    embeddable: true,
+    summary:
+      'A wedding website for Ate Cha and Sam, with the full event guide and an RSVP flow connected to automation. It was used for their wedding on September 25, 2026 and handled guest responses successfully.',
+    features: [
+      'Guests find their invitation by name, email or invite code, then RSVP',
+      'RSVP responses are sent by webhook to Google Sheets, where the couple sees who has accepted',
+      'Supabase-backed data and an automatic confirmation email after each RSVP',
+      'Event guide: details, our story, gallery, attire guide, entourage, venue, gift guide and FAQs',
+    ],
+    tech: ['Supabase', 'Google Sheets webhook', 'Automated email', 'Vercel'],
+    desktop: [
+      { src: '/projects/wedding-home.jpg', alt: 'Sam & Charis wedding website homepage with the date, couple names and RSVP button', label: 'Homepage' },
+      { src: '/projects/wedding-rsvp.jpg', alt: 'Wedding website RSVP screen: find your invitation by name, email or code', label: 'RSVP lookup' },
+      { src: '/projects/wedding-attire.jpg', alt: 'Wedding website attire guide with illustrated outfits in sage green and butter yellow', label: 'Attire guide' },
+    ],
+    mobile: { src: '/projects/wedding-mobile.jpg', alt: 'Sam & Charis wedding website on a phone', label: 'Mobile' },
   },
 ];

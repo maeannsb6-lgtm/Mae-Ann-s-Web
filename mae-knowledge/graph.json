@@ -308,7 +308,7 @@
         "project",
         "featured"
       ],
-      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live website: Solar Solutions PH); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (a portfolio demo concept); plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
+      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live website: Solar Solutions PH); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (a portfolio demo concept); the Sam & Charis Wedding Website with RSVP automation; the STEC Portal for SUWECO; plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[Wedding Website]], [[STEC Portal]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
       "source_file": "mae-knowledge/portfolio.md"
     },
     {
@@ -451,6 +451,19 @@
         "website"
       ],
       "content": "AI-Enabled Solar Proposal and Client Workflow System (Industrial Engineering x AI Automation x Client Workflow Design), live as the website Solar Solutions PH: https://solar-solutions-ph.vercel.app. The site opens with a 15-chapter scroll-driven 3D walkthrough of how a solar energy system works, then a seven-step Solar Assessment and Proposal app (Client Information, Energy Profile, Technical Site Inspection, System Configuration, Financial Analysis, System Recommendation, Generate Proposal) and \"Sol\", an AI solar assistant. Problem: manual repeated client information gathering, separate engineering calculation steps, slow proposal preparation, fragmented project data. Solution: structured client intake, validated engineering workflow, AI-assisted guidance (Gemini / Google AI Studio), automated proposal process and centralized data in Supabase, deployed on Vercel. Mae Ann's role: industrial engineering, process design, project coordination, automation and AI integration, system development. The code repository is private. Built during [[SUWECO Tablas Energy]]. Uses [[Business Systems]].",
+      "source_file": "mae-knowledge/projects.md"
+    },
+    {
+      "id": "projects_md_wedding_website",
+      "label": "Wedding Website",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "project",
+        "website",
+        "automation"
+      ],
+      "content": "Sam & Charis Wedding Website, built by Mae Ann for Ate Cha and Sam: https://sam-and-charis-wedding-web-app.vercel.app. Guests find their invitation by name, email or invite code and RSVP; each RSVP is sent by webhook to Google Sheets so the couple can see who accepted, the data is stored in Supabase, and guests get an automatic confirmation email. The site also has the event details, their story, gallery, attire guide, entourage, venue, gift guide and FAQs. It was used for their wedding on September 25, 2026 and worked successfully. Shows [[Client Workflow Automation]] applied outside engineering.",
       "source_file": "mae-knowledge/projects.md"
     },
     {
@@ -820,6 +833,11 @@
     },
     {
       "source": "file_projects_md",
+      "target": "projects_md_wedding_website",
+      "relation": "contains"
+    },
+    {
+      "source": "file_projects_md",
       "target": "projects_md_stec_portal",
       "relation": "contains"
     },
@@ -1020,6 +1038,16 @@
     },
     {
       "source": "portfolio_md_projects_overview",
+      "target": "projects_md_wedding_website",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "projects_md_stec_portal",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
       "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
       "relation": "references"
     },
@@ -1066,6 +1094,11 @@
     {
       "source": "projects_md_solar_proposal_system",
       "target": "skills_md_business_systems",
+      "relation": "references"
+    },
+    {
+      "source": "projects_md_wedding_website",
+      "target": "skills_md_client_workflow_automation",
       "relation": "references"
     },
     {
@@ -1131,6 +1164,11 @@
     {
       "source": "experience_md_suweco_tablas_energy",
       "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "projects_md_wedding_website",
       "relation": "shares_tag"
     },
     {
@@ -1610,6 +1648,11 @@
     },
     {
       "source": "portfolio_md_projects_overview",
+      "target": "projects_md_wedding_website",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
       "target": "projects_md_stec_portal",
       "relation": "shares_tag"
     },
@@ -1646,6 +1689,11 @@
     {
       "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "projects_md_wedding_website",
       "relation": "shares_tag"
     },
     {
@@ -1701,6 +1749,11 @@
     {
       "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "projects_md_wedding_website",
       "relation": "shares_tag"
     },
     {
@@ -1825,6 +1878,11 @@
     },
     {
       "source": "projects_md_solar_proposal_system",
+      "target": "projects_md_wedding_website",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
       "target": "projects_md_stec_portal",
       "relation": "shares_tag"
     },
@@ -1849,6 +1907,36 @@
       "relation": "shares_tag"
     },
     {
+      "source": "projects_md_wedding_website",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_wedding_website",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_wedding_website",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_wedding_website",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_wedding_website",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_stec_portal",
+      "target": "projects_md_wedding_website",
+      "relation": "shares_tag"
+    },
+    {
       "source": "projects_md_stec_portal",
       "target": "site_content_md_solar_case_study_workflow",
       "relation": "shares_tag"
@@ -1866,6 +1954,11 @@
     {
       "source": "projects_md_portfolio_website",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "projects_md_wedding_website",
       "relation": "shares_tag"
     },
     {

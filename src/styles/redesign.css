@@ -652,3 +652,43 @@
   .rd-opt-node text { font-size: 15px; }
   .rd-opt-node .rd-opt-flag { font-size: 13px; }
 }
+
+/* 05: the wedding website, framed in its own deep sage and gold (magazine spread). */
+.rd-wed {
+  --sage: #24372e; --sage-2: #2f4639; --gold: #e6c78f;
+  display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center;
+  margin-top: 120px; padding: 48px; border-radius: 32px; background: var(--sage); color: #f3ead6;
+  background-image: radial-gradient(600px 300px at 0% 0%, #36503f 0, transparent 70%);
+}
+.rd-wed-visual { position: relative; padding: 0 12% 70px 0; }
+.rd-wed-browser { border-color: #3d5646; box-shadow: 0 40px 70px -30px #0008; }
+.rd-wed-browser .rd-browser-bar { background: #33493c; border-bottom-color: #3d5646; }
+.rd-wed-browser .rd-browser-url { background: #24372e; color: #c9bc9b; }
+.rd-wed-phone { position: absolute; right: 0; top: 18%; width: 24%; border-color: #111a15; }
+.rd-wed-thumbs { position: absolute; left: 0; bottom: 0; display: flex; gap: 8px; }
+.rd-wed-thumbs button { display: grid; gap: 4px; width: 116px; padding: 4px 4px 6px; border: 1px solid #3d5646; border-radius: 10px; background: var(--sage-2); color: #e9dfc6; text-align: left; }
+.rd-wed-thumbs button[aria-pressed="true"] { border-color: var(--gold); }
+.rd-wed-thumbs img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 6px; }
+.rd-wed-thumbs span { padding: 0 2px; font-size: 10px; font-weight: 700; }
+.rd-wed-label { font: 11px ui-monospace, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.rd-wed-copy h3 { margin-top: 12px; font: italic 400 clamp(30px, 3vw, 44px)/1.08 Georgia, "Times New Roman", serif; color: var(--gold); }
+.rd-wed-status { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px !important; padding: 6px 12px; border: 1px solid #4b6553; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.rd-wed-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+.rd-wed-copy > p:nth-of-type(3) { margin-top: 16px; font-size: 15.5px; line-height: 1.65; color: #d9cfb6; }
+.rd-wed-copy ol { display: grid; gap: 10px; margin-top: 18px !important; }
+.rd-wed-copy li { display: flex; gap: 12px; padding-top: 10px; border-top: 1px solid #3d5646; font-size: 14px; line-height: 1.5; }
+.rd-wed-copy li span { font: 11px ui-monospace, monospace; color: var(--gold); padding-top: 3px; }
+.rd-wed-tech { margin-top: 16px; font: 12px ui-monospace, monospace; color: #a99f84; }
+.rd-wed .rd-btn--ghost { border-color: var(--gold); color: var(--gold); }
+.rd-wed .rd-btn--ghost:hover { background: var(--gold); color: var(--sage); }
+.rd-wed .rd-btn--amber { background: var(--gold); box-shadow: none; }
+@media (max-width: 1080px) { .rd-wed { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  .rd-wed { margin-top: 84px; padding: 24px; gap: 28px; border-radius: 24px; }
+  .rd-wed-visual { padding: 0; }
+  .rd-wed-phone { top: auto; bottom: 60px; right: -2%; width: 26%; }
+  .rd-wed-thumbs { position: static; margin-top: 12px; overflow-x: auto; }
+  .rd-wed-thumbs button { flex: 0 0 104px; width: 104px; }
+}
+/* Grid children may shrink below their content (scrolling thumbnail rows, long URLs). */
+.rd-wed > *, .rd-solar > *, .rd-stec > *, .rd-folio > * { min-width: 0; }

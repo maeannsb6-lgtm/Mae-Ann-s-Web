@@ -12,6 +12,7 @@ const live = websites.filter((site) => site.url);
 const solar = live.find((site) => site.id === 'solar-solutions')!;
 const stec = live.find((site) => site.id === 'stec-portal');
 const portfolio = live.find((site) => site.id === 'portfolio');
+const wedding = live.find((site) => site.id === 'wedding');
 
 const CASE_TABS = ['Problem', 'My role', 'Solution', 'Workflow', 'Architecture', 'Results'] as const;
 
@@ -30,6 +31,7 @@ export function FeaturedWorks() {
         </header>
 
         <SolarFeature />
+        {wedding && <WeddingFeature site={wedding} />}
         {stec && <StecFeature site={stec} />}
         {portfolio && <PortfolioRow site={portfolio} />}
 
@@ -159,6 +161,43 @@ function BeforeAfter() {
         {data.observations.map((item) => <li key={item}>{item}</li>)}
       </ul>
     </div>
+  );
+}
+
+/** A different kind of site: a magazine-style spread in the wedding website's own sage and gold. */
+function WeddingFeature({ site }: { site: WebsiteProject }) {
+  const [shot, setShot] = useState(0);
+  return (
+    <article className="rd-wed" aria-labelledby="wed-title" data-reveal>
+      <div className="rd-wed-visual">
+        <BrowserFrame url={site.url!} shot={site.desktop[shot]} className="rd-wed-browser" />
+        {site.mobile && <PhoneFrame shot={site.mobile} className="rd-wed-phone" />}
+        <div className="rd-wed-thumbs" role="group" aria-label="Screens from the live site">
+          {site.desktop.map((s, i) => (
+            <button key={s.src} type="button" aria-pressed={i === shot} onClick={() => setShot(i)}>
+              <img src={s.src} alt="" loading="lazy" />
+              <span>{s.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="rd-wed-copy">
+        <p className="rd-wed-label">{site.category}</p>
+        <h3 id="wed-title">{site.name}</h3>
+        <p className="rd-wed-status">{site.status}</p>
+        <p>{site.summary}</p>
+        <ol>
+          {site.features.map((f, i) => (
+            <li key={f}><span>{String(i + 1).padStart(2, '0')}</span>{f}</li>
+          ))}
+        </ol>
+        <p className="rd-wed-tech">{site.tech.join(' · ')}</p>
+        <div className="rd-actions">
+          <LivePreviewButton project={site} label="Live preview" />
+          <OpenSiteLink url={site.url!} />
+        </div>
+      </div>
+    </article>
   );
 }
 
