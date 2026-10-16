@@ -26,24 +26,38 @@
       "source_file": "mae-knowledge/experience.md"
     },
     {
+      "id": "file_faq_md",
+      "label": "faq.md",
+      "kind": "file",
+      "community": 3,
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
       "id": "file_profile_md",
       "label": "profile.md",
       "kind": "file",
-      "community": 3,
+      "community": 4,
       "source_file": "mae-knowledge/profile.md"
     },
     {
       "id": "file_projects_md",
       "label": "projects.md",
       "kind": "file",
-      "community": 4,
+      "community": 5,
       "source_file": "mae-knowledge/projects.md"
+    },
+    {
+      "id": "file_site_content_md",
+      "label": "site-content.md",
+      "kind": "file",
+      "community": 6,
+      "source_file": "mae-knowledge/site-content.md"
     },
     {
       "id": "file_skills_md",
       "label": "skills.md",
       "kind": "file",
-      "community": 5,
+      "community": 7,
       "source_file": "mae-knowledge/skills.md"
     },
     {
@@ -139,10 +153,118 @@
       "source_file": "mae-knowledge/experience.md"
     },
     {
+      "id": "faq_md_is_mae_ann_available_to_hire",
+      "label": "Is Mae Ann available to hire",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "hiring"
+      ],
+      "content": "Yes. She is open to remote opportunities and selected automation projects, both full-time roles and project work. Best way to reach her is [[Contact]]. See [[Availability]] for the roles she targets.",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "label": "What is Mae Ann's strongest skill",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "skills"
+      ],
+      "content": "Her strength is the combination: an Industrial Engineering foundation (process analysis, Lean, root cause analysis) plus hands-on automation and AI (n8n, Gemini, Supabase, Google Workspace). She can both fix a process and build the automation for it. See [[Process Improvement]] and [[AI & Workflow Automation]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_where_does_mae_ann_work_now",
+      "label": "Where does Mae Ann work now",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "experience"
+      ],
+      "content": "She currently works at SUWECO Tablas Energy Corp. as an Industrial Engineer and Project Coordinator for Technical Compliance (since Aug 2025). See [[SUWECO Tablas Energy]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_does_mae_ann_know_how_to_code",
+      "label": "Does Mae Ann know how to code",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "tools"
+      ],
+      "content": "She builds web applications and automations using React, Vite, TypeScript, serverless endpoints, Supabase, Vercel and GitHub, working with AI assistance (Google AI Studio and Gemini). Her focus is practical business systems rather than pure software engineering. See [[Business Systems]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_what_certifications_does_mae_ann_have",
+      "label": "What certifications does Mae Ann have",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "education"
+      ],
+      "content": "Lean Six Sigma Yellow and White Belt, Certified AI-Powered Prompting Specialist, Continuous Improvement Fundamentals, and an AI Journey with Alibaba Cloud program. See [[Certifications and training]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_what_awards_has_mae_ann_won",
+      "label": "What awards has Mae Ann won",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "awards"
+      ],
+      "content": "Champion at the PIIE-NSC Feasibility Study Competition (2024), Third Place at the 5th Asia Pacific IEOM Conference (2024), StartUp QC Gold Awardee (2025), and several Best Presenter awards. See [[Awards]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_how_is_this_website_built",
+      "label": "How is this website built",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "meta"
+      ],
+      "content": "Built with React 19, Vite, TypeScript, Tailwind 4 and three.js (scroll-controlled 3D scene), with a serverless contact backend on Vercel. See [[Portfolio Website]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_does_mae_ann_have_a_cv",
+      "label": "Does Mae Ann have a CV",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "contact"
+      ],
+      "content": "Yes, the CV link is in [[Contact]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
+      "id": "faq_md_who_are_you",
+      "label": "Who are you",
+      "kind": "fact",
+      "community": 3,
+      "tags": [
+        "faq",
+        "meta"
+      ],
+      "content": "I'm Mae, the assistant on this portfolio. I answer questions about Mae Ann's work using a knowledge graph built from her portfolio content, and I use Google Gemini to phrase the answers. See [[About Mae the assistant]].",
+      "source_file": "mae-knowledge/faq.md"
+    },
+    {
       "id": "profile_md_who_mae_ann_is",
       "label": "Who Mae Ann is",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "identity",
         "industrial-engineering"
@@ -154,7 +276,7 @@
       "id": "profile_md_focus_areas",
       "label": "Focus areas",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "identity",
         "focus"
@@ -166,7 +288,7 @@
       "id": "profile_md_working_style",
       "label": "Working style",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "collaboration"
       ],
@@ -177,7 +299,7 @@
       "id": "profile_md_approach",
       "label": "Approach",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "method"
       ],
@@ -188,7 +310,7 @@
       "id": "profile_md_availability",
       "label": "Availability",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "contact",
         "hiring"
@@ -200,7 +322,7 @@
       "id": "profile_md_currently_exploring",
       "label": "Currently exploring",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "learning"
       ],
@@ -211,7 +333,7 @@
       "id": "profile_md_about_mae_the_assistant",
       "label": "About Mae the assistant",
       "kind": "fact",
-      "community": 3,
+      "community": 4,
       "tags": [
         "meta"
       ],
@@ -222,7 +344,7 @@
       "id": "projects_md_solar_proposal_system",
       "label": "Solar Proposal System",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "project",
         "featured",
@@ -236,7 +358,7 @@
       "id": "projects_md_portfolio_website",
       "label": "Portfolio Website",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "project"
       ],
@@ -244,10 +366,83 @@
       "source_file": "mae-knowledge/projects.md"
     },
     {
+      "id": "site_content_md_solar_case_study_workflow",
+      "label": "Solar case study workflow",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "project",
+        "ai",
+        "process"
+      ],
+      "content": "The [[Solar Proposal System]] replaced a manual flow (client inquiry, manual information collection in Excel, manual engineering check, manual recommendation, manual proposal, manual email) with a structured one: client inquiry, structured intake, validation, central database, engineering logic, AI assistance, proposal generation, client workflow. Before: repetitive manual entry, fragmented records, manual calculations, repeated communication, separate systems, difficult tracking. After: structured client intake, centralized data, standardized calculations, automated workflow, AI assistance, easier project tracking. Architecture: web app, business logic and automation, Gemini, Supabase, email and Google Workspace.",
+      "source_file": "mae-knowledge/site-content.md"
+    },
+    {
+      "id": "site_content_md_google_workspace_operations_automation",
+      "label": "Google Workspace Operations Automation",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "project",
+        "automation"
+      ],
+      "content": "Project experience: n8n and Google Workspace workflows for project tracking, routine reporting, information processing and notifications. Flow: trigger, n8n, data processing, Google Workspace, reporting, notification. Skills used: workflow mapping, n8n, Google Workspace, operational reporting. See [[AI & Workflow Automation]].",
+      "source_file": "mae-knowledge/site-content.md"
+    },
+    {
+      "id": "site_content_md_client_relations_automation_system",
+      "label": "Client Relations Automation System",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "project",
+        "automation"
+      ],
+      "content": "A transparent portfolio demo (not a commercial client project) of lead capture, inquiry classification, acknowledgement, follow-up, status tracking and team visibility. Flow: inquiry, lead capture, classification, response, follow-up, status. Mae Ann is clear that this is a demo, not a claim of a commercial client. See [[Client Workflow Automation]].",
+      "source_file": "mae-knowledge/site-content.md"
+    },
+    {
+      "id": "site_content_md_inquiry_handling_sop",
+      "label": "Inquiry handling SOP",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "process",
+        "documentation"
+      ],
+      "content": "Mae Ann wrote an SOP for how website inquiries are handled. Purpose: standardize how inquiries are captured, acknowledged, routed and tracked. Trigger: a visitor submits a validated inquiry form. Process: validate, store, notify, acknowledge, schedule follow-up, maintain status. Exceptions: spam or invalid data is rejected, backend failures are logged, and a direct-email fallback is provided. The automation lab flow is: website inquiry, Supabase, n8n, acknowledgement email, owner notification, follow-up workflow.",
+      "source_file": "mae-knowledge/site-content.md"
+    },
+    {
+      "id": "site_content_md_services_offered",
+      "label": "Services offered",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "services",
+        "hiring"
+      ],
+      "content": "Four services: Process Improvement (understand how work moves, find bottlenecks, redesign with Industrial Engineering methods), AI & Workflow Automation (n8n and AI workflows that reduce repetitive handling), Business Systems (Supabase-backed forms, dashboards and proposal systems), and Client Workflow Automation (inquiry, onboarding, proposals, follow-up and tracking). See [[Availability]].",
+      "source_file": "mae-knowledge/site-content.md"
+    },
+    {
+      "id": "site_content_md_industrial_engineering_capabilities",
+      "label": "Industrial Engineering capabilities",
+      "kind": "fact",
+      "community": 6,
+      "tags": [
+        "skills",
+        "industrial-engineering"
+      ],
+      "content": "Process improvement, process analysis, process mapping, time and motion study, work measurement, Lean Manufacturing, Lean Six Sigma, continuous improvement, root cause analysis, operations research, KPI monitoring, workload balancing, process optimization, feasibility studies, operations analysis, business process development, technical documentation, SOP development, project coordination, quality and compliance documentation, data analysis, stakeholder communication.",
+      "source_file": "mae-knowledge/site-content.md"
+    },
+    {
       "id": "skills_md_process_improvement",
       "label": "Process Improvement",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills",
         "industrial-engineering"
@@ -259,7 +454,7 @@
       "id": "skills_md_ai_workflow_automation",
       "label": "AI & Workflow Automation",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills",
         "automation"
@@ -271,7 +466,7 @@
       "id": "skills_md_business_systems",
       "label": "Business Systems",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills",
         "systems"
@@ -283,7 +478,7 @@
       "id": "skills_md_client_workflow_automation",
       "label": "Client Workflow Automation",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills",
         "automation"
@@ -295,7 +490,7 @@
       "id": "skills_md_tools",
       "label": "Tools",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills",
         "tools"
@@ -307,7 +502,7 @@
       "id": "skills_md_integration_skills",
       "label": "Integration skills",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills",
         "tools"
@@ -319,7 +514,7 @@
       "id": "skills_md_project_and_business_skills",
       "label": "Project and business skills",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "skills"
       ],
@@ -330,12 +525,24 @@
       "id": "skills_md_process_impact",
       "label": "Process impact",
       "kind": "fact",
-      "community": 5,
+      "community": 7,
       "tags": [
         "results"
       ],
       "content": "Reduced manual handoffs, centralized project information, standardized workflow, reduced repetitive data entry, improved process visibility, streamlined proposal preparation.",
       "source_file": "mae-knowledge/skills.md"
+    },
+    {
+      "id": "graphify_website_structure",
+      "label": "Website structure",
+      "kind": "fact",
+      "community": 8,
+      "tags": [
+        "meta",
+        "site"
+      ],
+      "content": "Graphify maps this website's code into 392 nodes grouped into 39 areas: App.tsx (EngineeringScene.tsx, analytics.ts, App.tsx, About.tsx); MaeAgent.tsx (MaeAgent.tsx); Projects.tsx (Contact.tsx, Footer.tsx, Navbar.tsx, Projects.tsx); AutomationLab.tsx (AutomationLab.tsx); vite.config.ts (vite.config.ts); contact.js (contact.js, contact.test.mjs); build-mae-brain.mjs (build-mae-brain.mjs); _mae-brain.js (_mae-brain.js, mae.js, mae.test.mjs); Mae Ann Portfolio — Contact Form / Google Sheets / Email Setup (CONTACT-BACKEND-SETUP.md); vercel.json (vercel.json); graphify reference: extra exports and benchmark (exports.md); Contact Integration — File Navigator (CONTACT-INTEGRATION-NAVIGATOR.md); Mae-Ann-s-Web (CLAUDE.md); 3D Techniques (techniques.md); Common Patterns (patterns.md); graphify reference: query, path, explain (query.md); Debugging (SKILL.md); compilerOptions (tsconfig.json); Checklists (checklists.md); Mae Ann Bodiongan — Engineering portfolio (README.md); Profile (contact.md, profile.md); 3D Web Design (SKILL.md); Frontend Development (SKILL.md); graphify reference: add a URL and watch a folder (add-watch.md); graphify reference: commit hook and native CLAUDE.md integration (hooks.md); graphify reference: incremental update and cluster-only (update.md); Contact automation (CONTACT-AUTOMATION.md); graphify reference: GitHub clone and cross-repo merge (github-and-merge.md); graphify reference: transcribe video and audio (transcribe.md); Qualifications content source (QUALIFICATIONS-SOURCE.md); .claude/CLAUDE.md (CLAUDE.md); extraction-spec.md (extraction-spec.md); Skills (skills.md); Experience (experience.md); Projects (projects.md); dependencies (package.json); devDependencies (package.json); What You Must Do When Invoked (SKILL.md); appsscript.json (appsscript.json). Part of [[Portfolio Website]].",
+      "source_file": "graphify-out/graph.json"
     }
   ],
   "links": [
@@ -377,6 +584,51 @@
     {
       "source": "file_experience_md",
       "target": "experience_md_rex_book_store",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_is_mae_ann_available_to_hire",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_does_mae_ann_know_how_to_code",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_what_awards_has_mae_ann_won",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_how_is_this_website_built",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_does_mae_ann_have_a_cv",
+      "relation": "contains"
+    },
+    {
+      "source": "file_faq_md",
+      "target": "faq_md_who_are_you",
       "relation": "contains"
     },
     {
@@ -422,6 +674,36 @@
     {
       "source": "file_projects_md",
       "target": "projects_md_portfolio_website",
+      "relation": "contains"
+    },
+    {
+      "source": "file_site_content_md",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "contains"
+    },
+    {
+      "source": "file_site_content_md",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "contains"
+    },
+    {
+      "source": "file_site_content_md",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "contains"
+    },
+    {
+      "source": "file_site_content_md",
+      "target": "site_content_md_inquiry_handling_sop",
+      "relation": "contains"
+    },
+    {
+      "source": "file_site_content_md",
+      "target": "site_content_md_services_offered",
+      "relation": "contains"
+    },
+    {
+      "source": "file_site_content_md",
+      "target": "site_content_md_industrial_engineering_capabilities",
       "relation": "contains"
     },
     {
@@ -495,6 +777,61 @@
       "relation": "references"
     },
     {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "contact_md_contact",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "profile_md_availability",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_process_improvement",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_where_does_mae_ann_work_now",
+      "target": "experience_md_suweco_tablas_energy",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "skills_md_business_systems",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_what_certifications_does_mae_ann_have",
+      "target": "credentials_md_certifications_and_training",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_what_awards_has_mae_ann_won",
+      "target": "credentials_md_awards",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "projects_md_portfolio_website",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "contact_md_contact",
+      "relation": "references"
+    },
+    {
+      "source": "faq_md_who_are_you",
+      "target": "profile_md_about_mae_the_assistant",
+      "relation": "references"
+    },
+    {
       "source": "profile_md_who_mae_ann_is",
       "target": "skills_md_process_improvement",
       "relation": "references"
@@ -525,8 +862,63 @@
       "relation": "references"
     },
     {
+      "source": "site_content_md_solar_case_study_workflow",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "references"
+    },
+    {
+      "source": "site_content_md_google_workspace_operations_automation",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "references"
+    },
+    {
+      "source": "site_content_md_client_relations_automation_system",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "references"
+    },
+    {
+      "source": "site_content_md_services_offered",
+      "target": "profile_md_availability",
+      "relation": "references"
+    },
+    {
+      "source": "graphify_website_structure",
+      "target": "projects_md_portfolio_website",
+      "relation": "references"
+    },
+    {
+      "source": "contact_md_contact",
+      "target": "faq_md_does_mae_ann_have_a_cv",
+      "relation": "shares_tag"
+    },
+    {
       "source": "contact_md_contact",
       "target": "profile_md_availability",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "credentials_md_certifications_and_training",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "credentials_md_awards",
+      "target": "faq_md_what_awards_has_mae_ann_won",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "site_content_md_client_relations_automation_system",
       "relation": "shares_tag"
     },
     {
@@ -555,6 +947,11 @@
       "relation": "shares_tag"
     },
     {
+      "source": "experience_md_expressions_stationery",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
       "source": "experience_md_elps_industries",
       "target": "experience_md_suweco_tablas_energy",
       "relation": "shares_tag"
@@ -576,7 +973,17 @@
     },
     {
       "source": "experience_md_elps_industries",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
       "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "site_content_md_industrial_engineering_capabilities",
       "relation": "shares_tag"
     },
     {
@@ -596,7 +1003,17 @@
     },
     {
       "source": "experience_md_jcv_enterprises",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
       "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "site_content_md_industrial_engineering_capabilities",
       "relation": "shares_tag"
     },
     {
@@ -610,6 +1027,281 @@
       "relation": "shares_tag"
     },
     {
+      "source": "experience_md_rex_book_store",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "faq_md_what_awards_has_mae_ann_won",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "profile_md_availability",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "site_content_md_services_offered",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "site_content_md_industrial_engineering_capabilities",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_business_systems",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "skills_md_project_and_business_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_where_does_mae_ann_work_now",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_is_mae_ann_available_to_hire",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_what_awards_has_mae_ann_won",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_how_is_this_website_built",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_know_how_to_code",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_certifications_does_mae_ann_have",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_certifications_does_mae_ann_have",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_certifications_does_mae_ann_have",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_awards_has_mae_ann_won",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_awards_has_mae_ann_won",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_awards_has_mae_ann_won",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_awards_has_mae_ann_won",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "faq_md_is_mae_ann_available_to_hire",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "faq_md_what_awards_has_mae_ann_won",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "profile_md_about_mae_the_assistant",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_how_is_this_website_built",
+      "target": "graphify_website_structure",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_is_mae_ann_available_to_hire",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_does_mae_ann_know_how_to_code",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_what_certifications_does_mae_ann_have",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_what_awards_has_mae_ann_won",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_how_is_this_website_built",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_does_mae_ann_have_a_cv",
+      "target": "profile_md_availability",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_who_are_you",
+      "target": "profile_md_about_mae_the_assistant",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_who_are_you",
+      "target": "graphify_website_structure",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "profile_md_who_mae_ann_is",
+      "target": "site_content_md_industrial_engineering_capabilities",
+      "relation": "shares_tag"
+    },
+    {
       "source": "profile_md_who_mae_ann_is",
       "target": "skills_md_process_improvement",
       "relation": "shares_tag"
@@ -620,6 +1312,26 @@
       "relation": "shares_tag"
     },
     {
+      "source": "profile_md_availability",
+      "target": "site_content_md_services_offered",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_solar_proposal_system",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
       "source": "projects_md_solar_proposal_system",
       "target": "skills_md_business_systems",
       "relation": "shares_tag"
@@ -627,6 +1339,96 @@
     {
       "source": "projects_md_portfolio_website",
       "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "projects_md_portfolio_website",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_google_workspace_operations_automation",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_google_workspace_operations_automation",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_google_workspace_operations_automation",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_client_relations_automation_system",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_client_relations_automation_system",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_client_relations_automation_system",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_client_relations_automation_system",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_inquiry_handling_sop",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_business_systems",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "site_content_md_industrial_engineering_capabilities",
+      "target": "skills_md_project_and_business_skills",
       "relation": "shares_tag"
     },
     {
@@ -732,6 +1534,11 @@
     {
       "source": "skills_md_project_and_business_skills",
       "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "graphify_website_structure",
+      "target": "profile_md_about_mae_the_assistant",
       "relation": "shares_tag"
     }
   ]

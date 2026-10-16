@@ -33,6 +33,25 @@ for (const [community, file] of files.entries()) {
   }
 }
 
+// Fold the graphify code graph (graphify-out/graph.json) in, so Mae also knows how this site is built.
+try {
+  const code = JSON.parse(await readFile(path.join(dir, '..', 'graphify-out', 'graph.json'), 'utf8'));
+  const groups = new Map();
+  for (const n of code.nodes) {
+    if (!n.source_file) continue;
+    const g = groups.get(n.community_name) ?? new Set();
+    g.add(n.source_file.replace(/^.*\//, ''));
+    groups.set(n.community_name, g);
+  }
+  const summary = [...groups].map(([name, f]) => `${name} (${[...f].slice(0, 4).join(', ')})`).join('; ');
+  const label = 'Website structure';
+  const node = { id: 'graphify_website_structure', label, kind: 'fact', community: files.length, tags: ['meta', 'site'],
+    content: `Graphify maps this website's code into ${code.nodes.length} nodes grouped into ${groups.size} areas: ${summary}. Part of [[Portfolio Website]].`,
+    source_file: 'graphify-out/graph.json' };
+  nodes.push(node);
+  byLabel.set(label.toLowerCase(), node.id);
+} catch { /* graphify-out is optional */ }
+
 const facts = nodes.filter((n) => n.kind === 'fact');
 const seen = new Set();
 const addLink = (source, target, relation) => {

@@ -45,33 +45,71 @@ export default async function handler(request, response) {
     contents: [...history, { role: 'user', parts: [{ text: `Knowledge excerpts:\n${knowledge}\n\nVisitor question: ${question}` }] }],
     generationConfig: { temperature: 0.4, maxOutputTokens: 600 },
   };
-  // Try the configured model first, then current aliases, so a retired model never takes Mae down.
-  const models = [...new Set([process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'].filter(Boolean))];
-
   const failures = [];
-  for (const model of models) {
-    try {
-      const result = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-        body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(20000),
-      });
-      if (!result.ok) {
-        console.error(`Mae: Gemini ${model} -> ${result.status}`, (await result.text()).slice(0, 300));
-        failures.push(`${model}:${result.status}`);
-        continue;
-      }
-      const data = await result.json();
-      const reply = data?.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('').trim();
-      if (reply) return response.status(200).json({ success: true, reply });
-      console.error(`Mae: empty reply from ${model}`);
-    } catch (error) {
-      failures.push(`${model}:network`);
-      console.error(`Mae: ${model} failed:`, error instanceof Error ? error.message : error);
-    }
-  }
+  const reply = await generate(apiKey, payload, failures);
+  if (reply) return response.status(200).json({ success: true, reply });
   return response.status(502).json({ success: false, message: 'Mae could not think just now. Please try again.', detail: failures.join(', ') });
+}
+
+const API = 'https://generativelanguage.googleapis.com/v1beta';
+let discovered;
+
+// Preferred models first; if Google has retired them (404), ask the API which Flash models this key can use.
+async function generate(apiKey, payload, failures) {
+  const preferred = [process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-flash-lite-latest'].filter(Boolean);
+  const tried = new Set();
+  const attempt = async (model) => {
+    tried.add(model);
+    for (let retry = 0; retry < 2; retry++) {
+      try {
+        const result = await fetch(`${API}/models/${encodeURIComponent(model)}:generateContent`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(15000),
+        });
+        if (result.ok) {
+          const data = await result.json();
+          const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('').trim();
+          if (text) return text;
+          failures.push(`${model}:empty`);
+          return null;
+        }
+        console.error(`Mae: Gemini ${model} -> ${result.status}`, (await result.text()).slice(0, 300));
+        if (result.status !== 503 || retry) { failures.push(`${model}:${result.status}`); return null; }
+        await new Promise((r) => setTimeout(r, 800));
+      } catch (error) {
+        failures.push(`${model}:network`);
+        console.error(`Mae: ${model} failed:`, error instanceof Error ? error.message : error);
+        return null;
+      }
+    }
+    return null;
+  };
+
+  for (const model of preferred) {
+    const text = await attempt(model);
+    if (text) return text;
+  }
+  discovered ??= await discoverModels(apiKey);
+  for (const model of discovered.filter((m) => !tried.has(m)).slice(0, 4)) {
+    const text = await attempt(model);
+    if (text) return text;
+  }
+  return null;
+}
+
+async function discoverModels(apiKey) {
+  try {
+    const res = await fetch(`${API}/models?pageSize=200`, { headers: { 'x-goog-api-key': apiKey }, signal: AbortSignal.timeout(8000) });
+    const { models = [] } = await res.json();
+    return models
+      .filter((m) => m.supportedGenerationMethods?.includes('generateContent') && /gemini-[\d.]+-flash(?!-(image|tts|live|preview-))/.test(m.name) && !/image|tts|live|audio|thinking|exp/.test(m.name))
+      .map((m) => m.name.replace('models/', ''))
+      .sort().reverse();
+  } catch {
+    return [];
+  }
 }
 
 function parseBody(raw) {
