@@ -28,9 +28,9 @@ export default function App() {
       </a>
       <Navbar />
       <main id="main">
+        <Hero />
         <div className="story-opening" id="story-opening">
           <div className="story-content">
-            <Hero />
             <About />
             <Approach />
             <Intelligence />
