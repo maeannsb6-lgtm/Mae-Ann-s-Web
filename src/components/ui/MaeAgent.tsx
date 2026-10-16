@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { MessageCircle, Send, X } from "lucide-react";
+import { Bot, Send, X } from "lucide-react";
 
 type Message = { role: "user" | "mae"; text: string };
 
 const greeting: Message = {
   role: "mae",
-  text: "Hi, I'm Mae! Ask me about Mae Ann's skills, projects, experience, or how to reach her.",
+  text: "Hello, I'm Mae. I can walk you through Mae Ann's skills, projects and experience, or help you get in touch with her. How can I help you today?",
 };
 const suggestions = ["What does Mae Ann do?", "Tell me about her solar project", "How can I contact her?"];
 
 export function MaeAgent() {
   const [open, setOpen] = useState(false);
+  const [teaser, setTeaser] = useState(true);
   const [messages, setMessages] = useState<Message[]>([greeting]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -50,7 +51,7 @@ export function MaeAgent() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 print:hidden">
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2 print:hidden">
       {open && (
         <section
           aria-label="Chat with Mae"
@@ -59,7 +60,7 @@ export function MaeAgent() {
           <header className="flex items-center justify-between bg-brand-accent px-4 py-3 text-white">
             <div>
               <p className="text-sm font-semibold">Mae</p>
-              <p className="text-xs opacity-80">Portfolio assistant · powered by Gemini</p>
+              <p className="text-xs opacity-80">Portfolio assistant</p>
             </div>
             <button type="button" onClick={() => setOpen(false)} aria-label="Close chat" className="rounded p-1 hover:bg-white/15">
               <X size={18} />
@@ -115,15 +116,22 @@ export function MaeAgent() {
           </form>
         </section>
       )}
+      {!open && teaser && (
+        <div className="relative max-w-[11rem] rounded-xl rounded-br-sm border border-black/10 bg-white px-3 py-2 pr-6 text-xs text-brand-text-white shadow-lg">
+          Hi, I'm Mae! Let's talk.
+          <button type="button" onClick={() => setTeaser(false)} aria-label="Dismiss" className="absolute right-1 top-1 rounded p-0.5 text-brand-text-muted hover:text-brand-text-white">
+            <X size={12} />
+          </button>
+        </div>
+      )}
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { setOpen((o) => !o); setTeaser(false); }}
         aria-expanded={open}
         aria-label={open ? "Close chat with Mae" : "Chat with Mae"}
-        className="flex items-center gap-2 rounded-full bg-brand-accent px-4 py-3 text-sm font-medium text-white shadow-lg hover:brightness-110"
+        className="grid h-12 w-12 place-items-center rounded-full bg-brand-accent text-white shadow-lg ring-4 ring-white/70 transition hover:scale-105"
       >
-        <MessageCircle size={18} />
-        {!open && "Ask Mae"}
+        {open ? <X size={20} /> : <Bot size={24} />}
       </button>
     </div>
   );

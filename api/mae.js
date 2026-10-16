@@ -40,28 +40,35 @@ export default async function handler(request, response) {
     .map((m) => ({ role: m.role === 'mae' ? 'model' : 'user', parts: [{ text: m.text.slice(0, 1000) }] }));
 
   const knowledge = brainContext(`${history.filter((m) => m.role === 'user').slice(-1).map((m) => m.parts[0].text).join(' ')} ${question}`);
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const payload = {
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [...history, { role: 'user', parts: [{ text: `Knowledge excerpts:\n${knowledge}\n\nVisitor question: ${question}` }] }],
+    generationConfig: { temperature: 0.4, maxOutputTokens: 600 },
+  };
+  // Try the configured model first, then current aliases, so a retired model never takes Mae down.
+  const models = [...new Set([process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'].filter(Boolean))];
 
-  try {
-    const result = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents: [...history, { role: 'user', parts: [{ text: `Knowledge excerpts:\n${knowledge}\n\nVisitor question: ${question}` }] }],
-        generationConfig: { temperature: 0.4, maxOutputTokens: 500, thinkingConfig: { thinkingBudget: 0 } },
-      }),
-      signal: AbortSignal.timeout(20000),
-    });
-    if (!result.ok) throw new Error(`Gemini ${result.status}`);
-    const data = await result.json();
-    const reply = data?.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('').trim();
-    if (!reply) throw new Error('Empty Gemini reply');
-    return response.status(200).json({ success: true, reply });
-  } catch (error) {
-    console.error('Mae failed:', error instanceof Error ? error.message : error);
-    return response.status(502).json({ success: false, message: 'Mae could not think just now. Please try again.' });
+  for (const model of models) {
+    try {
+      const result = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!result.ok) {
+        console.error(`Mae: Gemini ${model} -> ${result.status}`, (await result.text()).slice(0, 300));
+        continue;
+      }
+      const data = await result.json();
+      const reply = data?.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('').trim();
+      if (reply) return response.status(200).json({ success: true, reply });
+      console.error(`Mae: empty reply from ${model}`);
+    } catch (error) {
+      console.error(`Mae: ${model} failed:`, error instanceof Error ? error.message : error);
+    }
   }
+  return response.status(502).json({ success: false, message: 'Mae could not think just now. Please try again.' });
 }
 
 function parseBody(raw) {
