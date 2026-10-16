@@ -48,6 +48,7 @@ export default async function handler(request, response) {
   // Try the configured model first, then current aliases, so a retired model never takes Mae down.
   const models = [...new Set([process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'].filter(Boolean))];
 
+  const failures = [];
   for (const model of models) {
     try {
       const result = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
@@ -58,6 +59,7 @@ export default async function handler(request, response) {
       });
       if (!result.ok) {
         console.error(`Mae: Gemini ${model} -> ${result.status}`, (await result.text()).slice(0, 300));
+        failures.push(`${model}:${result.status}`);
         continue;
       }
       const data = await result.json();
@@ -65,10 +67,11 @@ export default async function handler(request, response) {
       if (reply) return response.status(200).json({ success: true, reply });
       console.error(`Mae: empty reply from ${model}`);
     } catch (error) {
+      failures.push(`${model}:network`);
       console.error(`Mae: ${model} failed:`, error instanceof Error ? error.message : error);
     }
   }
-  return response.status(502).json({ success: false, message: 'Mae could not think just now. Please try again.' });
+  return response.status(502).json({ success: false, message: 'Mae could not think just now. Please try again.', detail: failures.join(', ') });
 }
 
 function parseBody(raw) {
