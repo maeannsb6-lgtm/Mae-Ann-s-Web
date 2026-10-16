@@ -308,7 +308,7 @@
         "project",
         "featured"
       ],
-      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live website: Solar Solutions PH); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (portfolio demo you can try in the Automation Lab section); plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
+      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live website: Solar Solutions PH); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (a portfolio demo concept); plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
       "source_file": "mae-knowledge/portfolio.md"
     },
     {
@@ -333,18 +333,6 @@
         "industrial-engineering"
       ],
       "content": "Applied Industrial Engineering work at ELPS Industries (field analysis, 2024 to 2025). Problem: workflow inefficiencies and the need for clear productivity information. Her role: analyzed workflows, monitored KPIs and supported continuous improvement as an IE intern. Methods and output: Lean principles, root cause analysis, process maps, SOP documentation and stakeholder recommendations. Learning: combined operational evidence and documented processes to identify improvement opportunities. See [[ELPS Industries]].",
-      "source_file": "mae-knowledge/portfolio.md"
-    },
-    {
-      "id": "portfolio_md_automation_lab_demo",
-      "label": "Automation Lab demo",
-      "kind": "fact",
-      "community": 4,
-      "tags": [
-        "project",
-        "automation"
-      ],
-      "content": "The Automation Lab on the portfolio is an interactive, rule-based demo of the Client Relations Automation System. A visitor types an inquiry (for example \"We need help automating our quotation follow-up process\"), picks a category, and the demo shows how it would be routed: Quotation (collect scope and budget, then prepare a proposal), Support (confirm urgency, affected system and contact channel), Project Inquiry (schedule discovery and map the current workflow), Consultation (clarify the process objective and arrange a discussion), or anything else (manual review and routing). See [[Client Relations Automation System]].",
       "source_file": "mae-knowledge/portfolio.md"
     },
     {
@@ -665,7 +653,7 @@
         "meta",
         "site"
       ],
-      "content": "Graphify maps this website's code into 392 nodes grouped into 39 areas: App.tsx (EngineeringScene.tsx, analytics.ts, App.tsx, About.tsx); MaeAgent.tsx (MaeAgent.tsx); Projects.tsx (Contact.tsx, Footer.tsx, Navbar.tsx, Projects.tsx); AutomationLab.tsx (AutomationLab.tsx); vite.config.ts (vite.config.ts); contact.js (contact.js, contact.test.mjs); build-mae-brain.mjs (build-mae-brain.mjs); _mae-brain.js (_mae-brain.js, mae.js, mae.test.mjs); Mae Ann Portfolio — Contact Form / Google Sheets / Email Setup (CONTACT-BACKEND-SETUP.md); vercel.json (vercel.json); graphify reference: extra exports and benchmark (exports.md); Contact Integration — File Navigator (CONTACT-INTEGRATION-NAVIGATOR.md); Mae-Ann-s-Web (CLAUDE.md); 3D Techniques (techniques.md); Common Patterns (patterns.md); graphify reference: query, path, explain (query.md); Debugging (SKILL.md); compilerOptions (tsconfig.json); Checklists (checklists.md); Mae Ann Bodiongan — Engineering portfolio (README.md); Profile (contact.md, profile.md); 3D Web Design (SKILL.md); Frontend Development (SKILL.md); graphify reference: add a URL and watch a folder (add-watch.md); graphify reference: commit hook and native CLAUDE.md integration (hooks.md); graphify reference: incremental update and cluster-only (update.md); Contact automation (CONTACT-AUTOMATION.md); graphify reference: GitHub clone and cross-repo merge (github-and-merge.md); graphify reference: transcribe video and audio (transcribe.md); Qualifications content source (QUALIFICATIONS-SOURCE.md); .claude/CLAUDE.md (CLAUDE.md); extraction-spec.md (extraction-spec.md); Skills (skills.md); Experience (experience.md); Projects (projects.md); dependencies (package.json); devDependencies (package.json); What You Must Do When Invoked (SKILL.md); appsscript.json (appsscript.json). Part of [[Portfolio Website]].",
+      "content": "Graphify maps this website's code into 468 nodes grouped into 42 areas: App.tsx (Approach.tsx, analytics.ts, App.tsx, Navbar.tsx); MaeAgent.tsx (MaeAgent.tsx); Projects.tsx (websites.ts, WebsitePreview.tsx, Projects.tsx, content.ts); Contact.tsx (Contact.tsx, Footer.tsx, BrandIcons.tsx, Hero.tsx); AutomationLab.tsx (AutomationLab.tsx); vite.config.ts (vite.config.ts); contact.js (contact.js, contact.test.mjs); build-mae-brain.mjs (build-mae-brain.mjs); About.tsx (About.tsx, WorkflowScene.tsx); _mae-brain.js (_mae-brain.js, mae.js, mae.test.mjs); Mae Ann Portfolio — Contact Form / Google Sheets / Email Setup (CONTACT-BACKEND-SETUP.md); vercel.json (vercel.json); graphify reference: extra exports and benchmark (exports.md); Contact Integration — File Navigator (CONTACT-INTEGRATION-NAVIGATOR.md); Mae-Ann-s-Web (CLAUDE.md); 3D Techniques (techniques.md); Common Patterns (patterns.md); graphify reference: query, path, explain (query.md); Debugging (SKILL.md); compilerOptions (tsconfig.json); Checklists (checklists.md); Mae Ann Bodiongan — Engineering portfolio (README.md); FAQ (contact.md, faq.md, profile.md); 3D Web Design (SKILL.md); Frontend Development (SKILL.md); graphify reference: add a URL and watch a folder (add-watch.md); graphify reference: commit hook and native CLAUDE.md integration (hooks.md); graphify reference: incremental update and cluster-only (update.md); Contact automation (CONTACT-AUTOMATION.md); graphify reference: GitHub clone and cross-repo merge (github-and-merge.md); graphify reference: transcribe video and audio (transcribe.md); Qualifications content source (QUALIFICATIONS-SOURCE.md); .claude/CLAUDE.md (CLAUDE.md); extraction-spec.md (extraction-spec.md); Skills (skills.md); Experience (experience.md); Projects (projects.md); Portfolio (portfolio.md); Site content (site-content.md); dependencies (package.json); What You Must Do When Invoked (SKILL.md); appsscript.json (appsscript.json). Part of [[Portfolio Website]].",
       "source_file": "graphify-out/graph.json"
     }
   ],
@@ -778,11 +766,6 @@
     {
       "source": "file_portfolio_md",
       "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
-      "relation": "contains"
-    },
-    {
-      "source": "file_portfolio_md",
-      "target": "portfolio_md_automation_lab_demo",
       "relation": "contains"
     },
     {
@@ -1056,11 +1039,6 @@
       "relation": "references"
     },
     {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "site_content_md_client_relations_automation_system",
-      "relation": "references"
-    },
-    {
       "source": "portfolio_md_what_she_brings",
       "target": "profile_md_focus_areas",
       "relation": "references"
@@ -1153,11 +1131,6 @@
     {
       "source": "experience_md_suweco_tablas_energy",
       "target": "faq_md_where_does_mae_ann_work_now",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "experience_md_suweco_tablas_energy",
-      "target": "portfolio_md_automation_lab_demo",
       "relation": "shares_tag"
     },
     {
@@ -1763,61 +1736,6 @@
     {
       "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
       "target": "skills_md_process_improvement",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "portfolio_md_projects_overview",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "projects_md_solar_proposal_system",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "projects_md_stec_portal",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "projects_md_portfolio_website",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "site_content_md_solar_case_study_workflow",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "site_content_md_google_workspace_operations_automation",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "site_content_md_client_relations_automation_system",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "skills_md_ai_workflow_automation",
-      "relation": "shares_tag"
-    },
-    {
-      "source": "portfolio_md_automation_lab_demo",
-      "target": "skills_md_client_workflow_automation",
       "relation": "shares_tag"
     },
     {

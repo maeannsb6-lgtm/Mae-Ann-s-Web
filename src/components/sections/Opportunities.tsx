@@ -10,7 +10,7 @@ export function Opportunities() {
     <section id="opportunities" className="rd-opps">
       <div className="rd-shell">
         <header className="rd-opps-head" data-reveal>
-          <p className="rd-kicker">09 / Opportunities</p>
+          <p className="rd-kicker">08 / Opportunities</p>
           <h2>Where my background fits next.</h2>
           <p>Open to roles and selected projects that connect operational problem-solving with automation and business systems.</p>
         </header>

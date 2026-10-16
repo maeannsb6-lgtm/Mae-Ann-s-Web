@@ -10,7 +10,6 @@ import { Approach } from "./components/sections/Approach";
 import { Experience } from "./components/sections/Experience";
 import { EducationTraining } from "./components/sections/Testimonials";
 import { Achievements } from "./components/sections/Achievements";
-import { AutomationLab } from "./components/sections/AutomationLab";
 import { Opportunities } from "./components/sections/Opportunities";
 import { Contact } from "./components/sections/Contact";
 import { Intelligence } from "./components/sections/Intelligence";
@@ -40,7 +39,6 @@ export default function App() {
           <Achievements />
           <Services />
           <Skills />
-          <AutomationLab />
           <Opportunities />
           <Contact />
         </div>

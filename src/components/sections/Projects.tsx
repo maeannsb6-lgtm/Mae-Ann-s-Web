@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { CSSProperties, PointerEvent } from 'react';
-import { ArrowRight, ArrowUpRight, ChevronDown, FileText, PlayCircle } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown, FileText } from 'lucide-react';
 import { processImpact, projectLinks } from '../../data/content';
 import { secondaryProjects, solarCaseStudy } from '../../data/story';
 import { websites } from '../../data/websites';
@@ -242,11 +242,6 @@ function OperationsWork() {
               {project.flow.map((step) => <li key={step}><span>{step}</span></li>)}
             </ol>
             <small>{project.role}</small>
-            {project.number === '03' && (
-              <a href="#automation-lab" className="rd-btn rd-btn--text">
-                Try demo <PlayCircle size={16} />
-              </a>
-            )}
           </article>
         ))}
       </div>
