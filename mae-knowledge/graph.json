@@ -33,31 +33,38 @@
       "source_file": "mae-knowledge/faq.md"
     },
     {
+      "id": "file_portfolio_md",
+      "label": "portfolio.md",
+      "kind": "file",
+      "community": 4,
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
       "id": "file_profile_md",
       "label": "profile.md",
       "kind": "file",
-      "community": 4,
+      "community": 5,
       "source_file": "mae-knowledge/profile.md"
     },
     {
       "id": "file_projects_md",
       "label": "projects.md",
       "kind": "file",
-      "community": 5,
+      "community": 6,
       "source_file": "mae-knowledge/projects.md"
     },
     {
       "id": "file_site_content_md",
       "label": "site-content.md",
       "kind": "file",
-      "community": 6,
+      "community": 7,
       "source_file": "mae-knowledge/site-content.md"
     },
     {
       "id": "file_skills_md",
       "label": "skills.md",
       "kind": "file",
-      "community": 7,
+      "community": 8,
       "source_file": "mae-knowledge/skills.md"
     },
     {
@@ -261,10 +268,113 @@
       "source_file": "mae-knowledge/faq.md"
     },
     {
+      "id": "portfolio_md_education",
+      "label": "Education",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "education",
+        "qualifications",
+        "industrial-engineering",
+        "study",
+        "studied",
+        "school",
+        "college",
+        "university",
+        "degree",
+        "graduate"
+      ],
+      "content": "Where she studied: Mae Ann holds a BS in Industrial Engineering from the Technological Institute of the Philippines (TIP), Quezon City. Her formal Industrial Engineering education is supported by focused certifications and technology training. See [[Certifications and training]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_qualifications_summary",
+      "label": "Qualifications summary",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "qualifications",
+        "hiring"
+      ],
+      "content": "Mae Ann's qualifications: a BS Industrial Engineering degree; work as an Industrial Engineer and Project Coordinator at SUWECO Tablas Energy; Industrial Engineering field analysis internships at JCV Enterprises and ELPS Industries; a business development internship at Expressions Stationery; Lean Six Sigma Yellow and White Belts; Certified AI-Powered Prompting Specialist; Continuous Improvement Fundamentals; competition wins including PIIE-NSC Feasibility Study Champion and StartUp QC Gold; and hands-on n8n, Supabase, Gemini and Vercel work shown in her projects. See [[Education]], [[Awards]] and [[Projects overview]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_projects_overview",
+      "label": "Projects overview",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "project",
+        "featured"
+      ],
+      "content": "Projects shown on the portfolio: 01 the AI-Enabled Solar Proposal and Client Workflow System (professional project, live demo and GitHub available); 02 Google Workspace Operations Automation (professional project experience with n8n); 03 Client Relations Automation System (portfolio demo you can try in the Automation Lab section); plus Industrial Engineering applied work at JCV Enterprises and ELPS Industries. See [[Solar Proposal System]], [[Google Workspace Operations Automation]], [[Client Relations Automation System]], [[JCV workflow and productivity analysis]] and [[ELPS Lean analysis and process documentation]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "label": "JCV workflow and productivity analysis",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "project",
+        "industrial-engineering"
+      ],
+      "content": "Applied Industrial Engineering work at JCV Enterprises (field analysis, 2023 to 2024). Problem: operational bottlenecks, scheduling and workload distribution. Her role: conducted time and motion studies, mapped workflows and analyzed operational data as an IE intern. Methods and output: work measurement, operations research, workload balancing, scheduling recommendations, dashboards and ISO-aligned documentation. Learning: connected measured work and resource constraints to structured improvement recommendations. See [[JCV Enterprises]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "label": "ELPS Lean analysis and process documentation",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "project",
+        "industrial-engineering"
+      ],
+      "content": "Applied Industrial Engineering work at ELPS Industries (field analysis, 2024 to 2025). Problem: workflow inefficiencies and the need for clear productivity information. Her role: analyzed workflows, monitored KPIs and supported continuous improvement as an IE intern. Methods and output: Lean principles, root cause analysis, process maps, SOP documentation and stakeholder recommendations. Learning: combined operational evidence and documented processes to identify improvement opportunities. See [[ELPS Industries]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_automation_lab_demo",
+      "label": "Automation Lab demo",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "project",
+        "automation"
+      ],
+      "content": "The Automation Lab on the portfolio is an interactive, rule-based demo of the Client Relations Automation System. A visitor types an inquiry (for example \"We need help automating our quotation follow-up process\"), picks a category, and the demo shows how it would be routed: Quotation (collect scope and budget, then prepare a proposal), Support (confirm urgency, affected system and contact channel), Project Inquiry (schedule discovery and map the current workflow), Consultation (clarify the process objective and arrange a discussion), or anything else (manual review and routing). See [[Client Relations Automation System]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_portfolio_tagline",
+      "label": "Portfolio tagline",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "identity"
+      ],
+      "content": "\"Building smarter systems through automation and AI.\" Process thinking. Practical automation. Connected systems. Engineering is Mae Ann's foundation: she brings process thinking, practical automation and digital tools together to make work clearer, more connected and easier to manage. Her motto on the About section: process thinking first, technology where it helps.",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
+      "id": "portfolio_md_what_she_brings",
+      "label": "What she brings",
+      "kind": "fact",
+      "community": 4,
+      "tags": [
+        "identity",
+        "skills"
+      ],
+      "content": "The portfolio's highlights: workflow analysis, n8n automation, engineering logic, AI-assisted proposals, project coordination and connected reporting. See [[Focus areas]].",
+      "source_file": "mae-knowledge/portfolio.md"
+    },
+    {
       "id": "profile_md_who_mae_ann_is",
       "label": "Who Mae Ann is",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "identity",
         "industrial-engineering"
@@ -276,7 +386,7 @@
       "id": "profile_md_focus_areas",
       "label": "Focus areas",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "identity",
         "focus"
@@ -288,7 +398,7 @@
       "id": "profile_md_working_style",
       "label": "Working style",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "collaboration"
       ],
@@ -299,7 +409,7 @@
       "id": "profile_md_approach",
       "label": "Approach",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "method"
       ],
@@ -310,7 +420,7 @@
       "id": "profile_md_availability",
       "label": "Availability",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "contact",
         "hiring"
@@ -322,7 +432,7 @@
       "id": "profile_md_currently_exploring",
       "label": "Currently exploring",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "learning"
       ],
@@ -333,7 +443,7 @@
       "id": "profile_md_about_mae_the_assistant",
       "label": "About Mae the assistant",
       "kind": "fact",
-      "community": 4,
+      "community": 5,
       "tags": [
         "meta"
       ],
@@ -344,7 +454,7 @@
       "id": "projects_md_solar_proposal_system",
       "label": "Solar Proposal System",
       "kind": "fact",
-      "community": 5,
+      "community": 6,
       "tags": [
         "project",
         "featured",
@@ -358,7 +468,7 @@
       "id": "projects_md_portfolio_website",
       "label": "Portfolio Website",
       "kind": "fact",
-      "community": 5,
+      "community": 6,
       "tags": [
         "project"
       ],
@@ -369,7 +479,7 @@
       "id": "site_content_md_solar_case_study_workflow",
       "label": "Solar case study workflow",
       "kind": "fact",
-      "community": 6,
+      "community": 7,
       "tags": [
         "project",
         "ai",
@@ -382,7 +492,7 @@
       "id": "site_content_md_google_workspace_operations_automation",
       "label": "Google Workspace Operations Automation",
       "kind": "fact",
-      "community": 6,
+      "community": 7,
       "tags": [
         "project",
         "automation"
@@ -394,7 +504,7 @@
       "id": "site_content_md_client_relations_automation_system",
       "label": "Client Relations Automation System",
       "kind": "fact",
-      "community": 6,
+      "community": 7,
       "tags": [
         "project",
         "automation"
@@ -406,7 +516,7 @@
       "id": "site_content_md_inquiry_handling_sop",
       "label": "Inquiry handling SOP",
       "kind": "fact",
-      "community": 6,
+      "community": 7,
       "tags": [
         "process",
         "documentation"
@@ -418,7 +528,7 @@
       "id": "site_content_md_services_offered",
       "label": "Services offered",
       "kind": "fact",
-      "community": 6,
+      "community": 7,
       "tags": [
         "services",
         "hiring"
@@ -430,7 +540,7 @@
       "id": "site_content_md_industrial_engineering_capabilities",
       "label": "Industrial Engineering capabilities",
       "kind": "fact",
-      "community": 6,
+      "community": 7,
       "tags": [
         "skills",
         "industrial-engineering"
@@ -442,7 +552,7 @@
       "id": "skills_md_process_improvement",
       "label": "Process Improvement",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills",
         "industrial-engineering"
@@ -454,7 +564,7 @@
       "id": "skills_md_ai_workflow_automation",
       "label": "AI & Workflow Automation",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills",
         "automation"
@@ -466,7 +576,7 @@
       "id": "skills_md_business_systems",
       "label": "Business Systems",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills",
         "systems"
@@ -478,7 +588,7 @@
       "id": "skills_md_client_workflow_automation",
       "label": "Client Workflow Automation",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills",
         "automation"
@@ -490,7 +600,7 @@
       "id": "skills_md_tools",
       "label": "Tools",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills",
         "tools"
@@ -502,7 +612,7 @@
       "id": "skills_md_integration_skills",
       "label": "Integration skills",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills",
         "tools"
@@ -514,7 +624,7 @@
       "id": "skills_md_project_and_business_skills",
       "label": "Project and business skills",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "skills"
       ],
@@ -525,7 +635,7 @@
       "id": "skills_md_process_impact",
       "label": "Process impact",
       "kind": "fact",
-      "community": 7,
+      "community": 8,
       "tags": [
         "results"
       ],
@@ -536,7 +646,7 @@
       "id": "graphify_website_structure",
       "label": "Website structure",
       "kind": "fact",
-      "community": 8,
+      "community": 9,
       "tags": [
         "meta",
         "site"
@@ -629,6 +739,46 @@
     {
       "source": "file_faq_md",
       "target": "faq_md_who_are_you",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_education",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_qualifications_summary",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_projects_overview",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_automation_lab_demo",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_portfolio_tagline",
+      "relation": "contains"
+    },
+    {
+      "source": "file_portfolio_md",
+      "target": "portfolio_md_what_she_brings",
       "relation": "contains"
     },
     {
@@ -832,6 +982,71 @@
       "relation": "references"
     },
     {
+      "source": "portfolio_md_education",
+      "target": "credentials_md_certifications_and_training",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_qualifications_summary",
+      "target": "portfolio_md_education",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_qualifications_summary",
+      "target": "credentials_md_awards",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_qualifications_summary",
+      "target": "portfolio_md_projects_overview",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "experience_md_jcv_enterprises",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "experience_md_elps_industries",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "references"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "profile_md_focus_areas",
+      "relation": "references"
+    },
+    {
       "source": "profile_md_who_mae_ann_is",
       "target": "skills_md_process_improvement",
       "relation": "references"
@@ -902,6 +1117,11 @@
       "relation": "shares_tag"
     },
     {
+      "source": "credentials_md_certifications_and_training",
+      "target": "portfolio_md_education",
+      "relation": "shares_tag"
+    },
+    {
       "source": "credentials_md_awards",
       "target": "faq_md_what_awards_has_mae_ann_won",
       "relation": "shares_tag"
@@ -909,6 +1129,11 @@
     {
       "source": "experience_md_suweco_tablas_energy",
       "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_suweco_tablas_energy",
+      "target": "portfolio_md_automation_lab_demo",
       "relation": "shares_tag"
     },
     {
@@ -978,6 +1203,21 @@
     },
     {
       "source": "experience_md_elps_industries",
+      "target": "portfolio_md_education",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
+      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_elps_industries",
       "target": "profile_md_who_mae_ann_is",
       "relation": "shares_tag"
     },
@@ -1004,6 +1244,21 @@
     {
       "source": "experience_md_jcv_enterprises",
       "target": "faq_md_where_does_mae_ann_work_now",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "portfolio_md_education",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "experience_md_jcv_enterprises",
+      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
       "relation": "shares_tag"
     },
     {
@@ -1058,6 +1313,11 @@
     },
     {
       "source": "faq_md_is_mae_ann_available_to_hire",
+      "target": "portfolio_md_qualifications_summary",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_is_mae_ann_available_to_hire",
       "target": "profile_md_availability",
       "relation": "shares_tag"
     },
@@ -1074,6 +1334,11 @@
     {
       "source": "faq_md_what_is_mae_ann_s_strongest_skill",
       "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_is_mae_ann_s_strongest_skill",
+      "target": "portfolio_md_what_she_brings",
       "relation": "shares_tag"
     },
     {
@@ -1179,6 +1444,11 @@
     {
       "source": "faq_md_what_certifications_does_mae_ann_have",
       "target": "faq_md_who_are_you",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "faq_md_what_certifications_does_mae_ann_have",
+      "target": "portfolio_md_education",
       "relation": "shares_tag"
     },
     {
@@ -1294,6 +1564,281 @@
     {
       "source": "faq_md_who_are_you",
       "target": "graphify_website_structure",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_education",
+      "target": "portfolio_md_qualifications_summary",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_education",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_education",
+      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_education",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_education",
+      "target": "site_content_md_industrial_engineering_capabilities",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_education",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_qualifications_summary",
+      "target": "profile_md_availability",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_qualifications_summary",
+      "target": "site_content_md_services_offered",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "projects_md_portfolio_website",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_projects_overview",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "portfolio_md_projects_overview",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "projects_md_portfolio_website",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "site_content_md_industrial_engineering_capabilities",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "portfolio_md_projects_overview",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "projects_md_portfolio_website",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "site_content_md_industrial_engineering_capabilities",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "portfolio_md_projects_overview",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "portfolio_md_jcv_workflow_and_productivity_analysis",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "portfolio_md_elps_lean_analysis_and_process_documentation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "projects_md_solar_proposal_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "projects_md_portfolio_website",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "site_content_md_solar_case_study_workflow",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "site_content_md_google_workspace_operations_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "site_content_md_client_relations_automation_system",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_automation_lab_demo",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_portfolio_tagline",
+      "target": "portfolio_md_what_she_brings",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_portfolio_tagline",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_portfolio_tagline",
+      "target": "profile_md_focus_areas",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "profile_md_who_mae_ann_is",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "profile_md_focus_areas",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "site_content_md_industrial_engineering_capabilities",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_process_improvement",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_ai_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_business_systems",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_client_workflow_automation",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_tools",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_integration_skills",
+      "relation": "shares_tag"
+    },
+    {
+      "source": "portfolio_md_what_she_brings",
+      "target": "skills_md_project_and_business_skills",
       "relation": "shares_tag"
     },
     {
