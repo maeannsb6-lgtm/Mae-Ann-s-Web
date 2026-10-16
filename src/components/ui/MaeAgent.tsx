@@ -1,8 +1,38 @@
 import { useEffect, useRef, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { Bot, Send, X } from "lucide-react";
 
 type Message = { role: "user" | "mae"; text: string };
+
+// Gemini replies in light markdown: render **bold** and "* " / "- " bullets as real elements.
+function inline(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? <strong key={i}>{part.slice(2, -2)}</strong> : part.replace(/\*/g, ""),
+  );
+}
+
+function Formatted({ text }: { text: string }) {
+  const blocks: ReactNode[] = [];
+  let bullets: string[] = [];
+  const flush = () => {
+    if (!bullets.length) return;
+    blocks.push(
+      <ul key={blocks.length} className="list-disc space-y-1 pl-4">
+        {bullets.map((b, i) => <li key={i}>{inline(b)}</li>)}
+      </ul>,
+    );
+    bullets = [];
+  };
+  for (const raw of text.split("\n")) {
+    const line = raw.trim();
+    const bullet = line.match(/^[*\-•]\s+(.*)$/);
+    if (bullet) { bullets.push(bullet[1]); continue; }
+    flush();
+    if (line) blocks.push(<p key={blocks.length}>{inline(line.replace(/^#+\s*/, ""))}</p>);
+  }
+  flush();
+  return <div className="space-y-2 whitespace-normal">{blocks}</div>;
+}
 
 const greeting: Message = {
   role: "mae",
@@ -68,7 +98,7 @@ export function MaeAgent() {
           </header>
           <div className="flex-1 space-y-3 overflow-y-auto px-4 py-3 text-sm" aria-live="polite">
             {messages.map((m, i) => (
-              <p
+              <div
                 key={i}
                 className={
                   m.role === "user"
@@ -76,8 +106,8 @@ export function MaeAgent() {
                     : "w-fit max-w-[90%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-brand-bg-secondary px-3 py-2 text-brand-text-white"
                 }
               >
-                {m.text}
-              </p>
+                {m.role === "mae" ? <Formatted text={m.text} /> : m.text}
+              </div>
             ))}
             {busy && <p className="text-xs text-brand-text-muted">Mae is thinking…</p>}
             {messages.length === 1 && (
