@@ -1,4 +1,4 @@
-import { lazy, Suspense, useSyncExternalStore } from "react";
+import { lazy, Suspense } from "react";
 import type { ReactNode } from "react";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
@@ -21,14 +21,6 @@ const EngineeringScene = lazy(
   () => import("./components/three/EngineeringScene"),
 );
 
-const compactQuery = "(max-width: 760px)";
-const subscribeCompact = (onChange: () => void) => {
-  const query = window.matchMedia(compactQuery);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-};
-const isCompact = () => window.matchMedia(compactQuery).matches;
-
 const sceneFallback = (
   <div className="scene-fallback">
     <span />
@@ -38,21 +30,11 @@ const sceneFallback = (
 );
 
 export default function App() {
-  // One canvas at a time: a fixed backdrop behind every chapter on wider
-  // screens, or the opening's inline band on phones.
-  const compact = useSyncExternalStore(subscribeCompact, isCompact);
   return (
     <div className="professional-site">
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      {!compact && (
-        <div className="scene-backdrop" aria-hidden="true">
-          <Suspense fallback={null}>
-            <EngineeringScene mode="backdrop" />
-          </Suspense>
-        </div>
-      )}
       <Navbar />
       <main id="main">
         <Hero />
@@ -62,18 +44,17 @@ export default function App() {
             <Approach />
             <Intelligence />
           </div>
-          <div className="story-visual" aria-hidden="true">
+          {/* One 3D model, held in this column only: it never travels into other chapters. */}
+          <div className="story-visual">
             <div className="story-visual-sticky">
               <div className="scene-slot">
-                {compact && (
-                  <Suspense fallback={sceneFallback}>
-                    <EngineeringScene />
-                  </Suspense>
-                )}
+                <Suspense fallback={sceneFallback}>
+                  <EngineeringScene />
+                </Suspense>
               </div>
-              <div className="scene-caption">
-                <span>One system. Four states.</span>
-                <span>Scroll to assemble &amp; connect ↓</span>
+              <div className="scene-caption" aria-hidden="true">
+                <span>A digital twin of how I improve operations</span>
+                <span>Scroll to see each step ↓</span>
               </div>
             </div>
           </div>

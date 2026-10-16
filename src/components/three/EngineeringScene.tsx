@@ -8,26 +8,42 @@ type Keyframe = {
   rise: number;
   /** Frustum scale: above 1 shows the model smaller. */
   zoom: number;
-  /** Screen anchor (0-1) for the model; omitted = the opening's scene slot. */
+  /** Horizontal screen anchor (0-1); omitted = the opening's scene slot. */
   x?: number;
-  y?: number;
 };
 
 /**
  * The single camera timeline: one entry per `data-story-stage` index.
- * Stages 4-8 are framed for the chapter bands (right side, mid-screen); each
- * band reveals the system from its own angle as the chapter scrolls in.
+ * Vertically the model follows a live element (the opening slot for stages
+ * 0-3, each chapter's band for 4-8); each band reveals the system from its
+ * own angle as the chapter scrolls in.
  */
 const KEYFRAMES: Keyframe[] = [
   { orbit: 0, rise: 0, zoom: 1 }, // 0 Hero: who I am
   { orbit: 0.06, rise: 0.4, zoom: 1 }, // 1 About: how I think
   { orbit: 0.12, rise: 0.8, zoom: 0.96 }, // 2 Approach: process
   { orbit: 0.18, rise: 1.2, zoom: 1 }, // 3 Intelligence: automation
-  { orbit: 0.55, rise: 1.6, zoom: 1.15, x: 0.7, y: 0.5 }, // 4 Projects
-  { orbit: 1.0, rise: 2.6, zoom: 1.2, x: 0.7, y: 0.5 }, // 5 Experience
-  { orbit: 1.45, rise: 1.2, zoom: 1.15, x: 0.7, y: 0.5 }, // 6 Capabilities
-  { orbit: 1.9, rise: 3.2, zoom: 1.1, x: 0.7, y: 0.5 }, // 7 Automation lab
-  { orbit: 2.35, rise: 2.0, zoom: 1.2, x: 0.7, y: 0.5 }, // 8 Contact
+  { orbit: 0.55, rise: 1.6, zoom: 1.15, x: 0.7 }, // 4 Projects
+  { orbit: 1.0, rise: 2.6, zoom: 1.2, x: 0.7 }, // 5 Experience
+  { orbit: 1.45, rise: 1.2, zoom: 1.15, x: 0.7 }, // 6 Capabilities
+  { orbit: 1.9, rise: 3.2, zoom: 1.1, x: 0.7 }, // 7 Automation lab
+  { orbit: 2.35, rise: 2.0, zoom: 1.2, x: 0.7 }, // 8 Contact
+];
+
+/** The four stations of the line, labelled in the scene (group-local points). */
+const STATIONS = [
+  { name: "Intake", at: new THREE.Vector3(-2.9, 1.2, 0.4) },
+  { name: "Process", at: new THREE.Vector3(-0.85, 2.55, -0.1) },
+  { name: "Inspect", at: new THREE.Vector3(1.45, 2.05, 0.45) },
+  { name: "Deliver", at: new THREE.Vector3(2.9, 1.6, 0) },
+];
+
+/** What the model shows at each scroll stage: Mae Ann's improvement method. */
+const STEPS = [
+  { stage: "structure", n: "01", title: "Build", text: "A small operation: work enters at Intake and leaves at Deliver." },
+  { stage: "process", n: "02", title: "Map", text: "Work units flow along the line and pile up at the Process bottleneck." },
+  { stage: "optimization", n: "03", title: "Improve", text: "The flow is rebalanced: the queue clears and work moves evenly." },
+  { stage: "intelligence", n: "04", title: "Automate", text: "Stations connect through data and AI for live tracking." },
 ];
 
 /**
@@ -41,6 +57,7 @@ export default function EngineeringScene({
 }) {
   const host = useRef<HTMLDivElement>(null);
   const [fallback, setFallback] = useState(false);
+  const labels = useRef<(HTMLSpanElement | null)[]>([]);
   useEffect(() => {
     const element = host.current;
     if (!element) return;
@@ -64,7 +81,8 @@ export default function EngineeringScene({
       window.innerWidth >= 768 && (navigator.hardwareConcurrency || 4) > 4;
     renderer.shadowMap.enabled = highQuality;
     renderer.shadowMap.type = THREE.PCFShadowMap;
-    element.appendChild(renderer.domElement);
+    renderer.domElement.setAttribute("aria-hidden", "true");
+    element.prepend(renderer.domElement);
     const scene = new THREE.Scene();
     // Studio reflections from a procedural room: no texture downloads.
     const pmrem = new THREE.PMREMGenerator(renderer);
@@ -78,7 +96,7 @@ export default function EngineeringScene({
     camera.position.set(11, 12, 14);
     camera.lookAt(0, 0.3, 0);
     // Warm key, cool fill, soft sky bounce.
-    scene.add(new THREE.HemisphereLight(0xfff8ee, 0xb9b2a6, 1.2));
+    scene.add(new THREE.HemisphereLight(0xfff8ee, 0xcfc4ab, 1.2));
     const light = new THREE.DirectionalLight(0xfff1dc, 2.6);
     light.position.set(-5, 9, 6);
     light.castShadow = highQuality;
@@ -94,34 +112,34 @@ export default function EngineeringScene({
     light.shadow.normalBias = 0.03;
     light.shadow.radius = 4;
     scene.add(light);
-    const fill = new THREE.DirectionalLight(0xdde7ee, 0.7);
+    const fill = new THREE.DirectionalLight(0xffe9c4, 0.6);
     fill.position.set(7, 4, -4);
     scene.add(fill);
     const group = new THREE.Group();
     scene.add(group);
-    // Ivory, brushed silver, graphite, muted steel-blue, champagne.
+    // Landing-page palette: cream, warm silver, ink, amber, light amber.
     const chalk = new THREE.MeshStandardMaterial({
-      color: 0xf1ece2,
+      color: 0xf6f0e1,
       roughness: 0.62,
       metalness: 0.02,
     });
     const steel = new THREE.MeshStandardMaterial({
-      color: 0xb7bbba,
-      roughness: 0.32,
-      metalness: 0.7,
+      color: 0xcdc6b5,
+      roughness: 0.36,
+      metalness: 0.55,
     });
     const dark = new THREE.MeshStandardMaterial({
-      color: 0x474c50,
+      color: 0x2a251b,
       roughness: 0.42,
       metalness: 0.45,
     });
     const blue = new THREE.MeshStandardMaterial({
-      color: 0x5d7f90,
-      roughness: 0.36,
-      metalness: 0.35,
+      color: 0xf5a000,
+      roughness: 0.42,
+      metalness: 0.2,
     });
     const accent = new THREE.MeshStandardMaterial({
-      color: 0xcaa978,
+      color: 0x1c1913,
       roughness: 0.34,
       metalness: 0.6,
     });
@@ -219,7 +237,7 @@ export default function EngineeringScene({
     box(0.8, 0.12, 0.18, blue, 1.53, 1.8, 0.45);
     station = -1;
     // Measured construction lines give the base a quiet engineering character.
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xbfc8c5 });
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xddd5c2 });
     materials.push(lineMaterial);
     for (let i = -4; i <= 4; i++) {
       const geometry = new THREE.BufferGeometry().setFromPoints([
@@ -245,7 +263,9 @@ export default function EngineeringScene({
       box(0.34, 0.28, 0.34, i === 0 ? accent : blue, 0, 0.42, 0),
     );
     const networkMaterial = new THREE.MeshStandardMaterial({
-      color: 0x416b80,
+      color: 0xf5a000,
+      emissive: 0xf5a000,
+      emissiveIntensity: 0.35,
       transparent: true,
       opacity: 0,
       roughness: 0.65,
@@ -277,6 +297,8 @@ export default function EngineeringScene({
       ),
     );
     group.rotation.y = -0.18;
+    group.updateMatrixWorld();
+    const labelPoint = new THREE.Vector3();
     const CAMERA_RADIUS = Math.hypot(11, 14);
     const CAMERA_ANGLE = Math.atan2(11, 14);
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -291,7 +313,10 @@ export default function EngineeringScene({
       return v * v * (3 - 2 * v);
     };
     let aspect = 1;
-    const anchor = { x: 0.73, y: 0.55, half: 8.5 };
+    const anchor = { x: 0.73, half: 8.5 };
+    let slot: HTMLElement | null = null;
+    let bands: Record<number, HTMLElement | null> = {};
+    let handoff = -1;
     // Off-centre orthographic framing: the model's origin lands at screen (x, y).
     const frame = (x: number, y: number, half: number) => {
       const width = 2 * half * aspect;
@@ -344,12 +369,39 @@ export default function EngineeringScene({
         CAMERA_RADIUS * Math.cos(CAMERA_ANGLE + orbit),
       );
       camera.lookAt(0, 0.3, 0);
-      if (mode === "backdrop")
+      if (mode === "backdrop") {
+        // Live slot position: once the sticky column releases, the model scrolls
+        // away with it instead of lingering behind the next section.
+        // Every stage is anchored to a live element (opening slot or chapter
+        // band), so the model scrolls with the window it is shown through.
+        const viewH = element.clientHeight;
+        const centerOf = (stage: number) => {
+          const target = stage >= 4 ? bands[stage] : slot;
+          if (!target?.offsetHeight) return 0.5;
+          const r = target.getBoundingClientRect();
+          return (r.top + r.height / 2) / viewH;
+        };
+        let ft: number;
+        if (a.x === undefined && b.x !== undefined) {
+          // Slot -> first band: stay with the column while any of it is on
+          // screen, then lower the model into the band. The in-between path
+          // runs behind opaque content, so it never crosses text.
+          const slotGone = !slot || slot.getBoundingClientRect().bottom < 0;
+          if (!slotGone) handoff = -1;
+          else if (handoff < 0) handoff = Math.min(t, 0.98);
+          ft = slotGone ? smooth((t - handoff) / (1 - handoff)) : 0;
+        } else {
+          // Band -> band: arrive by mid-transition, then ride the new band.
+          ft = smooth(t * 2);
+          handoff = -1;
+        }
+        const fmix = (from: number, to: number) => from + (to - from) * ft;
         frame(
-          mix(a.x ?? anchor.x, b.x ?? anchor.x),
-          mix(a.y ?? anchor.y, b.y ?? anchor.y),
-          anchor.half * mix(a.zoom, b.zoom),
+          fmix(a.x ?? anchor.x, b.x ?? anchor.x),
+          fmix(centerOf(i), centerOf(i + 1)),
+          anchor.half * fmix(a.zoom, b.zoom),
         );
+      }
       const offsets = [
         new THREE.Vector3(-0.5, 0.6, 0.3),
         new THREE.Vector3(0, 0.65, -0.25),
@@ -388,6 +440,16 @@ export default function EngineeringScene({
         );
         unit.position.set(position.x, 0.43, position.z);
         unit.scale.setScalar(0.6 + 0.4 * assembled);
+      });
+      // Station names track their 3D station, so the model reads as a real line.
+      labels.current.forEach((label, index) => {
+        if (!label) return;
+        labelPoint.copy(STATIONS[index].at);
+        group.localToWorld(labelPoint).project(camera);
+        const x = ((labelPoint.x + 1) / 2) * element.clientWidth;
+        const y = ((1 - labelPoint.y) / 2) * element.clientHeight;
+        label.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%)`;
+        label.style.opacity = String(assembled);
       });
       element.dataset.progress = current.toFixed(3);
       element.dataset.stage =
@@ -435,19 +497,23 @@ export default function EngineeringScene({
       renderer.setSize(w, h);
       aspect = w / h;
       if (mode === "backdrop") {
-        // Match the opening's sticky slot so the model sits where it always has.
-        const slot = document.querySelector<HTMLElement>(".scene-slot");
-        const sticky = slot?.parentElement;
-        if (slot && sticky && slot.offsetHeight) {
+        // Match the opening's slot. Fit by height as before, but also by width so
+        // narrow (tablet) columns never crop the model.
+        slot = document.querySelector<HTMLElement>(".scene-slot");
+        bands = {};
+        document
+          .querySelectorAll<HTMLElement>(".portfolio-chapter[data-story-stage]")
+          .forEach((chapter) => {
+            bands[Number(chapter.dataset.storyStage)] =
+              chapter.querySelector<HTMLElement>(".chapter-header");
+          });
+        if (slot?.offsetHeight) {
           const s = slot.getBoundingClientRect();
-          const stuckTop =
-            parseFloat(getComputedStyle(sticky).top) || 0;
-          const top = stuckTop + s.top - sticky.getBoundingClientRect().top;
           anchor.x = (s.left + s.width / 2) / w;
-          anchor.y = (top + s.height / 2) / h;
-          anchor.half = (5.5 * h) / s.height;
+          anchor.half = Math.max((5.5 * h) / s.height, (5.9 * h) / s.width);
         }
-      } else frame(0.5, 0.5, 5.5);
+        // Fit by height and by width, so narrow columns never crop the model.
+      } else frame(0.5, 0.42, Math.max(5.8, 8 / aspect));
       start();
     });
     resize.observe(element);
@@ -488,7 +554,29 @@ export default function EngineeringScene({
     };
   }, [mode]);
   return (
-    <div ref={host} className="engineering-scene">
+    <div ref={host} className="engineering-scene" data-stage="structure">
+      {STATIONS.map((station, i) => (
+        <span
+          key={station.name}
+          ref={(el) => {
+            labels.current[i] = el;
+          }}
+          className="scene-label"
+          aria-hidden="true"
+        >
+          {station.name}
+        </span>
+      ))}
+      <ol className="scene-steps" aria-label="How I improve a workflow">
+        {STEPS.map((step) => (
+          <li key={step.stage} data-step={step.stage}>
+            <b>
+              {step.n} {step.title}
+            </b>
+            <span>{step.text}</span>
+          </li>
+        ))}
+      </ol>
       {fallback && (
         <div className="scene-fallback">
           <span />

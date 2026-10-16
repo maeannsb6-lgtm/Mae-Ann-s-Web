@@ -13,10 +13,6 @@ export function About() {
         </div>
 
         <div className="pro-about-copy">
-          <div className="about-portrait">
-            <img src="https://res.cloudinary.com/dape9qptt/image/upload/v1785206634/photo_2026-03-06_13-46-52_idmazn.jpg" alt="Mae Ann S. Bodiongan" width="65" height="80" loading="lazy" />
-            <p><strong>Mae Ann S. Bodiongan</strong>Industrial Engineer · Philippines</p>
-          </div>
           <p>I understand processes as an Industrial Engineer, identify inefficiencies, redesign workflows, and use AI, automation, databases, and digital systems where appropriate.</p>
           <p>My experience spans energy project coordination, technical compliance, process analysis, feasibility studies, operations research, SOP development, n8n automation, Google Workspace workflows, and database-backed web applications.</p>
           <blockquote>I’m particularly interested in designing automated client journeys—from inquiry and onboarding to proposal generation, follow-up, and operational tracking.</blockquote>

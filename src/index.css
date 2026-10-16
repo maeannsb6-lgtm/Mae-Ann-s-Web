@@ -2014,67 +2014,118 @@ html {
   .portrait-skills-strip > span { font-size: 12px; }
 }
 
-/* One fixed 3D layer behind every chapter (wider screens); phones keep the inline band. */
+/* The 3D digital twin lives only in the opening's sticky column: one place, no overlap with other chapters. */
 .scene-slot {
   width: 100%;
-  height: 80%;
-  min-height: 320px;
+  height: 82%;
+  min-height: 340px;
 }
-.scene-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-.scene-backdrop .engineering-scene {
-  width: 100%;
+.scene-slot .engineering-scene {
+  position: relative;
   height: 100%;
   min-height: 0;
-  background: none;
+  overflow: hidden;
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 50% 42%, #fffdf5 0, #f6f3e8 55%, transparent 75%);
 }
-.scene-backdrop .scene-fallback {
-  margin-left: 50%;
-}
-#main,
-.pro-footer {
-  position: relative;
-  z-index: 1;
+.scene-slot .engineering-scene canvas {
+  position: absolute;
+  inset: 0;
 }
 @media (min-width: 761px) {
-  /*
-   * Each chapter opens with a clear band: the header text sits bottom-left and the
-   * fixed 3D layer shows through on the right. Chapter bodies stay opaque, so the
-   * model is revealed only inside these bands and never sits behind content.
-   */
-  .chapter--paper {
-    --chapter-tone: #fffefa;
-  }
-  .chapter--stone {
-    --chapter-tone: #eaece5;
-  }
-  .chapter--blue {
-    --chapter-tone: #e6edf0;
-  }
-  .portfolio-chapter {
-    background: none;
-  }
-  .portfolio-chapter > .pro-section {
-    background: var(--chapter-tone);
-  }
-  .chapter-header {
-    min-height: 44vh;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 14px;
-    padding-top: 40px;
-  }
+  .chapter--paper { --chapter-tone: #fffefa; }
+  .chapter--stone { --chapter-tone: #eaece5; }
+  .chapter--blue { --chapter-tone: #e6edf0; }
+  .portfolio-chapter > .pro-section { background: var(--chapter-tone); }
 }
+
+/* Station names float above their station in the model. */
+.scene-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #1c1913;
+  color: #faf7ec;
+  font: 600 10.5px/1.4 Inter, system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 4px 12px #1c191326;
+}
+.scene-label::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* The method the model walks through; the active step follows the scroll stage. */
+.scene-steps {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.scene-steps li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid #e3dccb;
+  background: #fffdf5d9;
+  color: #8a8270;
+  font-size: 11px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.scene-steps b { font-size: 11.5px; letter-spacing: 0.02em; }
+.scene-steps span { display: none; color: #4c4536; line-height: 1.4; }
+.engineering-scene[data-stage="structure"] [data-step="structure"],
+.engineering-scene[data-stage="process"] [data-step="process"],
+.engineering-scene[data-stage="optimization"] [data-step="optimization"],
+.engineering-scene[data-stage="intelligence"] [data-step="intelligence"] {
+  grid-column: span 1;
+  background: #fffdf5;
+  border-color: #f5a000;
+  color: #1c1913;
+  box-shadow: 0 6px 18px #f5a00026;
+}
+.engineering-scene[data-stage="structure"] [data-step="structure"] b,
+.engineering-scene[data-stage="process"] [data-step="process"] b,
+.engineering-scene[data-stage="optimization"] [data-step="optimization"] b,
+.engineering-scene[data-stage="intelligence"] [data-step="intelligence"] b { color: #b37500; }
+.engineering-scene[data-stage="structure"] [data-step="structure"] span,
+.engineering-scene[data-stage="process"] [data-step="process"] span,
+.engineering-scene[data-stage="optimization"] [data-step="optimization"] span,
+.engineering-scene[data-stage="intelligence"] [data-step="intelligence"] span { display: block; }
+
 @media (max-width: 760px) {
   .scene-slot {
     height: 150px;
     min-height: 150px;
   }
+  .scene-slot .engineering-scene { border-radius: 0; background: none; }
+  .scene-label { display: none; }
+  .scene-steps { left: 0; right: 0; bottom: 4px; gap: 4px; }
+  .scene-steps li { padding: 3px 6px; border-radius: 8px; }
+  .scene-steps b { font-size: 9px; }
+  .engineering-scene .scene-steps span { display: none !important; }
 }
 
 /* Mae, the AI assistant: same ink / amber / cream palette as the portrait landing page. */
