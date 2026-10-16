@@ -56,7 +56,7 @@
 
 /* Scroll reveals (rendered visible if motion is reduced). */
 .rd [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease var(--d, 0ms), transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms); }
-.rd [data-reveal].is-in { opacity: 1; transform: none; }
+.rd [data-reveal][data-revealed] { opacity: 1; transform: none; }
 @keyframes rd-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .rd [data-reveal] { opacity: 1; transform: none; transition: none; }
