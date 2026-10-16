@@ -1968,3 +1968,15 @@ html {
 @media (max-width: 600px) {
   .hero-portrait { width: 250px; height: 360px; top: 12px; bottom: auto; border-radius: 125px 125px 14px 14px; clip-path: none; }
 }
+/* Alpha mask removes only the backdrop; the original JPEG supplies every photo pixel. */
+.hero-portrait {
+  -webkit-mask-image: url('/mae-ann-portrait-mask.png');
+  mask-image: url('/mae-ann-portrait-mask.png');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-mode: alpha;
+  border-radius: 0;
+  object-fit: fill;
+}
