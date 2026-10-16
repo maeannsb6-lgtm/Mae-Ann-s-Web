@@ -14,7 +14,7 @@ export function Hero() {
       </div>
       <div className="portrait-stage">
         <div className="portrait-watermark" aria-hidden="true">MAE</div>
-        <img className="hero-portrait" src="/mae-ann-hero.png" alt="Mae Ann S. Bodiongan" fetchPriority="high" />
+        <img className="hero-portrait" src="/mae-ann-portrait-original.jpg" width={2112} height={3047} alt="Mae Ann S. Bodiongan" fetchPriority="high" />
         <aside className="portrait-left">
           <div className="portrait-socials">
             <p>Follow me on</p>

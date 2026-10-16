@@ -1951,3 +1951,20 @@ html {
   .portrait-skills-strip > span { font-size: 12px; gap: 10px; width: calc(50% - 8px); justify-content: space-between; }
   .portrait-skills-strip svg { width: 14px; }
 }
+/* Display the original photograph directly, retaining its real detail and background. */
+.hero-portrait {
+  top: 8px;
+  bottom: auto;
+  width: 326px;
+  height: 470px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 160px 160px 18px 18px;
+  clip-path: none;
+}
+@media (max-width: 850px) {
+  .hero-portrait { width: 298px; height: 430px; top: 15px; bottom: auto; }
+}
+@media (max-width: 600px) {
+  .hero-portrait { width: 250px; height: 360px; top: 12px; bottom: auto; border-radius: 125px 125px 14px 14px; clip-path: none; }
+}
