@@ -38,9 +38,9 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
+        <About />
         <div className="story-opening" id="story-opening">
           <div className="story-content">
-            <About />
             <Approach />
             <Intelligence />
           </div>

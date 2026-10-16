@@ -2276,3 +2276,89 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .pro-nav-shell { transition: none; }
 }
+
+/* 02 / Process: text and client-workflow 3D side by side, core capabilities below. */
+.about-process {
+  --ap-ink: #1c1913;
+  --ap-amber: #f5a000;
+  --ap-muted: #6f685a;
+  --ap-line: #e3dccb;
+  position: relative;
+  background-color: #f6f3e8;
+  background-image: linear-gradient(#bcb69f12 1px, transparent 1px), linear-gradient(90deg, #bcb69f12 1px, transparent 1px);
+  background-size: 72px 72px;
+  color: var(--ap-ink);
+  padding: 72px 5vw 64px;
+  scroll-margin-top: 80px;
+}
+.about-process-shell { max-width: 1280px; margin: 0 auto; }
+.about-process-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: 32px; }
+.about-process-kicker {
+  display: flex; align-items: center; gap: 14px; margin: 0 0 28px;
+  font: 11px/1 ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--ap-muted);
+}
+.about-process-kicker::after { content: ""; flex: 1; max-width: 360px; height: 1px; background: var(--ap-line); }
+.about-process h2 {
+  margin: 0; font-size: clamp(36px, 4.4vw, 62px); font-weight: 800; line-height: 1.05; letter-spacing: -.045em;
+}
+.about-process h2 span { color: var(--ap-amber); }
+.about-process-lead { max-width: 470px; margin: 22px 0 0; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.55; color: var(--ap-muted); }
+.about-process blockquote {
+  display: flex; align-items: center; gap: 18px; max-width: 470px; margin: 30px 0 0; padding: 20px 24px;
+  border-left: 3px solid var(--ap-amber); border-radius: 0 14px 14px 0;
+  background: linear-gradient(90deg, #fbe7bf, #fdf3dd 60%, #fbf6ea);
+}
+.about-process blockquote svg { flex-shrink: 0; width: 34px; height: 34px; color: var(--ap-amber); fill: var(--ap-amber); stroke-width: 0; }
+.about-process blockquote p { margin: 0; font-size: 15px; line-height: 1.55; color: #2a251b; }
+.about-process-visual { position: relative; height: clamp(360px, 36vw, 500px); }
+.about-process-visual .scene-fallback { height: 100%; }
+
+.workflow-scene { position: relative; width: 100%; height: 100%; }
+.workflow-scene canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.workflow-label { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; }
+.workflow-label b {
+  position: absolute; left: 0; bottom: 36px; transform: translateX(-50%);
+  padding: 6px 15px; border: 1.5px solid var(--ap-amber); border-radius: 999px; background: #fffdf5;
+  font: 700 10.5px/1 Arial, Helvetica, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--ap-ink);
+  white-space: nowrap; box-shadow: 0 6px 16px #f5a0001f;
+}
+.workflow-label::before { content: ""; position: absolute; left: -.5px; bottom: 6px; width: 1.5px; height: 30px; background: var(--ap-amber); }
+.workflow-label::after {
+  content: ""; position: absolute; left: -5px; bottom: 0; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ap-amber); box-shadow: 0 0 0 4px #f5a00033;
+}
+
+.about-capabilities { margin-top: 40px; }
+.about-capabilities-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.about-capabilities-head p { margin: 0; font: 10.5px/1 ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--ap-muted); white-space: nowrap; }
+.about-capabilities-head span { flex: 1; height: 1px; background: var(--ap-line); }
+.about-capabilities ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.about-capabilities li {
+  position: relative; display: flex; gap: 16px; padding: 24px 22px 26px; border: 1px solid var(--ap-line); border-radius: 14px;
+  background: #fffdf8; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.about-capabilities li:hover { border-color: #f5a00099; box-shadow: 0 12px 28px #1c19130f; transform: translateY(-2px); }
+.about-capability-icon { display: grid; place-items: center; flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; background: #fde9bf; color: var(--ap-ink); }
+.about-capabilities h3 { margin: 4px 0 8px; font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+.about-capabilities li p { margin: 0 24px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--ap-muted); }
+.about-capabilities li a {
+  position: absolute; right: 16px; bottom: 16px; display: grid; place-items: center; width: 32px; height: 32px;
+  border: 1px solid var(--ap-line); border-radius: 50%; background: #fff; color: var(--ap-ink);
+}
+.about-capabilities li a:hover { border-color: var(--ap-amber); background: var(--ap-amber); }
+
+@media (max-width: 1024px) {
+  .about-capabilities ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .about-process { padding: 48px 6vw; }
+  .about-process-grid { grid-template-columns: 1fr; gap: 12px; }
+  .about-process-visual { height: 300px; }
+  .workflow-label b { padding: 4px 9px; font-size: 8.5px; bottom: 26px; }
+  .workflow-label::before { height: 20px; }
+  .about-capabilities ul { grid-template-columns: 1fr; }
+  .about-capabilities-head p:last-child, .about-capabilities-head span { display: none; }
+}
+.workflow-label--below b { bottom: auto; top: 36px; }
+.workflow-label--below::before { bottom: auto; top: 6px; }
+.about-process h2 { font-size: clamp(32px, 3vw, 52px); }
