@@ -14,7 +14,13 @@ export function Hero() {
       </div>
       <div className="portrait-stage">
         <div className="portrait-watermark" aria-hidden="true">MAE</div>
-        <img className="hero-portrait" src="/mae-ann-portrait-clear.jpg" width={2112} height={3047} alt="Mae Ann S. Bodiongan" fetchPriority="high" />
+        <div className="portrait-photo">
+          <img className="hero-portrait" src="/mae-ann-portrait-clear.jpg" width={2112} height={3047} alt="Mae Ann S. Bodiongan" fetchPriority="high" />
+        <div className="portrait-actions">
+          <a href="#projects">Portfolio <ArrowUpRight size={20} /></a>
+          <a href="#contact">Let’s talk</a>
+        </div>
+        </div>
         <aside className="portrait-left">
           <div className="portrait-socials">
             <p>Follow me on</p>
@@ -40,10 +46,6 @@ export function Hero() {
           </div>
         </aside>
         <a href="#contact" className="portrait-hire-seal" aria-label="Let’s work together — contact Mae Ann"><span>LET’S WORK</span><ArrowUpRight size={25} /><span>TOGETHER</span></a>
-        <div className="portrait-actions">
-          <a href="#projects">Portfolio <ArrowUpRight size={20} /></a>
-          <a href="#contact">Let’s talk</a>
-        </div>
       </div>
       <div className="portrait-availability"><span className="availability-dot" /> Open to remote roles &amp; selected projects <a href="#about" aria-label="Explore more about Mae Ann"><ArrowDown size={16} /></a></div>
       <div className="portrait-skills-strip" aria-label="Core capabilities">
