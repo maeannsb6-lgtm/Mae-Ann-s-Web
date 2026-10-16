@@ -42,29 +42,37 @@ const greeting: Message = {
 const suggestions = ["What does Mae Ann do?", "Her solar project", "How can I contact her?"];
 
 const SIZE = 52; // launcher diameter
-const GAP = 12; // viewport margin
-const POS_KEY = "mae-position";
+const GAP = 12; // minimum viewport margin while dragging
+const HOME = 32; // default inset from the bottom-right corner
+const POS_KEY = "mae-position-v2";
+
+// clientWidth/clientHeight exclude the scrollbar, so Mae never sits underneath it.
+const viewport = () => ({ w: document.documentElement.clientWidth, h: document.documentElement.clientHeight });
 
 const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), Math.max(min, max));
 const keepInView = (p: Point): Point => ({
-  x: clamp(p.x, GAP, window.innerWidth - SIZE - GAP),
-  y: clamp(p.y, GAP, window.innerHeight - SIZE - GAP),
+  x: clamp(p.x, GAP, viewport().w - SIZE - GAP),
+  y: clamp(p.y, GAP, viewport().h - SIZE - GAP),
 });
-function initialPosition(): Point {
+function savedPosition(): Point | null {
   try {
     const saved = JSON.parse(localStorage.getItem(POS_KEY) ?? "null");
     if (saved && typeof saved.x === "number" && typeof saved.y === "number") return keepInView(saved);
   } catch { /* storage unavailable */ }
-  return keepInView({ x: window.innerWidth, y: window.innerHeight });
+  return null;
+}
+function homePosition(): Point {
+  const { w, h } = viewport();
+  return keepInView({ x: w - SIZE - HOME, y: h - SIZE - HOME });
 }
 
 export function MaeAgent() {
   const [open, setOpen] = useState(false);
-  const [teaser, setTeaser] = useState(true);
   const [messages, setMessages] = useState<Message[]>([greeting]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [pos, setPos] = useState<Point>(initialPosition);
+  const [pos, setPos] = useState<Point>(() => savedPosition() ?? homePosition());
+  const placed = useRef(savedPosition() !== null);
   const [dragging, setDragging] = useState(false);
   const drag = useRef<{ start: Point; origin: Point; moved: boolean } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
@@ -74,9 +82,15 @@ export function MaeAgent() {
   }, [messages, open]);
 
   useEffect(() => {
-    const onResize = () => setPos((p) => keepInView(p));
+    // Follow viewport changes (including the scrollbar appearing after load) until the visitor moves Mae.
+    const onResize = () => setPos((p) => (placed.current ? keepInView(p) : homePosition()));
+    const observer = new ResizeObserver(onResize);
+    observer.observe(document.documentElement);
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   async function ask(text: string) {
@@ -119,11 +133,12 @@ export function MaeAgent() {
     const dx = e.clientX - d.start.x;
     const dy = e.clientY - d.start.y;
     if (!d.moved && Math.hypot(dx, dy) < 5) return;
-    if (!d.moved) { d.moved = true; setDragging(true); setTeaser(false); }
+    if (!d.moved) { d.moved = true; setDragging(true); }
     setPos(keepInView({ x: d.origin.x + dx, y: d.origin.y + dy }));
   };
   const onPointerUp = () => {
     if (drag.current?.moved) {
+      placed.current = true;
       setPos((p) => {
         try { localStorage.setItem(POS_KEY, JSON.stringify(p)); } catch { /* storage unavailable */ }
         return p;
@@ -135,12 +150,10 @@ export function MaeAgent() {
     if (drag.current?.moved) { drag.current = null; return; }
     drag.current = null;
     setOpen((o) => !o);
-    setTeaser(false);
   };
 
   // Open the panel and greeting on whichever side of the launcher has room.
-  const vw = typeof window === "undefined" ? 1024 : window.innerWidth;
-  const vh = typeof window === "undefined" ? 768 : window.innerHeight;
+  const { w: vw, h: vh } = viewport();
   const onRight = pos.x + SIZE / 2 > vw / 2;
   const onBottom = pos.y + SIZE / 2 > vh / 2;
   const panelW = Math.min(320, vw - GAP * 2);
@@ -213,16 +226,14 @@ export function MaeAgent() {
           </form>
         </section>
       )}
-      {!open && teaser && !dragging && (
+      {/* Greeting stays visible whenever the chat is closed, so visitors always know Mae is an AI assistant. */}
+      {!open && !dragging && (
         <div className="mae-teaser" style={teaserStyle}>
-          <button type="button" className="mae-teaser-body" onClick={() => { setOpen(true); setTeaser(false); }}>
+          <button type="button" className="mae-teaser-body" onClick={() => setOpen(true)}>
             <Sparkles size={13} className="mae-teaser-spark" />
             <span>
               Hi, I'm <strong>Mae</strong>! Let's talk.
             </span>
-          </button>
-          <button type="button" onClick={() => setTeaser(false)} aria-label="Dismiss" className="mae-teaser-close">
-            <X size={10} />
           </button>
         </div>
       )}
